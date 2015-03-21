@@ -1,0 +1,5 @@
+To build:
+make specbuild  # this may take some time. copy spec_cpu_2000.tar.bz2 in ../tars beforehand
+
+To run
+make specrun
