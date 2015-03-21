@@ -14,7 +14,7 @@ use Getopt::Long;
 use myutils;
 use benchmarks;
 
-our $superopt_build;
+#our $superopt_build;
 our $spec_ref;
 our $cpu2000;
 our $spec_test;
@@ -102,7 +102,7 @@ sub copy_execs
     }
 
     if ($consider_exec) {
-      my $outdir = "$superopt_build/specs";
+      my $outdir = "$build_dir/specs";
       if (!-e "$outdir/$cfg") {
         system("mkdir -p $outdir/$cfg");
       }
@@ -143,6 +143,6 @@ switch ($extension) {
 
 
 foreach my $cfg (@cfgs) {
-  build_execs($cfg);
+  #build_execs($cfg);
   copy_execs($cfg);
 }

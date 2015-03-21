@@ -40,6 +40,7 @@ if [ $source_path == `pwd` ]; then
   echo "#endif" >> $config_host_h
   #make misc/config_host.pm
   echo "our \$srcdir = \"$source_path\";" > $config_host_pm
+  echo "our \$build_dir = \"$build_dir\";" >> $config_host_pm
 else
   build_dir=`pwd`
 fi

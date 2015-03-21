@@ -1,6 +1,6 @@
 include config-host.mak
 
-specbuild:: $(build)/Makefile
+specbuild specrun:: $(build)/Makefile
 	make -C $(build) BUILDFLAGS="$(BUILDFLAGS)" $@
 
 $(build)/Makefile: Makefile.build

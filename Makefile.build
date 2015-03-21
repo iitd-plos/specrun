@@ -36,3 +36,7 @@ specbuild: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -ext i386 \
 	  #&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -ext ppc && cd -"
 	touch $@
+
+.PHONY: specrun
+specrun:
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/test.pl
