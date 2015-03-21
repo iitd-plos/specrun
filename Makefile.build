@@ -1,0 +1,38 @@
+include config.mak
+
+SPEC_DIR=$(build)/installs/$(SPEC)
+
+.PHONY: specbuild
+specbuild: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 \
+		                    $(SRCDIR)/misc/specbuild.pl
+	mkdir -p $(build)/installs
+	rm -rf $(SPEC_DIR) $(build)/installs/spec_cpu_2000
+	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 && cd -
+	-chmod -f +w $(build)/installs/spec_cpu_2000 $(build)/installs/spec_cpu_2000/* $(build)/installs/spec_cpu_2000/*/* $(build)/installs/spec_cpu_2000/*/*/* $(build)/installs/spec_cpu_2000/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/*/*/*
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000.patch && cd -
+	ln -sf $(SPEC_DIR)/benchspec/CINT2000/197.parser/data/all/input/words $(build)/
+	sed "s#^/words/#words/#" \
+		$(SPEC_DIR)/benchspec/CINT2000/197.parser/data/all/input/2.1.dict > \
+		$(SPEC_DIR)/benchspec/CINT2000/197.parser/data/all/input/2.1.dict.mod
+	cp $(SPEC_DIR)/benchspec/CINT2000/300.twolf/data/ref/input/* $(build)
+	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC_DIR) \
+		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
+	#echo CC_PPC=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-gcc -static\
+		#> $(SPEC_DIR)/config/spec.mycfg
+	#echo CXX_PPC=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-g++ -static\
+		#>> $(SPEC_DIR)/config/spec.mycfg
+	#echo CC_X86=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-gcc -m32 -static \
+    >> $(SPEC_DIR)/config/spec.mycfg
+	#echo CXX_X86=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-g++ -m32 -static \
+    >> $(SPEC_DIR)/config/spec.mycfg
+	#echo CC_CLANG_X86=$(SRCDIR)/misc/clang32 -static >> $(SPEC_DIR)/config/spec.mycfg
+	#echo CXX_CLANG_X86=$(SRCDIR)/misc/clang32++ -static >> $(SPEC_DIR)/config/spec.mycfg
+	#echo CC_ICC_X86=/opt/intel/bin/icc -m32 -static >> $(SPEC_DIR)/config/spec.mycfg
+	#echo CXX_ICC_X86=/opt/intel/bin/icpc -m32 -static >> $(SPEC_DIR)/config/spec.mycfg
+	echo CC_X86=gcc -m32 -static >> $(SPEC_DIR)/config/spec.mycfg
+	echo CXX_X86=g++ -m32 -static >> $(SPEC_DIR)/config/spec.mycfg
+	cat $(SRCDIR)/misc/spec.mycfg >> $(SPEC_DIR)/config/spec.mycfg
+	bash -c "cd $(SPEC_DIR) && source $(SPEC_DIR)/shrc \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -ext i386 \
+	  #&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -ext ppc && cd -"
+	touch $@

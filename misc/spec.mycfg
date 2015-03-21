@@ -1,0 +1,1399 @@
+###############################################################################
+# This is a sample config file for x86 linux using GCC 3.3.x compiler.
+# This does not provide any peak level tuning, but has the portability
+# flags and can be used as a starter config file. This config file
+# does not use any Fortran 90 compiler,
+# so the F90 benchmarks in SPECfp suite cannot be compiled with this.
+# The F90 benchmarks are: 178.galgel, 187.facerec, 189.lucas, 191.fma3d
+# Although this config file has only been tested with gcc 3.3.3 on SuSE Linux 
+# 9.2, it will probably also work with other versions of the gcc (x86)
+# compiler.
+###############################################################################
+# To run: 
+#     runspec -c spec.mycfg -T all -n 3 int fp
+# The extension 'gcc33-high-opt' uses high optimization and is enabled by
+# default.  If you want lower levels of optimization, use the extension 
+# 'gcc33-low-opt', e.g.
+#     runspec -c spec.mycfg -T all -n 3 -e gcc33-low-opt int fp
+###############################################################################
+
+
+# Modify these variables according to your system, vendor, run environment etc.
+company_name	= XYZ Inc.
+hw_model	= ASUS SK8V, Opteron (TM) 150 
+hw_cpu		= AMD Opteron (TM) 150
+hw_cpu_mhz	= 2400
+hw_disk		= IDE, WD2000
+hw_fpu		= Integrated
+hw_memory	= 2 x 512 PC3200 DDR SDRAM CL2.0
+hw_avail	= May-2003
+test_date	= 
+sw_file		= Linux/ext3
+sw_os		= SuSE Linux 9.2 for x86
+hw_vendor	= 
+tester_name	= XYZ Inc.
+license_num	= 9999
+hw_ncpu		= 1
+hw_ncpuorder	= 1
+hw_ocache	= N/A
+hw_other	= None
+hw_parallel	= No
+hw_pcache	= 64KBI + 64KBD on chip
+hw_scache	= 1024KB(I+D) on chip
+hw_tcache	= N/A
+sw_state	= Multi-user SuSE Run level 3
+
+VENDOR		=
+action		= validate
+tune		= base
+output_format	= asc,html,config
+ext		= i386-O2
+
+check_md5	= 1
+reportable	= 1
+
+teeout=yes
+teerunout=yes
+
+#CC_PPC  = /cronus/sc1/sbansal/opt/crosstool/gcc-4.0.1-glibc-2.3.5/powerpc-405-linux-gnu/bin/powerpc-405-linux-gnu-gcc -static
+#CXX_PPC  = /cronus/sc1/sbansal/opt/crosstool/gcc-4.0.1-glibc-2.3.5/powerpc-405-linux-gnu/bin/powerpc-405-linux-gnu-g++ -static
+#CC_X86  = /home/sbansal/superopt-build/installs/crosstool-0.43-install/gcc-4.1.0-glibc-2.3.6.mod/i686-unknown-linux-gnu/bin/i686-unknown-linux-gnu-gcc -static
+#CXX_X86  = /home/sbansal/superopt-build/installs/crosstool-0.43-install/gcc-4.1.0-glibc-2.3.6.mod/i686-unknown-linux-gnu/bin/i686-unknown-linux-gnu-g++ -static
+X86_SOFT_FLOAT_LIB = -L/cronus/sc1/sbansal/gcc/objdir/gcc -lmygcc
+
+
+#
+# NOTE: The F90 benchmarks will *not* work with this compiler
+#       setting.
+default=default=default=default:
+CC	= $(CC_X86)
+CXX	= $(CXX_X86)
+FC      = g77 
+F77     = g77
+
+################################################################
+# Portability Flags
+################################################################
+
+#255.vortex=default=default=default:
+#notes0045=   255.vortex=  CPORTABILITY=-DSPEC_CPU2000_LP64
+#CPORTABILITY	= -DSPEC_CPU2000_LP64
+#
+#186.crafty=default=default=default:
+#notes0050=   186.crafty:  CPORTABILITY=-DLINUX_i386
+#CPORTABILITY	= -DLINUX_i386
+#
+#252.eon=default=default=default:
+#notes0051=   252.eon:     CXXPORTABILITY=-DHAS_ERRLIST -DSPEC_CPU2000_LP64
+#CXXPORTABILITY	= -DHAS_ERRLIST -DSPEC_CPU2000_LP64
+#
+#253.perlbmk=default=default=default: 
+#notes0052=   253.perlbmk: CPORTABILITY=-DSPEC_CPU2000_LINUX_I386 -DSPEC_CPU2000_NEED_BOOL
+#notes0053=                             -DSPEC_CPU2000_LP64
+#CPORTABILITY	= -DSPEC_CPU2000_NEED_BOOL -DSPEC_CPU2000_LINUX_I386 -DSPEC_CPU2000_LP64
+# 
+#254.gap=default=default=default:
+#notes0055=   254.gap:     CPORTABILITY=-DSYS_IS_USG -DSYS_HAS_IOCTL_PROTO -DSYS_HAS_TIME_PROTO
+#notes0056=                             -DSYS_HAS_CALLOC_PROTO -DSYS_HAS_MALLOC_PROTO
+#notes0057=                             -DSPEC_CPU2000_LP64
+#CPORTABILITY	= -DSYS_HAS_MALLOC_PROTO -DSYS_HAS_CALLOC_PROTO -DSYS_IS_USG -DSYS_HAS_IOCTL_PROTO -DSYS_HAS_TIME_PROTO -DSPEC_CPU2000_LP64
+#
+#178.galgel=default=default=default:
+#notes0050=    178.galgel:     -ffixed-form
+#FPORTABILITY= -ffixed-form
+
+186.crafty=default=default=default:
+notes0050=   186.crafty:  CPORTABILITY=-DLINUX_i386
+CPORTABILITY	= -DLINUX_i386
+
+252.eon=default=default=default:
+notes0051=   252.eon:     CXXPORTABILITY=-DHAS_ERRLIST
+CXXPORTABILITY	= -DHAS_ERRLIST
+
+253.perlbmk=default=default=default: 
+notes0052=   253.perlbmk: CPORTABILITY=-DSPEC_CPU2000_LINUX_I386 -DSPEC_CPU2000_NEED_BOOL
+CPORTABILITY	= -DSPEC_CPU2000_NEED_BOOL -DSPEC_CPU2000_LINUX_I386
+ 
+254.gap=default=default=default:
+notes0055=   254.gap:     CPORTABILITY=-DSYS_IS_USG -DSYS_HAS_IOCTL_PROTO -DSYS_HAS_TIME_PROTO
+notes0056=                             -DSYS_HAS_CALLOC_PROTO -DSYS_HAS_MALLOC_PROTO -DSYS_HAS_SIGNAL_PROTO
+CPORTABILITY	= -DSYS_HAS_SIGNAL_PROTO -DSYS_HAS_MALLOC_PROTO -DSYS_HAS_CALLOC_PROTO -DSYS_IS_USG -DSYS_HAS_IOCTL_PROTO -DSYS_HAS_TIME_PROTO
+
+################################################################
+# Baseline Tuning Flags
+################################################################
+
+#
+# int2000
+# Base tuning default optimization
+#
+int=base=i386-O0=default:
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=i386-O0-hard-float=default:
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=i386-O0-soft-float=default:
+COPTIMIZE	= -O0 -g -msoft-float $(X86_SOFT_FLOAT_LIB)
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g -msoft-float $(X86_SOFT_FLOAT_LIB)
+feedback=0
+
+int=base=i386-O2=default:
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=i386-O2U=default:
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -funroll-loops -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+feedback=0
+
+int=base=i386-O2ofp=default:
+notes0080=  Baseline C:   gcc -O2 -fomit-frame-pointer
+COPTIMIZE	= -O2 -g -fomit-frame-pointer
+notes0085=  Baseline C++: g++ -O2 -fomit-frame-pointer
+CXXOPTIMIZE	= -O2 -g -fomit-frame-pointer
+X86_SOFT_FLOAT_LIB = -L/cronus/sc1/sbansal/gcc/objdir/gcc -lmygcc-ofp
+feedback=0
+
+int=base=i386-O2-hard-float=default:
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=i386-O2-soft-float=default:
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -g -msoft-float $(X86_SOFT_FLOAT_LIB)
+notes0085=  Baseline C++: g++ -O
+CXXOPTIMIZE	= -O2 -g -msoft-float $(X86_SOFT_FLOAT_LIB)
+feedback=0
+
+int=base=i386-O3=default:
+notes0080=  Baseline C:   gcc -O3
+COPTIMIZE	= -O3 -g
+notes0085=  Baseline C++: g++ -O3
+CXXOPTIMIZE	= -O3 -g
+
+int=base=i386-O3f=default:
+notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
+COPTIMIZE	= -O3 -funroll-all-loops -g
+notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
+CXXOPTIMIZE	= -O3 -funroll-all-loops -g
+
+int=base=clang-i386-O0=default:
+CC		= $(CC_CLANG_X86)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_CLANG_X86)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O2=default:
+CC		= $(CC_CLANG_X86)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_CLANG_X86)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O2U=default:
+CC		= $(CC_CLANG_X86)
+COPTIMIZE	= -O2 -g -funroll-loops
+CXX		= $(CXX_CLANG_X86)
+CXXOPTIMIZE	= -O2 -g -funroll-loops
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O0=default:
+CC		= $(CC_ICC_X86)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_ICC_X86)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O2=default:
+CC		= $(CC_ICC_X86)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_ICC_X86)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O2U=default:
+CC		= $(CC_ICC_X86)
+COPTIMIZE	= -O2 -funroll-loops -g
+CXX		= $(CXX_ICC_X86)
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+
+
+int=base=ppc-O0=default:
+notes0080=  Baseline C:   ppc-gcc -O0
+CC		= $(CC_PPC)
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: ppc-g++ -O0
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=ppc-O0-hard-float=default:
+notes0080=  Baseline C:   ppc-gcc -O0
+CC		= $(CC_PPC)
+COPTIMIZE	= -O0 -g -mhard-float
+notes0085=  Baseline C++: ppc-g++ -O0
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O0 -g -mhard-float
+feedback=0
+
+int=base=ppc-O0-soft-float=default:
+notes0080=  Baseline C:   ppc-gcc -O0
+CC		= $(CC_PPC)
+COPTIMIZE	= -O0 -g -msoft-float
+notes0085=  Baseline C++: ppc-g++ -O0
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O0 -g -msoft-float
+feedback=0
+
+int=base=ppc-O2=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_PPC)
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O2
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=ppc-O2-hard-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_PPC)
+COPTIMIZE	= -O2 -g -mhard-float
+notes0085=  Baseline C++: g++ -O2
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O2 -g -mhard-float
+feedback=0
+
+int=base=ppc-O2-soft-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_PPC)
+COPTIMIZE	= -O2 -g -msoft-float
+notes0085=  Baseline C++: g++ -O2
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O2 -g -msoft-float
+feedback=0
+
+int=base=ppc-O3=default:
+notes0080=  Baseline C:   gcc -O3
+CC		= $(CC_PPC)
+COPTIMIZE	= -O3 -g
+notes0085=  Baseline C++: g++ -O3
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O3
+
+int=base=ppc-O3f=default:
+notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
+CC		= $(CC_PPC)
+COPTIMIZE	= -O3 -funroll-all-loops -g
+notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
+CXX		= $(CXX_PPC)
+CXXOPTIMIZE	= -O3 -funroll-all-loops
+
+
+int=peak=default=default:
+basepeak=yes
+
+fp=base=gcc33-low-opt=default:
+notes0080=  Baseline C,Fortran: -O2
+COPTIMIZE	= -O2 -g
+FOPTIMIZE	= -O2 -g
+
+fp=base=gcc33-high-opt=default:
+notes0080=  Baseline C,Fortran: -O3 -funroll-all-loops
+COPTIMIZE	= -O3 -funroll-all-loops -g
+FOPTIMIZE	= -O3 -funroll-all-loops -g
+
+fp=peak=default=default:
+basepeak=yes
+
+default=default=default=default:
+notes0030=  Portability:
+notes0086=  Peak tuning: basepeak=yes for all peak runs.
+# change these variables according to your SUT
+sw_avail= Dec-2003
+sw_compiler0000= gcc and g77 3.3.x compiler
+
+__MD5__
+164.gzip=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=282dc295bdca63952c9e725f4edb3026
+exemd5=3110f83d2a11082e04e58c73affebb03
+
+175.vpr=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=d0d4904e9e75063d0977c723c12c4c2d
+exemd5=a9d72cd2536a79f107e843211df9ec93
+
+176.gcc=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=d09dd6ec1e11bece4ebd475f52270b9f
+exemd5=e1e3f88f487b5313601f611cac0273b4
+
+181.mcf=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=f6852edd08dd1330a47ff285ef2bd331
+exemd5=50fe6c4706e1d5975ae7c44dd42bc664
+
+186.crafty=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=6fd199a404659d65b1e8592faa1cf4ce
+exemd5=09a4101106c0d77ac9e014f78f6dc525
+
+197.parser=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=95ca14c2decbd42ad84952d117756897
+exemd5=a3e9d91506c78d4a1c44d6bb9cbbdac9
+
+252.eon=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=0b2e0d8dc8ee191e378d69ca0c51117f
+exemd5=8e16194d840e797c7c5215a8a2a94601
+
+253.perlbmk=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:34:41 2007
+optmd5=be68a3e45d00ef05b6430bd504992b44
+exemd5=69d9198b51e40053c0b9c20ad1b91746
+
+168.wupwise=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=368d40ff23029729032ffcce46df74bb
+exemd5=53bd0cd82bfbd3fc915273d763951813
+
+171.swim=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=ec51a4ab34aae8948321781dc6dda884
+exemd5=6b2af26a25139cfcaa0394fde71e6574
+
+172.mgrid=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=cd3b9b65d3840017ef1ce382c830dbee
+exemd5=cd28dd8c065bf99d0deb77367a179518
+
+173.applu=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=7691c59c335cff67c412b129f028918e
+exemd5=01f4cffc4926873789e80c28baaeb420
+
+177.mesa=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=5149355bcc9e6af884eaddb9d33e1b29
+exemd5=066adb3006d7ec9459cad3a8b6818d07
+
+254.gap=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=25b3ca0f8a314ad6138e4cd5d0517168
+exemd5=5a2a334ccd7c64b715a82a904e929e11
+
+255.vortex=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=cf9ff4017fa31ff971d339eb39fb795e
+exemd5=458ac15a56dcef0457f88cb877f247c1
+
+256.bzip2=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=991ecc8676472e682a379de4b76f50b3
+exemd5=007da3ef2b0f5c6c334ba64cf44fc5de
+
+300.twolf=base=gcc33-high-opt=default:
+# Last updated Tue Sep 11 16:43:54 2007
+optmd5=9cf16292c4208b4e458d12048c63e3a1
+exemd5=932fa81b9de58692323b59aada605e76
+
+181.mcf=base=i386-gcc33-O3f=default:
+# Last updated Wed Sep 12 13:45:20 2007
+optmd5=44b64dd3a9e2b696a861f0fecc6c6c92
+exemd5=1b39874e803c72a18ef009d0c3c624b0
+
+181.mcf=base=i386-gcc33-O2=default:
+# Last updated Wed Sep 12 13:57:45 2007
+optmd5=d13894f10960dcd7d04cce8dcd9d2277
+exemd5=a80a6c3c3460c9c40b9cb15f7755b623
+
+254.gap=base=1=default:
+# Last updated Thu Jan 24 17:45:12 2008
+optmd5=8881a0eae43746aef3919e47392d9438
+exemd5=07a72df3c15c016f5c25bed6d0d78aed
+
+300.twolf=base=i386-O0-pg=default:
+# Last updated Wed Jun 11 11:57:10 2008
+optmd5=a1b8f21c14204bce4450240617f9628f
+exemd5=ed791ebfb45663ca4cbb2db33ed1974b
+
+300.twolf=base=i386-O2-pg=default:
+# Last updated Wed Jun 11 11:57:27 2008
+optmd5=aabc5c53e03e40a7444e9711192f96b3
+exemd5=7b1623e0a6c6e2813a1c49f199b50bdf
+
+300.twolf=base=ppc-O0-pg=default:
+# Last updated Wed Jun 11 17:10:32 2008
+optmd5=84c8852e8e6623a34b64ed37c855422c
+exemd5=43d1fbc2d3b4a71aeba0b8618633ff7a
+
+300.twolf=base=ppc-O2-pg=default:
+# Last updated Wed Jun 11 17:10:54 2008
+optmd5=b58682100476d3225427ad74b72d7a30
+exemd5=2079ca2da3a8cb0fe0512e7c93fd057f
+
+164.gzip=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=95c9a22673d53979fb55bac511958344
+exemd5=762ab37fcb9e239af1ed34498c5368da
+
+175.vpr=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=ed564127014950c2e55cb97ee17368b1
+exemd5=dff7e51adbb45992dbdea29c618dfe33
+
+176.gcc=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=b4304df7f5bd8a6d5834e944da80b12b
+exemd5=cf76ff368941586224b1decd251835c5
+
+181.mcf=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=0b1e19066a2a5e0f872409676573038d
+exemd5=fc7857cc1f2c452f612086fbf4f3ff3f
+
+186.crafty=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=f26682aefed7372666c5ee843090cc72
+exemd5=418f259d119b84c2ee548b5ca74893a8
+
+197.parser=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=78d8c1071249e0cfa811963bbe9bc7d7
+exemd5=5227294388416aa641d310ec94e7222b
+
+254.gap=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=79c321faddf1ab4ea1c5de73434d6c39
+exemd5=296576c29b2891b365ff0e6651d176e7
+
+255.vortex=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=38749c8422a486f298c858fdbf5d2870
+exemd5=423eeac18315c3cc91716411f0b609c2
+
+256.bzip2=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=bed5065227e3838e72028fcb7e82faad
+exemd5=2e8a0df5aaaeefca98282b2c3533bb21
+
+300.twolf=base=i386-O0=default:
+# Last updated Tue Jun 17 17:29:14 2008
+optmd5=290e8a217d028ffa9699e0a40617f834
+exemd5=6d9795d5e1d015a260432d88e5047219
+
+164.gzip=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=52dd593c295e9e49d24d257c9d84ee4b
+exemd5=ca30575ee3795c1e4237f7cc9360f1fd
+
+175.vpr=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=9203bb076a4b34c0411d83801026bc59
+exemd5=32b073884607727ebb0c6711fe40cfde
+
+176.gcc=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=d2d0d1c01a0b48a3b36ed676cbd49b94
+exemd5=3eb77231c0b098a474b678123189c9ff
+
+181.mcf=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=5ad89067356c2d40ba532e4dda79bd8d
+exemd5=458cbf1a656a6a75bccc24c7b715bee4
+
+186.crafty=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=9e51a1e1fbd082fc83401c240730001c
+exemd5=f82812d5e5e95289fcfa4198832db1c1
+
+197.parser=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=24de0275eeba2b08f6d48aa9407f344c
+exemd5=c82e4f472b043ab8e68c277b802b50e9
+
+254.gap=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=f745c21afbb8e610229e081ba5fb6fc5
+exemd5=0001f146dc693ac4fb8b460bff4adf46
+
+255.vortex=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=7b2865812ff71042f974b57cdc202273
+exemd5=516352241c83c14b9782bc7edba2b427
+
+256.bzip2=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=3fd3bc252681917d28bb31104cebe3f6
+exemd5=0a9d59d2c99be739bd99fa06b65bb59c
+
+300.twolf=base=i386-O3=default:
+# Last updated Tue Jun 17 17:40:39 2008
+optmd5=0ad1ceb7574f0df6199c615bbcc3b739
+exemd5=87be4c843f7a76bfc1dbc4a7445adbeb
+
+181.mcf=base=i386-O3f=default:
+# Last updated Tue Jun 17 17:47:20 2008
+optmd5=e3e24b800876da142a81603c68129aaa
+exemd5=19a1897c871bbdc913b903688a2c9664
+
+164.gzip=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=25584968f75f5ee97831d96aed8e2077
+exemd5=2f34029645d26f7097439838a0e2121c
+
+175.vpr=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=bcea2fe997954801a02596bc3d7b7d5f
+exemd5=28a4cbf8c426966f8548b6e1cdb48fa0
+
+176.gcc=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=b0996010882f25cf3c365472fef9f448
+exemd5=ef7f11c7d02cf6aaf714008849e8209e
+
+181.mcf=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=c0bfe09855595398385f4a0de9c1cb43
+exemd5=a6c7861ebdb41383211b4ae440d0e3d3
+
+186.crafty=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=83834f71a3aa7d667640738d5d8543bb
+exemd5=b3697681dabd990944841e29ab9a0358
+
+197.parser=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=82518a17cb2e221b4cedf8754f57de1b
+exemd5=1064a3904a8083e0f28a19d7374b3fd0
+
+254.gap=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=b3e04b2282a591b1e1c0567007d6cf64
+exemd5=017689cfca94283fe14e047134207a61
+
+255.vortex=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=3817c0ff4171d4b080cde20e63d218ff
+exemd5=2995ab734b64f833039e37b537718f3a
+
+256.bzip2=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=2f830df6d5e9c2c26e54e6a6e7f51571
+exemd5=5d03b7a9080d50e7077f8343b48d1231
+
+300.twolf=base=ppc-O0=default:
+# Last updated Tue Jun 17 17:50:42 2008
+optmd5=da4bcee1647d5e51073ec7918331e6d0
+exemd5=65e717c1d3c0476a8063fde59049ddd3
+
+164.gzip=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=d0fc275a650af9230647c95f6ea6c096
+exemd5=c7cda83737aedc9632d91d1e3e51f30f
+
+175.vpr=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=e74777944368c99944413694d9f23c91
+exemd5=844bea0ffce66017caa9c10ed86cef4d
+
+176.gcc=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=d193958d75d8f9978fa64bec59883cad
+exemd5=450e184ab2feaf04075f90985df5ea14
+
+181.mcf=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=5238b4b7d3ee76a824234a4057cb918a
+exemd5=df99144aa8af53989e169b9a059f378f
+
+186.crafty=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=2c372b0e62e92d5a250e2091a62e2906
+exemd5=f4af5945fc7e2d9521cb841c5294098d
+
+197.parser=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=41d0db436d0e77140b438cf9e9e62930
+exemd5=3cf4d9312c2de15794574cfc142039ab
+
+254.gap=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=cdee84ca2291fc9b597b02aa141b917b
+exemd5=173e5682449240c5401800bc953306cd
+
+255.vortex=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=a04c08bce73efdecede0f5a7b763e27a
+exemd5=65ac0ada8f19a34fc654e0d80f57e4cb
+
+256.bzip2=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=27dacbdf4462cc5cae2fff49fabd18a4
+exemd5=b7f0f09b888104a759e7d538ea6054f7
+
+300.twolf=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:02:55 2008
+optmd5=c789c43ad0cc33da975b2c6ee3a859d5
+exemd5=05d1f36205f364c2fa730db7835f9588
+
+164.gzip=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:10:01 2008
+optmd5=e9f4c97227a17c19851f8a26bdab8082
+exemd5=c0533ad649242dd9f40350abd25711d6
+
+181.mcf=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:10:01 2008
+optmd5=1691e7108c2092206fed5cc17f1194fc
+exemd5=5bb4c1626f4fb229768eba8d398a14b7
+
+255.vortex=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:10:01 2008
+optmd5=e4c26fb2116155266553177eb2f4e235
+exemd5=728cab262e32f070c2fbc6736afcaaac
+
+256.bzip2=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:10:01 2008
+optmd5=8bb51bb02c65db1a0e69f43656cb4349
+exemd5=f60ed39ee3a92b12457981864dce7337
+
+252.eon=base=i386-O0=default:
+# Last updated Tue Jun 17 18:19:02 2008
+optmd5=dcec1ab883b6a874878b511dde4d9fdf
+exemd5=faca7e26d3975e74592fafed34418f2b
+
+253.perlbmk=base=i386-O0=default:
+# Last updated Tue Jun 17 18:19:02 2008
+optmd5=5c628c6a9dea3b9e6ec1e752d8d53d0e
+exemd5=345616bea997734e55b00701de5c5593
+
+252.eon=base=i386-O3=default:
+# Last updated Tue Jun 17 18:30:29 2008
+optmd5=15e5fc78a3bb50ca4f70040878f0fe35
+exemd5=dc6a1c58e2a744e3a30c4e0e9511f491
+
+253.perlbmk=base=i386-O3=default:
+# Last updated Tue Jun 17 18:30:29 2008
+optmd5=0121a39688864aac87727bb07510ae03
+exemd5=d4c7b18c595bfb41e1ea154633e9081f
+
+164.gzip=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=e04967d539f168f7b03b91a148ea8f26
+exemd5=7dbc264c8530c84bcb66ac92bc00ab5c
+
+175.vpr=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=86262a64c0226e094e75813737d9741c
+exemd5=8ab09c088175c11ece31543c8c087447
+
+176.gcc=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=28fdcbefad7fd3315cb3e8fc5c0afc9b
+exemd5=26e514fbba1a8eb3d61177f2e5aff4cb
+
+186.crafty=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=6033f20c150654575fd140b090a4d27a
+exemd5=267618539381a0340c1f8116272511c8
+
+197.parser=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=f79b76d1f1542fb311c12fd7888b2278
+exemd5=e66c07c03051c82bc16406d2ea68adbf
+
+252.eon=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=df433efd001de93aa05dfc8686b61cd3
+exemd5=5bc7813aeef3832edeeab9937bb9fe59
+
+253.perlbmk=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=8d02bfc438ab11c9ada7708d6dadc965
+exemd5=3effaa61be3479037e4d9776a1adc718
+
+254.gap=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=d430c3a5197c2f6963520e26e1870b68
+exemd5=f463c7e51e8cf14774f4ba333b4325cd
+
+255.vortex=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=9eb632c4609980800ac745867802fac9
+exemd5=5102c0eee71bbe354b6b8b37d8b0d514
+
+256.bzip2=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=38e039e97c2459def1b38829c6ca34bf
+exemd5=57e13608183ce235d398aa839de189ce
+
+300.twolf=base=i386-O3f=default:
+# Last updated Tue Jun 17 18:37:16 2008
+optmd5=92c210d58baeb58f3a01533b4f54b924
+exemd5=47842295230bf4aa6e83ccc698bae4f9
+
+252.eon=base=ppc-O0=default:
+# Last updated Tue Jun 17 18:40:35 2008
+optmd5=e4876a1f1beb0df93419d164f981198a
+exemd5=61500cc70d0c0a054e6511d6170f03f8
+
+253.perlbmk=base=ppc-O0=default:
+# Last updated Tue Jun 17 18:40:35 2008
+optmd5=02396143efffd4d1fe3b20344b863dd2
+exemd5=9c5c4ae3248dacc9d84612ecc6c1935a
+
+252.eon=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:52:47 2008
+optmd5=f9bde5de80163a86174e9bfd82a9d601
+exemd5=871f5a2167e64db4fb845478c513e332
+
+253.perlbmk=base=ppc-O3=default:
+# Last updated Tue Jun 17 18:52:47 2008
+optmd5=6a85bb2cfc371cce48be7b207b7f8fe7
+exemd5=e876fa06aca28d87618afd12dc6ab9d9
+
+175.vpr=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=2019478ec4763a358b8c3145d0f0b812
+exemd5=1bc58aeeb168a7bbfe97db44055c8965
+
+176.gcc=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=a918b7c92bc32b17d8ef1d32933c66b7
+exemd5=6a405aa9f0bc16162930eab656c03b7b
+
+186.crafty=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=2b4ea97fdf870fc69d705c4eda5a7200
+exemd5=271ea0b5983977692a766dee65467fb4
+
+197.parser=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=11247721fcbdc2481ae76087b788f5ee
+exemd5=9f8ffb09ca8a955cfdc2d8a70a98c91f
+
+252.eon=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=acad3e0ab52dda9750b0203b3cf4e78a
+exemd5=45c40e6c72d879278756a0e52ad6cbb0
+
+253.perlbmk=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=c43849553f0d0f0836fa6fc3b57d90e9
+exemd5=af6fed4d1749df453de763ee89532a04
+
+254.gap=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=6da1f39523ed69718ba5f5aa9f52738f
+exemd5=a147c3d6a7e31225659df227a98d0d92
+
+300.twolf=base=ppc-O3f=default:
+# Last updated Tue Jun 17 18:59:53 2008
+optmd5=465a577d07c2a12e6b4969b7f9958ca2
+exemd5=75974f9b3e5e725b6e8ba8fe2093a08e
+
+164.gzip=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=842063b797e815049b085132c655d327
+exemd5=944fc52bd05815172a3a0dc5c475981b
+
+175.vpr=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=2eabd6875e422412e101e0bf21069aef
+exemd5=647805c1f0543921a41a72adc633a0d6
+
+176.gcc=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=f495fea6bf7945ac7f247c99af095d55
+exemd5=ab495eaee76dd1c4ecb2b2da7889bdcf
+
+181.mcf=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=4d7e1e6880f4fb643bb2a8e4f434eae4
+exemd5=c5598a89409bf1f25319b03e2b554a94
+
+186.crafty=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=a873c8a190172e13db1ebb9f0747e4b6
+exemd5=5d6f99eb7677e4994d364b727b3bb46e
+
+197.parser=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=d98f709131f2acc503b3f714ccc0b8bd
+exemd5=6cd0e21891e6545868ccdff89cebdb20
+
+252.eon=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=85956f95c5e5751409d353910de9e53e
+exemd5=9f7e4769c9a511c73741350d25de61c6
+
+253.perlbmk=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=2ef3fa17ef81600951015404de92c390
+exemd5=97619b12affd083a286343fab9ffc127
+
+254.gap=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=035dc97bdda6bef2d0e77526b6816951
+exemd5=863a54a70f5dbd84fd1c9639acf90306
+
+255.vortex=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=3b3672934e61ec19053caa2071bc09a2
+exemd5=f8b53cb04f5b0bef10a9af4cb6a2aa1a
+
+256.bzip2=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=9fa2b06898b9e3ddfd6cdb4f984c4a8b
+exemd5=b57178412ef7d309eb5e0d182ef7019a
+
+300.twolf=base=i386-O2-hard-float=default:
+# Last updated Tue Jun 17 19:20:58 2008
+optmd5=53cb16fce8ff6ff768aeb22b8e9994a5
+exemd5=a5b49dfa4f30b1e525f6014c82ab4931
+
+164.gzip=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=bcabc333c5ece6bdf7af726100bb44f6
+exemd5=762ab37fcb9e239af1ed34498c5368da
+
+175.vpr=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=1b6606bb9bbd9653da5a65175de1e2cb
+exemd5=dff7e51adbb45992dbdea29c618dfe33
+
+176.gcc=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=13d480353e8be0e2099a84bb3401b633
+exemd5=cf76ff368941586224b1decd251835c5
+
+181.mcf=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=fd0cbb63513b9233f8ac08853ab32a25
+exemd5=fc7857cc1f2c452f612086fbf4f3ff3f
+
+186.crafty=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=5efa5140affdef3b9d44f72d5acc5bb9
+exemd5=418f259d119b84c2ee548b5ca74893a8
+
+197.parser=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=5a3cce90e06a84b562bc9792736f9b8a
+exemd5=5227294388416aa641d310ec94e7222b
+
+252.eon=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=2f40a0975635b0ba226ff704d3f1986e
+exemd5=3f6f23cecda7268e398a8818766840e9
+
+253.perlbmk=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=09366470f53668f9dc907b013802ea40
+exemd5=c7432c29e1a649055ffc561b879183e6
+
+254.gap=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=927d004890a5b05ca277010d75d7474e
+exemd5=296576c29b2891b365ff0e6651d176e7
+
+255.vortex=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=bdbf238b26988908b5d395c0236bfab8
+exemd5=423eeac18315c3cc91716411f0b609c2
+
+256.bzip2=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=3fb288dc5f5170fd71b41c3f5f2a5602
+exemd5=2e8a0df5aaaeefca98282b2c3533bb21
+
+300.twolf=base=i386-O0-hard-float=default:
+# Last updated Tue Jun 17 19:24:05 2008
+optmd5=ff3fb950e8270b5bb9de92106dcffd0e
+exemd5=6d9795d5e1d015a260432d88e5047219
+
+164.gzip=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=5439c31c57fbfb5b7013cd63e30c41c3
+exemd5=7eb63c7d4151fa8c62185b74a45af9a4
+
+175.vpr=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=2753ac95fe97ecb0c1725ac98e5de1b9
+exemd5=a7026994c78cd422e8f5b3ec06fa43b9
+
+176.gcc=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=7c35f0bc423db422862093462152864d
+exemd5=4ad160ac0d78586e1ecb27a2ab5f9b3e
+
+181.mcf=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=57432551d6d71284ffb0435c0fc0fadc
+exemd5=02c1abd78a94fd9588b841a5adea4d1a
+
+186.crafty=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=a808a0cade2b26034412a9864be8240c
+exemd5=01d4a148dccb04ac865eb35aeb97f790
+
+197.parser=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=00a3b7f3385bf663146b3486d41707da
+exemd5=a05f00ec309f68793e08e17a4fb68f77
+
+252.eon=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=00656d8d3a4f95ea557b2d6808fead78
+exemd5=06ea4270eb93c2ffb22622bf863a764b
+
+253.perlbmk=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=10b36c266851efd188da043f443ff7d2
+exemd5=ef55844b25595317a1aef90be1ebb518
+
+254.gap=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=a80e4c5ea2eac8ae12805d380b24ec66
+exemd5=b2e886bf6706c2288cca3ea2cc11060f
+
+255.vortex=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=e3ba83b893d659cbdcca2b2ce8d4fbd4
+exemd5=cc22687c17505268102155a2cf8fb2da
+
+256.bzip2=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=30d0d5aaadaa3a21de04a3bc858ee232
+exemd5=9589fd00dfdd56fbb7ae4765acbd3cf3
+
+300.twolf=base=ppc-O0-hard-float=default:
+# Last updated Tue Jun 17 19:27:21 2008
+optmd5=7910947a5d1c3c4f4d5d7ac60819bea6
+exemd5=77e6de6fa2b8f7a8e871f6fba0d305b3
+
+164.gzip=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=92be3e9cb8fe7d655122c62264f7b1ce
+exemd5=7aec8ca48ecb4b16ab329288a35ed3c0
+
+175.vpr=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=54f3361c87d5451db9b2f9a7c6d54789
+exemd5=2d12087dd5fb50d3400524f3f7e7d8ea
+
+176.gcc=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=552cfbfc46c0819bf75e314b517e4782
+exemd5=f9a808f75090b4dd1b20c5890943e09a
+
+181.mcf=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=f92cfb99e1b099cb483a26bd30ee8fd2
+exemd5=d6dac76cad37487fd134d2b76c0b2f19
+
+186.crafty=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=225ad17afc884045e34949e50e4ef846
+exemd5=685e00870e3e9659f2773c0abe3d2b0b
+
+197.parser=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=b88faa357535d90733790f8bcdf030ff
+exemd5=da1b577489b9af3029133b1645b84606
+
+252.eon=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=e37cb2be17d87fcbf4c8bcf211f45f3a
+exemd5=fefd7ade504ff6846c3062a0b7848997
+
+253.perlbmk=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=80411e40ec67afae429e8859a49353fd
+exemd5=b7596c2d3daf27c311721b94081b27ac
+
+254.gap=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=e88316470c7f24b7b8ba5a71bada1195
+exemd5=9cfc96366c1411cf843791a8ffa06430
+
+255.vortex=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=c1775a57a525f1bef58599d690f264e0
+exemd5=4716b9ee1007b343ff13baffc2265e08
+
+256.bzip2=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=06489b110b8f18febd3ada183954c15e
+exemd5=b20bad53173f49cbd124a92562ea7a9e
+
+300.twolf=base=ppc-O2-hard-float=default:
+# Last updated Tue Jun 17 19:33:08 2008
+optmd5=644ac97e3907fbba060c8b81811c5ac5
+exemd5=320a699ed3b0066b39fb93d5a5e3a474
+
+164.gzip=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=381c7644aefc9656c8327f49f4676bac
+exemd5=8fd849c32021258c821b26a6959ef1c8
+
+175.vpr=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=8b46da4ece7d5971eb3a65826b9fc20c
+exemd5=9b2305500f791293f753755ce9799fcf
+
+181.mcf=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=8a7ac847e21f16513ac821fb3db37df9
+exemd5=b9d9b9afef0d28b58721800ec8b13115
+
+186.crafty=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=4b8d50ab6ff5c4bec336c790767d7051
+exemd5=b9a19d9270f8c643b0f3a46779bce09c
+
+197.parser=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=e79c2e7705ca91eea4857c66a1b4c029
+exemd5=bfc01a67865a4a8c7a4f26096aff9250
+
+254.gap=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=703037bb2100c7e707d66aad39b6cda9
+exemd5=8f499710b1e173612bd9ba515863c0d4
+
+255.vortex=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=89f94d80e0ed575268e22fa759abeb86
+exemd5=87a56c5e1a40c967743b93435b911038
+
+256.bzip2=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=6070d260340325766c7b9b6d71516b50
+exemd5=e524e05501c9faade4e38d37a0f6fa39
+
+300.twolf=base=ppc-O0-soft-float=default:
+# Last updated Fri Jun 20 15:28:40 2008
+optmd5=b72c08bc3b14f57a93bb810caf977770
+exemd5=6692d6794e9781660864c104732fb65d
+
+164.gzip=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=a9a11375d81925ff34620bdaba7f4e6f
+exemd5=3aa6f3223e6ccf6c40b9966f7e04ac57
+
+175.vpr=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=30b3e7f1035abad262d79ef7c278de1f
+exemd5=9542175542d0e0c02a2306ca0bd97fc1
+
+176.gcc=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=b339619db7b19100f6035946d8997750
+exemd5=743fa17be01b4ee425f0e6dd6c92eb67
+
+181.mcf=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=68eff076c6abbe56c08dec30656a9662
+exemd5=f71a7bf63d434b4cdcf78e2869322a07
+
+186.crafty=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=e8c7dbcfbf03f700ee55028412157be0
+exemd5=45f1c4823fe98f4463c94cf6c24fa1fd
+
+197.parser=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=808a675b706a7b7b2abcad27eface3a2
+exemd5=f0ec8dafab489dd177c06dadb6e03512
+
+254.gap=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=dbbc9e50dee0ec406029bec85834b27c
+exemd5=f393dcbd01309a7b5067fbe37d03cf94
+
+255.vortex=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=195733397635ddff8d9bce52ffe2fc94
+exemd5=014f2b3990e4332107244a0a85f54cd8
+
+256.bzip2=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=850e686f7ea875e3e4fc56fb737b4385
+exemd5=f7ca838452934c4872d509a75e87ad38
+
+300.twolf=base=ppc-O2-soft-float=default:
+# Last updated Fri Jun 20 15:34:37 2008
+optmd5=62c5eb92b94eddd5912b3681970468aa
+exemd5=586172dcd0d8d99226b76ef152122160
+
+164.gzip=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=9f32a5311cf452c29b481cc620ad8e15
+exemd5=99353d3eb9cf1920822207b77a95e921
+
+175.vpr=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=ef311da299e5cf9ddcc3f3ee1d810a27
+exemd5=6d00c65a14cc1abb04a6bc20552bd7c5
+
+176.gcc=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=a7de57cd96fe5a2455c948c3886652d3
+exemd5=12f52a0e3f82dd2c69baa6defc42b421
+
+181.mcf=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=e1e7e17cff177c7aa0d7d83e65284078
+exemd5=d6cbdb0e04742e3a85dc2e512f08760e
+
+186.crafty=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=72556a5560b485f4a84c6787b0917d3f
+exemd5=8882cd9af5cf245b51a933eb6a68d739
+
+197.parser=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=cdf51845e33cf42d3b1b8f3aada64035
+exemd5=96e8b84a279b1f914e2dad02f77eec88
+
+252.eon=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=ff2a900503ee68e2357fa1f3e3fdb443
+exemd5=8b8f4e3d0ddcba8dad2ea083dde23f12
+
+253.perlbmk=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=95b9e615d631752e36e3ef2c68d048ad
+exemd5=15ae9810e024d34825bc554954556dc0
+
+254.gap=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=e3ce3611e375e9354bf38c82544b9ef9
+exemd5=50d50b909b9b54c86eddded22da571f3
+
+255.vortex=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=5d53382e58540133bfa1fd46c7b409f3
+exemd5=e5476d629541894732a8fa199ab7682b
+
+256.bzip2=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=66ab4f0b747a741e5cb4b821872b155b
+exemd5=4e9efc1078be06e372957046f9acee2c
+
+300.twolf=base=i386-O2=default:
+# Last updated Sat Sep 13 16:15:39 2008
+optmd5=3ca236b768546a0f5b6e6ab6199d2edb
+exemd5=48fe241283e0d65dbd0b4099b5c07dc9
+
+164.gzip=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=ec45189a06d078b2f677d7602019d9a1
+exemd5=3aa6f3223e6ccf6c40b9966f7e04ac57
+
+175.vpr=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=5a24fc151bc203daa37360d96c54b0ac
+exemd5=9542175542d0e0c02a2306ca0bd97fc1
+
+176.gcc=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=73f1bbcf8d95f04e7c24200a2d177495
+exemd5=743fa17be01b4ee425f0e6dd6c92eb67
+
+181.mcf=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=9a0c0dc0272747e6bae1e547ef0786cb
+exemd5=f71a7bf63d434b4cdcf78e2869322a07
+
+186.crafty=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=248c892414dcbf57b76688e39947b57e
+exemd5=45f1c4823fe98f4463c94cf6c24fa1fd
+
+197.parser=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=f371fb643eec69117b08d9de324620c5
+exemd5=f0ec8dafab489dd177c06dadb6e03512
+
+252.eon=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=0f6b5c70b143ff95edcdb91534297455
+exemd5=1b347ffa718b3ecd57cb7238f5310083
+
+253.perlbmk=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=b15a10650de74e2dc4dad5a7c4d328b0
+exemd5=23457ba6a7a75e19632866deb498638c
+
+254.gap=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=550bbf9583b8604c34140b1cd1ec5f0b
+exemd5=f393dcbd01309a7b5067fbe37d03cf94
+
+255.vortex=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=ae9150a9eeaf7086041f6fa540386bd8
+exemd5=014f2b3990e4332107244a0a85f54cd8
+
+256.bzip2=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=35a82d74f60306ef020464a3dbc1de34
+exemd5=f7ca838452934c4872d509a75e87ad38
+
+300.twolf=base=ppc-O2=default:
+# Last updated Sat Sep 13 16:21:40 2008
+optmd5=069969657641e831fde0648dbc8b62d8
+exemd5=586172dcd0d8d99226b76ef152122160
+
+164.gzip=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=cc0d8743d284f2baf5fa61fbeadf7885
+exemd5=26dbf2c812b508baec934e7091da8cd7
+
+176.gcc=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=1e006d26ef108187ff0ce180254504f2
+exemd5=beccbe502ea921182d89f52604b786df
+
+181.mcf=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=d98f10a545877f93f1aafd98f3eedea3
+exemd5=cdeefb4f37a68a13320c65f342ef8386
+
+186.crafty=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=e8f3e791e805a9fc99f17a3effcf2b10
+exemd5=3024c91b169c4acc7a7786dccbaefb4b
+
+197.parser=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=ff2d21020e769a174acae6f1f6d0bd6e
+exemd5=3dd0141b072213f4ce17f1fd5df2bf7c
+
+254.gap=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=28bc1cd011d8442c829e940b8113237e
+exemd5=6e5e4ea61a6e7ba999235a264f9be177
+
+255.vortex=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=cef97a1e2a146765b094ba99916c7c00
+exemd5=b55f96e13ebf265778de02264317b2a3
+
+256.bzip2=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=34fcf8465a268e0481ffa94fe37b62ab
+exemd5=15844af3e8ec25c82eb3eeaa4141cfc0
+
+300.twolf=base=i386-O2-soft-float=default:
+# Last updated Sat Sep 13 16:47:07 2008
+optmd5=67600a97a158a94a3882514af4194dec
+exemd5=a6275d0de1ad4404f0343d7e35b4a7aa
+
+164.gzip=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=e7303ca06670ff49d7a5a8b91cc45486
+exemd5=3e9b1f3e0786d5462046b46672dad752
+
+175.vpr=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=81f8a0624e012a20c2d0429b778c9bff
+exemd5=fcca1e0acaf4ace1d7329e187efd0355
+
+176.gcc=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=0aea75a3f2ff9f4fcab9e8ee6cd6113b
+exemd5=5a3dba22f74433cf2505a9d07f2970ca
+
+181.mcf=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=387de7aa12b7285309774c7c5270e1fa
+exemd5=827398d07ffa25f32af4aea025ddfda9
+
+186.crafty=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=8c6d7ea5267696f4e9fa6eb215b72bfc
+exemd5=12c61c6853efbf36d5e5ff2dd3aa5dde
+
+197.parser=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=19bf58df412f5247089b370ff76b4d3f
+exemd5=dafa49b80ff9a3646d622d5f0fca5de8
+
+252.eon=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=f09b8298c3451b765118dd1c25401db1
+exemd5=154d934eb76d29585821521982753c74
+
+253.perlbmk=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=184c1dff18fdbe15c9131956d9504ab7
+exemd5=37f57f6792012351d0262ab379f311ac
+
+254.gap=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=36dfaa8aaafad208a8c999aea67f827e
+exemd5=d49ad736b2a280ea12a806a0b7c1ba08
+
+255.vortex=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=3c97e2776fe444cd8551e6eb262903ef
+exemd5=9b8545159d469c46cb6d1857fbe94332
+
+256.bzip2=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=f424285890f5ebc6b7f24f2d5934d226
+exemd5=cfa4d62a210c24d7a4dc65b9cc023a77
+
+300.twolf=base=i386-O0-soft-float=default:
+# Last updated Sat Sep 13 16:50:49 2008
+optmd5=c003a48f8ad543301a4c16f02e27e68a
+exemd5=d19d419b30fea2accfc6e88b93585631
+
+176.gcc=base=ppc-O0-soft-float=default:
+# Last updated Sat Sep 13 16:55:14 2008
+optmd5=73ef7fe58f93f229760c20bf633a8ea7
+exemd5=0d6143a801e766d6b6ac3f7149e14564
+
+252.eon=base=ppc-O0-soft-float=default:
+# Last updated Sat Sep 13 16:55:14 2008
+optmd5=16f118629e67d1a1062455ccff003faf
+exemd5=9bf6be781faa4be9dc2b986becd5a7e1
+
+253.perlbmk=base=ppc-O0-soft-float=default:
+# Last updated Sat Sep 13 16:55:14 2008
+optmd5=c916ca62675fd140bf89d211352c6f0d
+exemd5=bd9660736d029361f38f5ed67c3ce135
+
+252.eon=base=ppc-O2-soft-float=default:
+# Last updated Sat Sep 13 17:01:04 2008
+optmd5=c40b2eb8f9c1c6eb92b8363520627ca4
+exemd5=e9c2978efbde494eb272ca4c88ff1aa2
+
+253.perlbmk=base=ppc-O2-soft-float=default:
+# Last updated Sat Sep 13 17:01:04 2008
+optmd5=f59df0eb043517ec2a4bced1a8164369
+exemd5=6b96c35827ce8dc42bb97b08774c7325
+

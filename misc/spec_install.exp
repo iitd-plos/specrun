@@ -1,0 +1,13 @@
+#!u/sr/bin/expect -f
+
+set SPEC_DIR $env(SPEC_DIR)
+#set timeout 10
+
+spawn sh install.sh
+#expect "*Enter the directory you wish to install to*"
+#send "$SPEC_DIR\r"
+set timeout -1
+#expect "*Enter the architecture you are using*"
+expect "*Use this*"
+send "linux-redhat62-ia32\r"
+expect eof

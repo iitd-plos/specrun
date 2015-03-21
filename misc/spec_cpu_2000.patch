@@ -1,0 +1,11 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/252.eon/src/ggRaster.cc spec_cpu_2000.mod/benchspec/CINT2000/252.eon/src/ggRaster.cc
+--- spec_cpu_2000/benchspec/CINT2000/252.eon/src/ggRaster.cc	1999-02-28 15:11:12.000000000 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/252.eon/src/ggRaster.cc	2011-12-25 01:24:31.859713001 +0530
+@@ -24,6 +24,7 @@
+ ///////////////////////////////////////////////////////////////////////////
+ 
+ 
++#include <string.h>
+ 
+ 
+ // p0,p1,p2 in pixel coordinates-- raster is [0,width] by [0,height]
