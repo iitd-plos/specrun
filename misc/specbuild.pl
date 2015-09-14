@@ -9,6 +9,7 @@ use Switch;
 use File::Find;
 use File::Copy;
 use Getopt::Long;
+use config_host;
 #use Sub::Curry;
 
 use myutils;
@@ -18,6 +19,7 @@ use benchmarks;
 our $spec_ref;
 our $cpu2000;
 our $spec_test;
+our $build_dir;
 
 sub usage
 {
@@ -143,6 +145,6 @@ switch ($extension) {
 
 
 foreach my $cfg (@cfgs) {
-  #build_execs($cfg);
+  build_execs($cfg);
   copy_execs($cfg);
 }

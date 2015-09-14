@@ -7,7 +7,8 @@ spawn sh install.sh
 #expect "*Enter the directory you wish to install to*"
 #send "$SPEC_DIR\r"
 set timeout -1
-#expect "*Enter the architecture you are using*"
-expect "*Use this*"
-send "linux-redhat62-ia32\r"
+expect "*Enter the architecture you are using*"
+#expect "*Use this*"
+#send "linux-redhat62-ia32\r"
+send "linux-glibc22-x86_64\r"
 expect eof
