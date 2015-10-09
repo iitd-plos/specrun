@@ -1,0 +1,348 @@
+int=base=gcc-i386-O0=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=gcc-i386-O0-hard-float=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=gcc-i386-O0-soft-float=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O0 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
+feedback=0
+
+int=base=gcc-i386-O2=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=gcc-i386-O2U=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -funroll-loops -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+feedback=0
+
+int=base=gcc-i386-O2ofp=default:
+notes0080=  Baseline C:   gcc -O2 -fomit-frame-pointer
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O2 -g -fomit-frame-pointer
+notes0085=  Baseline C++: g++ -O2 -fomit-frame-pointer
+CXXOPTIMIZE	= -O2 -g -fomit-frame-pointer
+I386_SOFT_FLOAT_LIB = -L/cronus/sc1/sbansal/gcc/objdir/gcc -lmygcc-ofp
+feedback=0
+
+int=base=gcc-i386-O2-hard-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=gcc-i386-O2-soft-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O2 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
+notes0085=  Baseline C++: g++ -O
+CXXOPTIMIZE	= -O2 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
+feedback=0
+
+int=base=gcc-i386-O3=default:
+notes0080=  Baseline C:   gcc -O3
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O3 -g
+notes0085=  Baseline C++: g++ -O3
+CXXOPTIMIZE	= -O3 -g
+
+int=base=gcc-i386-O3f=default:
+notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= -O3 -funroll-all-loops -g
+notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
+CXXOPTIMIZE	= -O3 -funroll-all-loops -g
+
+int=base=clang-i386-O0=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O2=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O2U=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= -O2 -g -funroll-loops
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= -O2 -g -funroll-loops
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O0=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O2=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O2U=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= -O2 -funroll-loops -g
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=crosstool-i386-O0=default:
+CC		= $(CC_CROSSTOOL_I386)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_CROSSTOOL_I386)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=crosstool-i386-O2=default:
+CC		= $(CC_CROSSTOOL_I386)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_CROSSTOOL_I386)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=crosstool-i386-O2U=default:
+CC		= $(CC_CROSSTOOL_I386)
+COPTIMIZE	= -O2 -funroll-loops -g
+CXX		= $(CXX_CROSSTOOL_I386)
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+
+
+int=base=crosstool-ppc-O0=default:
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+notes0080=  Baseline C:   ppc-gcc -O0
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: ppc-g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=crosstool-ppc-O0-hard-float=default:
+notes0080=  Baseline C:   ppc-gcc -O0
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O0 -g -mhard-float
+notes0085=  Baseline C++: ppc-g++ -O0
+CXXOPTIMIZE	= -O0 -g -mhard-float
+feedback=0
+
+int=base=crosstool-ppc-O0-soft-float=default:
+notes0080=  Baseline C:   ppc-gcc -O0
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O0 -g -msoft-float
+notes0085=  Baseline C++: ppc-g++ -O0
+CXXOPTIMIZE	= -O0 -g -msoft-float
+feedback=0
+
+int=base=crosstool-ppc-O2=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=crosstool-ppc-O2-hard-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O2 -g -mhard-float
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -g -mhard-float
+feedback=0
+
+int=base=crosstool-ppc-O2-soft-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O2 -g -msoft-float
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -g -msoft-float
+feedback=0
+
+int=base=crosstool-ppc-O3=default:
+notes0080=  Baseline C:   gcc -O3
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O3 -g
+notes0085=  Baseline C++: g++ -O3
+CXXOPTIMIZE	= -O3
+
+int=base=crosstool-ppc-O3f=default:
+notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= -O3 -funroll-all-loops -g
+notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
+CXXOPTIMIZE	= -O3 -funroll-all-loops
+
+int=base=gcc-x64-O0=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=gcc-x64-O0-hard-float=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O0 -g
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g
+feedback=0
+
+int=base=gcc-x64-O0-soft-float=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O0 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
+notes0085=  Baseline C++: g++ -O0
+CXXOPTIMIZE	= -O0 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
+feedback=0
+
+int=base=gcc-x64-O2=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=gcc-x64-O2U=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+notes0080=  Baseline C:   gcc -O2
+COPTIMIZE	= -O2 -funroll-loops -g
+notes0085=  Baseline C++: g++ -O2
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+feedback=0
+
+int=base=gcc-x64-O2ofp=default:
+notes0080=  Baseline C:   gcc -O2 -fomit-frame-pointer
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O2 -g -fomit-frame-pointer
+notes0085=  Baseline C++: g++ -O2 -fomit-frame-pointer
+CXXOPTIMIZE	= -O2 -g -fomit-frame-pointer
+X64_SOFT_FLOAT_LIB = -L/cronus/sc1/sbansal/gcc/objdir/gcc -lmygcc-ofp
+feedback=0
+
+int=base=gcc-x64-O2-hard-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O2 -g
+notes0085=  Baseline C++: g++ -O
+CXXOPTIMIZE	= -O2 -g
+feedback=0
+
+int=base=gcc-x64-O2-soft-float=default:
+notes0080=  Baseline C:   gcc -O2
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O2 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
+notes0085=  Baseline C++: g++ -O
+CXXOPTIMIZE	= -O2 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
+feedback=0
+
+int=base=gcc-x64-O3=default:
+notes0080=  Baseline C:   gcc -O3
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O3 -g
+notes0085=  Baseline C++: g++ -O3
+CXXOPTIMIZE	= -O3 -g
+
+int=base=gcc-x64-O3f=default:
+notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= -O3 -funroll-all-loops -g
+notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
+CXXOPTIMIZE	= -O3 -funroll-all-loops -g
+
+int=base=clang-x64-O0=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O2=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O2U=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= -O2 -g -funroll-loops
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= -O2 -g -funroll-loops
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O0=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= -O0 -g
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= -O0 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O2=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= -O2 -g
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= -O2 -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O2U=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= -O2 -funroll-loops -g
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= -O2 -funroll-loops -g
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type

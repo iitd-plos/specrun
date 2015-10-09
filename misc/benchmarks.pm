@@ -45,6 +45,9 @@ our @combox_args = ("bubsort 10000", "mergesort 10000000",
 our $cpu2000 = "$superopt_build/installs/spec_cpu_2000";
 our $cint2000 = "$cpu2000/benchspec/CINT2000";
 
+our $cpu2006 = "$superopt_build/installs/cpu2006";
+our $cint2006 = "$cpu2000/benchspec/CPU2006";
+
 our @mcf_args = ("$spec_ref/inp.in");
 our @bzip2_args = ("$spec_ref/input.source", "$spec_ref/input.graphic", "$spec_ref/input.program");
 our @gzip_args = ("$spec_ref/input.source 60", "$spec_ref/input.graphic 60", "$spec_ref/input.program 60", "$spec_ref/input.random 60", "$spec_ref/input.log 60");

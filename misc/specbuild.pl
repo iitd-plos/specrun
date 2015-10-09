@@ -23,7 +23,7 @@ our $build_dir;
 
 sub usage
 {
-  print "Usage: ./specbuild.pl -ext <all|i386|ppc|O0|O2|O2ofp|O3|O3f|pg|".
+  print "Usage: ./specbuild.pl -bench 2000|2006 -ext <all|i386|x64|ppc|O0|O2|O2ofp|O3|O3f|pg|".
          "soft-float|hard-float|<ext>> <benchmark>\n";
   print "       Runs in cpu2000 directory only\n";
   print "       Copy spec.mycfg to cpu2000/config directory first\n";
@@ -31,9 +31,21 @@ sub usage
 }
 
 my $extension;
+my $bench;
 GetOptions(
   "extension=s" => \$extension
+  "bench=s" => \$bench
 );
+
+if ($bench eq "2000") {
+  $cpu_dir = $cpu2000;
+  $cint_dir = $cint2000;
+} elsif ($bench eq "2006") {
+  $cpu_dir = $cpu2006;
+  $cint_dir = $cint2006;
+} else {
+  usage();
+}
 
 $extension = "all" if (!$extension);
 
@@ -50,12 +62,12 @@ sub search_suffix
 sub build_execs
 {
   my $cfg = shift;
-  system ("rm -rf benchspec/CINT2000/*/run/*");
+  system ("rm -rf $cint_dir/*/run/*");
 
   my @execs = ("int");
   @execs = @ARGV if ($#ARGV >= 0);
 
-  my $runspec = system ("$cpu2000/bin/runspec -c spec.mycfg -e $cfg ".
+  my $runspec = system ("$cpu_dir/bin/runspec -c spec.mycfg -e $cfg ".
     "-I --rebuild --iterations=0 --loose @execs");
 
   if ($runspec == -1) {
@@ -108,10 +120,10 @@ sub copy_execs
       if (!-e "$outdir/$cfg") {
         system("mkdir -p $outdir/$cfg");
       }
-      copy("$cpu2000/benchspec/CINT2000/$exec/exe/$exname\_base.$cfg",
+      copy("$cint_dir/$exec/exe/$exname\_base.$cfg",
         "$outdir/$cfg/$exname")
         or print STDERR "Copy failed from ".
-           "$cpu2000/benchspec/CINT2000/$exec/exe/$exname\_base.$cfg to ".
+           "$cint_dir/$exec/exe/$exname\_base.$cfg to ".
            "$outdir/$cfg/$exname. Error $!\n";
       chmod 0755, "$outdir/$cfg/$exname";
     }
@@ -125,19 +137,24 @@ my @hard_float = ("i386-O2-hard-float", "i386-O0-hard-float", "ppc-O0-hard-float
   "ppc-O2-hard-float");
 
 switch ($extension) {
-  case "all" {@cfgs = ("i386-O0", "i386-O2", "i386-O3", "i386-O3f",
-      "ppc-O0", "ppc-O2", "ppc-O3", "ppc-O3f");}
-  #"ppc-O0", "ppc-O2", "ppc-O3", "ppc-O3f", @soft_float, @hard_float);
-  case "i386" {@cfgs = ("clang-i386-O0", "clang-i386-O2", "clang-i386-O2U", "icc-i386-O0", "icc-i386-O2", "icc-i386-O2U", "i386-O0", "i386-O2", "i386-O2U", "i386-O3", "i386-O3f");}
-  #case "i386" {@cfgs = ("i386-O0", "i386-O2", "i386-O3", "i386-O3f", "i386-O2-soft-float",
-  #    "i386-O0-soft-float", "i386-O2-hard-float", "i386-O0-hard-float");}
-  case "ppc" {@cfgs = ("ppc-O0", "ppc-O2", "ppc-O3", "ppc-O3f");}
-  case "O0" {@cfgs = ("i386-O0", "ppc-O0");}
-  case "O2" {@cfgs = ("i386-O2", "ppc-O2");}
-  case "O2ofp" {@cfgs = ("i386-O2ofp");}
-  case "O3" {@cfgs = ("i386-O3", "ppc-O3");}
-  case "O3f" {@cfgs = ("i386-O3f", "ppc-O3f");}
-  case "pg" {@cfgs = ("i386-O0-pg", "i386-O2-pg", "ppc-O0-pg", "ppc-O2-pg");}
+  case "all" {@cfgs = ("gcc-i386-O0", "gcc-i386-O2", "gcc-i386-O3", "gcc-i386-O3f", "gcc-x64-O0", "gcc-x64-O2", "gcc-x64-O3", "gcc-x64-O3f",
+      "crosstool-i386-O0", "crosstool-i386-O2", "crosstool-i386-O3", "crosstool-i386-O3f",
+      "clang-i386-O0", "clang-i386-O2", "clang-i386-O3", "clang-i386-O3f", "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f",
+      "icc-i386-O0", "icc-i386-O2", "icc-i386-O3", "icc-i386-O3f", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f",
+      "crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3f");}
+  case "i386" {@cfgs = ("gcc-i386-O0", "gcc-i386-O2", "gcc-i386-O3", "gcc-i386-O3f",
+      "clang-i386-O0", "clang-i386-O2", "clang-i386-O3", "clang-i386-O3f", "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f",
+      "icc-i386-O0", "icc-i386-O2", "icc-i386-O3", "icc-i386-O3f", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f");}
+  case "x64" {@cfgs = ("gcc-x64-O0", "gcc-x64-O2", "gcc-x64-O3", "gcc-x64-O3f",
+      "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f", "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f",
+      "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f");}
+  case "ppc" {@cfgs = ("crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3f");}
+  case "O0" {@cfgs = ("crosstool-i386-O0", "crosstool-ppc-O0");}
+  case "O2" {@cfgs = ("crosstool-i386-O2", "crosstool-ppc-O2");}
+  case "O2ofp" {@cfgs = ("crosstool-i386-O2ofp");}
+  case "O3" {@cfgs = ("crosstool-i386-O3", "crosstool-ppc-O3");}
+  case "O3f" {@cfgs = ("crosstool-i386-O3f", "crosstool-ppc-O3f");}
+  case "pg" {@cfgs = ("crosstool-i386-O0-pg", "crosstool-i386-O2-pg", "crosstool-ppc-O0-pg", "crosstool-ppc-O2-pg");}
   case "soft-float" {@cfgs = @soft_float;}
   case "hard-float" {@cfgs = @hard_float;}
   else { print "extension $extension\n"; @cfgs = ("$extension"); }

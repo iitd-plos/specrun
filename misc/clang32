@@ -1,0 +1,189 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+use Getopt::Long qw(:config no_ignore_case);
+use Switch;
+use Time::HiRes qw( usleep ualarm gettimeofday tv_interval );
+use File::Copy;
+use File::Temp qw/ tempfile tempdir :mktemp /;
+use POSIX;
+use POSIX ":sys_wait_h";
+use POSIX qw(setsid);
+use POSIX qw(:errno_h :fcntl_h);
+use Unix::Mknod qw(:all);
+use Fcntl qw(:mode);
+
+
+
+my $output_file = "a.out";
+my $opt0 = 0;
+my $opt2 = 0;
+my $static_link = 0;
+my $debugging_on = 0;
+my $object_file_output = 0;
+my $spec_cpu2000 = 0;
+my @defines;
+my @includes;
+my @warnings;
+my @f_options;
+my @linklibs;
+my @linkdirs;
+my @new_argv;
+my $std_str;
+
+for (my $i = 0; $i <= $#ARGV; $i++) {
+  if ($ARGV[$i] =~ /^-([fIDWlL])(.*)$/) {
+    my $o = $1;
+    my $d = $2;
+    push(@new_argv, "-$o");
+    push(@new_argv, $d);
+  } else {
+    push(@new_argv, $ARGV[$i]);
+  }
+}
+@ARGV = @new_argv;
+#print "argv: @ARGV\n";
+
+GetOptions(
+  "o=s" => \$output_file,
+  "O2" => \$opt2,
+  "O0" => \$opt0,
+  "static" => \$static_link,
+  "g" => \$debugging_on,
+  "c" => \$object_file_output,
+  "I=s" => \@includes,
+  "D=s" => \@defines,
+  "f=s" => \@f_options,
+  "W=s" => \@warnings,
+  "l=s" => \@linklibs,
+  "L=s" => \@linkdirs,
+  "std=s" => \$std_str,
+);
+
+if ($#ARGV < 0) {
+  print "Usage: $0 <c-filename> <options>\n";
+  exit(1);
+}
+
+my $prog = shift(@ARGV);
+my $prog_suffix;
+my $compile = 0;
+if ($prog =~ /^(.*)\.(c[^\.]*)$/) {
+  $prog = $1;
+  $prog_suffix = $2;
+  $compile = 1;
+} elsif ($prog =~ /^(.*)\.o$/) {
+  $prog = $1;
+  $prog_suffix = "o";
+  $compile = 0;
+} else {
+  print "unknown src-program: $prog. only support .c/.o programs.\n";
+  exit(1);
+}
+
+my $static_link_str;
+if ($static_link) {
+  $static_link_str = "-static"
+} else {
+  $static_link_str = "";
+}
+my $debug_str;
+if ($debugging_on) {
+  $debug_str = "-g";
+} else {
+  $debug_str = "";
+}
+
+my $opt_str;
+if ($opt0) {
+  $opt_str = "-O0";
+} elsif ($opt2) {
+  $opt_str = "-O2";
+} else {
+  $opt_str = "";
+}
+
+my $object_file_output_str;
+if ($object_file_output) {
+  $object_file_output_str = "-c";
+} else {
+  $object_file_output_str = "";
+}
+
+my $define_str = "";
+if (defined $std_str) {
+  $define_str .= " -std=$std_str";
+}
+#print "defines = @defines.\n";
+foreach my $i (@includes) {
+  $define_str .= " -I$i";
+}
+foreach my $d (@defines) {
+  $define_str .= " -D$d";
+}
+foreach my $w (@warnings) {
+  $define_str .= " -W$w";
+}
+foreach my $f (@f_options) {
+  $define_str .= " -f$f";
+}
+
+my $link_str = "";
+foreach my $l (@linkdirs) {
+  $link_str .= " -L$l";
+}
+foreach my $l (@linklibs) {
+  $link_str .= " -l$l";
+}
+
+my $clang;
+my $gcc;
+if ($0 =~ /clang32$/) {
+  $clang = "clang";
+  $gcc = "gcc";
+} elsif ($0 =~ /clang32++/) {
+  $clang = "clang++";
+  $gcc = "g++";
+} else {
+  die "Unknown program name: $0\n";
+}
+
+if ($compile == 1) {
+  psystem("$clang -m32 -emit-llvm $debug_str $define_str $prog.$prog_suffix $opt_str -c -o $prog.bc @ARGV");
+  psystem("llc $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
+  psystem("$gcc $prog.S -m32 $debug_str $static_link_str $object_file_output_str -o $output_file");
+} else {
+  psystem("$gcc -m32 $debug_str $static_link_str $object_file_output_str -o $output_file $prog.$prog_suffix @ARGV $link_str");
+}
+
+sub psystem {
+  my $command = shift;
+
+  print "$command\n";
+  xsystem($command);
+}
+
+sub xsystem
+{
+  my $command = shift;
+  my $ret = system($command);
+  if (WIFSIGNALED($ret)) {
+    #print "\nTried executing $command\nReceived signal ";
+    switch (WTERMSIG($ret)) {
+      case SIGINT		{ print "SIGINT" }
+      case SIGKILL		{ print "SIGKILL" }
+      case SIGSEGV		{ print "SIGSEGV" }
+      case SIGABRT		{ print "SIGABRT" }
+    }
+    #print ". exiting\n";
+    return(-1);
+  }
+  if (WIFEXITED($ret)) {
+    if (WEXITSTATUS($ret) != 0) {
+      #printf("Translation exited with status %d. exiting\n", WEXITSTATUS($ret));
+      return(-1);
+    }
+  }
+  return 0;
+}
