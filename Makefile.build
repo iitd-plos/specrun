@@ -10,9 +10,9 @@ CXX_X86=g++ -static
 #CC_X86=gcc -m32 -static
 #CXX_X86=g++ -m32 -static
 
-.PHONY: specbuild
-specbuild: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 \
-		                    $(SRCDIR)/misc/specbuild.pl
+.PHONY: specbuild2000
+specbuild2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 \
+		                    $(SRCDIR)/misc/specbuild2000.pl
 	mkdir -p $(build)/installs
 	rm -rf $(SPEC_DIR) $(build)/installs/spec_cpu_2000
 	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 && cd -
@@ -43,10 +43,10 @@ specbuild: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 \
 	echo CXX_X86=$(CXX_X86) >> $(SPEC_DIR)/config/spec.mycfg
 	cat $(SRCDIR)/misc/spec.mycfg >> $(SPEC_DIR)/config/spec.mycfg
 	bash -c "cd $(SPEC_DIR) && source $(SPEC_DIR)/shrc \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -ext i386 \
-	  #&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -ext ppc && cd -"
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild2000.pl -ext i386 \
+	  #&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild2000.pl -ext ppc && cd -"
 	touch $@
 
-.PHONY: specrun
-specrun:
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/test.pl
+.PHONY: specrun2000
+specrun2000:
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun2000.pl
