@@ -12,9 +12,10 @@ our $spec_ref = "$spec_dir/ref";
 our $spec_all = "$spec_dir/all";
 our $spec_test = "$spec_dir/test";
 
+#our @default_opts = ("O0", "O2", "O2U", "O2u", "O3", "O3f");
 #our @default_opts = ("O2", "O0", "O3", "O3f");
 #our @default_opts = ("O2", "O0");
-our @default_opts = ("O2");
+#our @default_opts = ("O2");
 
 our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
 #, "255.vortex"
@@ -161,15 +162,15 @@ sub is_spec_benchmark
   return 0;
 }
 
-sub get_opts
-{
-  my $bench = shift;
-  my @my_opts = @default_opts;
-  if (defined $opts{$bench}) {
-    @my_opts = @{$opts{$bench}};
-  }
-  return @my_opts;
-}
+#sub get_opts
+#{
+#  my $bench = shift;
+#  my @my_opts = @default_opts;
+#  if (defined $opts{$bench}) {
+#    @my_opts = @{$opts{$bench}};
+#  }
+#  return @my_opts;
+#}
 
 sub get_execfile
 {

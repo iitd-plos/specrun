@@ -28,7 +28,7 @@ our @all_specs2006;
 
 sub usage
 {
-  print "Usage: ./specbuild.pl -bench 2000|2006 -ext <all|i386|x64|ppc|O0|O2|O2ofp|O3|O3f|pg|".
+  print "Usage: ./specbuild.pl -bench 2000|2006 -ext <all|i386|x64|ppc|O0|O2|O2ofp|O3|O3U|pg|".
          "soft-float|hard-float|<ext>> <benchmark>\n";
   print "       Runs in cpu2000 directory only\n";
   print "       Copy spec.mycfg to cpu2000/config directory first\n";
@@ -148,26 +148,27 @@ my @hard_float = ("i386-O2-hard-float", "i386-O0-hard-float", "ppc-O0-hard-float
   "ppc-O2-hard-float");
 
 switch ($extension) {
-  case "all" {@cfgs = ("gcc-i386-O0", "gcc-i386-O2", "gcc-i386-O3", "gcc-i386-O3f", "gcc-x64-O0", "gcc-x64-O2", "gcc-x64-O3", "gcc-x64-O3f",
-      #"crosstool-i386-O0", "crosstool-i386-O2", "crosstool-i386-O3", "crosstool-i386-O3f",
-      "clang-i386-O0", "clang-i386-O2", "clang-i386-O3", "clang-i386-O3f", "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f",
-      #"icc-i386-O0", "icc-i386-O2", "icc-i386-O3", "icc-i386-O3f", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f",
-      #"crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3f")
+  case "all" {@cfgs = ("gcc-i386-O0", "gcc-i386-O2", "gcc-i386-O3", "gcc-i386-O3U", "gcc-x64-O0", "gcc-x64-O2", "gcc-x64-O3", "gcc-x64-O3U", "gcc-x64-O3ofp",
+      #"crosstool-i386-O0", "crosstool-i386-O2", "crosstool-i386-O3", "crosstool-i386-O3U",
+      #"clang-i386-O0", "clang-i386-O2", "clang-i386-O3", "clang-i386-O3U",
+      "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3U", "clang-x64-O3ofp",
+      #"icc-i386-O0", "icc-i386-O2", "icc-i386-O3", "icc-i386-O3U", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U",
+      #"crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3U")
   );}
-  case "i386" {@cfgs = ("gcc-i386-O0", "gcc-i386-O2", "gcc-i386-O3", "gcc-i386-O3f",
-      "clang-i386-O0", "clang-i386-O2", "clang-i386-O3", "clang-i386-O3f", "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f",
-      #"icc-i386-O0", "icc-i386-O2", "icc-i386-O3", "icc-i386-O3f", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f")
+  case "i386" {@cfgs = ("gcc-i386-O0", "gcc-i386-O2", "gcc-i386-O2U", "gcc-i386-O2u", "gcc-i386-O2ofp", "gcc-i386-O3", "gcc-i386-O3U", "gcc-i386-O3u", "gcc-i386-O3ofp",
+      #"clang-i386-O0", "clang-i386-O2", "clang-i386-O2U", "clang-i386-O3", "clang-i386-O3U",
+      #"icc-i386-O0", "icc-i386-O2", "icc-i386-O3", "icc-i386-O3U", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U")
   );}
-  case "x64" {@cfgs = ("gcc-x64-O0", "gcc-x64-O2", "gcc-x64-O3", "gcc-x64-O3f",
-      "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f", "clang-x64-O0", "clang-x64-O2", "clang-x64-O3", "clang-x64-O3f",
-      #,"icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3f")
+  case "x64" {@cfgs = ("gcc-x64-O0", "gcc-x64-O2", "gcc-x64-O2U", "gcc-x64-O2u", "gcc-x64-O2ofp", "gcc-x64-O3", "gcc-x64-O3U", "gcc-x64-O3u", "gcc-x64-O3ofp",
+      "clang-x64-O0", "clang-x64-O2", "clang-x64-O2U", "clang-x64-O2u", "clang-x64-O2ofp", "clang-x64-O3", "clang-x64-O3U", "clang-x64-O3u", "clang-x64-O3ofp",
+      #,"icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U")
   );}
-  case "ppc" {@cfgs = ("crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3f");}
+  case "ppc" {@cfgs = ("crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3U");}
   case "O0" {@cfgs = ("crosstool-i386-O0", "crosstool-ppc-O0");}
   case "O2" {@cfgs = ("crosstool-i386-O2", "crosstool-ppc-O2");}
   case "O2ofp" {@cfgs = ("crosstool-i386-O2ofp");}
   case "O3" {@cfgs = ("crosstool-i386-O3", "crosstool-ppc-O3");}
-  case "O3f" {@cfgs = ("crosstool-i386-O3f", "crosstool-ppc-O3f");}
+  case "O3U" {@cfgs = ("crosstool-i386-O3U", "crosstool-ppc-O3U");}
   case "pg" {@cfgs = ("crosstool-i386-O0-pg", "crosstool-i386-O2-pg", "crosstool-ppc-O0-pg", "crosstool-ppc-O2-pg");}
   case "soft-float" {@cfgs = @soft_float;}
   case "hard-float" {@cfgs = @hard_float;}

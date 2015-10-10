@@ -72,8 +72,8 @@ specbuild2006: $(build)/installs/cpu2006 \
 		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
 		&& $(SPEC2006_DIR)/bin/relocate \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext i386 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext x64 \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext i386 \
 		&& cd -"
 	touch $@
 
@@ -90,8 +90,8 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC2000_DIR) \
 		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext i386 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext x64 \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext i386 \
 		&& cd -"
 	touch $@
 

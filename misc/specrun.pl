@@ -37,11 +37,29 @@ my $small_inputs = 0;
 
 sub usage
 {
-  print "./test.pl [-r <range>] [exec1 exec2 ...]\n";
-  print "range:\t\tspecifies a list of entries (or ranges) to use\n";
-  print "      \t\teg. 33-45,50,55-52\n";
+  print "./specrun.pl -bench 2000|2006 [exec1 exec2 ...]\n";
   exit(1);
 }
+
+my $bench;
+GetOptions(
+  "bench=s" => \$bench
+);
+
+my $specdir;
+my @all_execs;
+
+if ($bench eq "2000") {
+  $specdir = "$build_dir/specs2000";
+  @all_execs = @all_specs2000;
+} elsif ($bench eq "2006") {
+  $specdir = "$build_dir/specs2006";
+  @all_execs = @all_specs2006;
+} else {
+  usage();
+}
+
+
 
 my $comp_out;
 
@@ -57,9 +75,12 @@ sub get_bench_from_exec
 
 $| = 1;     # turn on autoflush of stdout
 
+my @execs
+foreach my $e (@all_execs) {
+  push(@execs, spec_exec_name($e));
+}
 
-my @execs;
-@execs = ("cc1", "perlbmk", "gap", "bzip2", "twolf", "gzip", "vpr", "mcf", "crafty", "parser", "eon");
+#@execs = ("cc1", "perlbmk", "gap", "bzip2", "twolf", "gzip", "vpr", "mcf", "crafty", "parser", "eon");
 #@execs = @all_execs;
 
 if ($#ARGV >= 0) {

@@ -1,348 +1,509 @@
+notes0000=DEBUG_FLAG = -g
+DEBUG_FLAG=
+COPTIMIZE_O0=-O0 $(DEBUG_FLAG)
+COPTIMIZE_O0-soft-float=-O0 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
+COPTIMIZE_O0-hard-float=-O0 $(DEBUG_FLAG) -mhard-float
+COPTIMIZE_O2=-O2 $(DEBUG_FLAG)
+COPTIMIZE_O2-soft-float=-O2 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
+COPTIMIZE_O2-hard-float=-O2 $(DEBUG_FLAG) -mhard-float
+COPTIMIZE_O2U=-O2 -funroll-all-loops $(DEBUG_FLAG)
+COPTIMIZE_O2u=-O2 -funroll-loops $(DEBUG_FLAG)
+COPTIMIZE_O2ofp=-O2 -fomit-frame-pointer $(DEBUG_FLAG)
+COPTIMIZE_O3U=-O3 -funroll-all-loops $(DEBUG_FLAG)
+COPTIMIZE_O3u=-O3 -funroll-loops $(DEBUG_FLAG)
+COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(DEBUG_FLAG)
+
 int=base=gcc-i386-O0=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O0 -g
-notes0085=  Baseline C++: g++ -O0
-CXXOPTIMIZE	= -O0 -g
-feedback=0
-
-int=base=gcc-i386-O0-hard-float=default:
-CC		= $(CC_GCC_I386)
-CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O0 -g
-notes0085=  Baseline C++: g++ -O0
-CXXOPTIMIZE	= -O0 -g
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 
 int=base=gcc-i386-O0-soft-float=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O0 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
-notes0085=  Baseline C++: g++ -O0
-CXXOPTIMIZE	= -O0 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0-soft-float)
 
 int=base=gcc-i386-O2=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-notes0080=  Baseline C:   gcc -O2
-COPTIMIZE	= -O2 -g
-notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -g
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O2)
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 
 int=base=gcc-i386-O2U=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-notes0080=  Baseline C:   gcc -O2
-COPTIMIZE	= -O2 -funroll-loops -g
+COPTIMIZE	= $(COPTIMIZE_O2U)
 notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -funroll-loops -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
 feedback=0
+
+int=base=gcc-i386-O2u=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
 
 int=base=gcc-i386-O2ofp=default:
-notes0080=  Baseline C:   gcc -O2 -fomit-frame-pointer
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O2 -g -fomit-frame-pointer
-notes0085=  Baseline C++: g++ -O2 -fomit-frame-pointer
-CXXOPTIMIZE	= -O2 -g -fomit-frame-pointer
-I386_SOFT_FLOAT_LIB = -L/cronus/sc1/sbansal/gcc/objdir/gcc -lmygcc-ofp
-feedback=0
-
-int=base=gcc-i386-O2-hard-float=default:
-notes0080=  Baseline C:   gcc -O2
-CC		= $(CC_GCC_I386)
-CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O2 -g
-notes0085=  Baseline C++: g++ -O
-CXXOPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2ofp)
+CXXOPTIMIZE	= $(COPTIMIZE_O2ofp)
 feedback=0
 
 int=base=gcc-i386-O2-soft-float=default:
-notes0080=  Baseline C:   gcc -O2
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O2 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
-notes0085=  Baseline C++: g++ -O
-CXXOPTIMIZE	= -O2 -g -msoft-float $(I386_SOFT_FLOAT_LIB)
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O2-soft-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2-soft-float)
 
 int=base=gcc-i386-O3=default:
-notes0080=  Baseline C:   gcc -O3
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O3 -g
-notes0085=  Baseline C++: g++ -O3
-CXXOPTIMIZE	= -O3 -g
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
 
-int=base=gcc-i386-O3f=default:
+int=base=gcc-i386-O3U=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+
+int=base=gcc-i386-O3u=default:
 notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= -O3 -funroll-all-loops -g
-notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
-CXXOPTIMIZE	= -O3 -funroll-all-loops -g
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+
+int=base=gcc-i386-O3ofp=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3ofp)
+CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
+feedback=0
 
 int=base=clang-i386-O0=default:
 CC		= $(CC_CLANG_I386)
-COPTIMIZE	= -O0 -g
+COPTIMIZE	= $(COPTIMIZE_O0)
 CXX		= $(CXX_CLANG_I386)
-CXXOPTIMIZE	= -O0 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=clang-i386-O2=default:
 CC		= $(CC_CLANG_I386)
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 CXX		= $(CXX_CLANG_I386)
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=clang-i386-O2U=default:
 CC		= $(CC_CLANG_I386)
-COPTIMIZE	= -O2 -g -funroll-loops
+COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_CLANG_I386)
-CXXOPTIMIZE	= -O2 -g -funroll-loops
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O2u=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O2ofp=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= $(COPTIMIZE_O2ofp)
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O2ofp)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O3=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O3U=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O3u=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-i386-O3ofp=default:
+CC		= $(CC_CLANG_I386)
+COPTIMIZE	= $(COPTIMIZE_O3ofp)
+CXX		= $(CXX_CLANG_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=icc-i386-O0=default:
 CC		= $(CC_ICC_I386)
-COPTIMIZE	= -O0 -g
+COPTIMIZE	= $(COPTIMIZE_O0)
 CXX		= $(CXX_ICC_I386)
-CXXOPTIMIZE	= -O0 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=icc-i386-O2=default:
 CC		= $(CC_ICC_I386)
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 CXX		= $(CXX_ICC_I386)
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=icc-i386-O2U=default:
 CC		= $(CC_ICC_I386)
-COPTIMIZE	= -O2 -funroll-loops -g
+COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_ICC_I386)
-CXXOPTIMIZE	= -O2 -funroll-loops -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O2u=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O3=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O3U=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O3u=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-i386-O3ofp=default:
+CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3ofp)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+
 
 int=base=crosstool-i386-O0=default:
 CC		= $(CC_CROSSTOOL_I386)
-COPTIMIZE	= -O0 -g
+COPTIMIZE	= $(COPTIMIZE_O0)
 CXX		= $(CXX_CROSSTOOL_I386)
-CXXOPTIMIZE	= -O0 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=crosstool-i386-O2=default:
 CC		= $(CC_CROSSTOOL_I386)
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 CXX		= $(CXX_CROSSTOOL_I386)
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=crosstool-i386-O2U=default:
 CC		= $(CC_CROSSTOOL_I386)
-COPTIMIZE	= -O2 -funroll-loops -g
+COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_CROSSTOOL_I386)
-CXXOPTIMIZE	= -O2 -funroll-loops -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
-
+int=base=crosstool-i386-O2u=default:
+CC		= $(CC_CROSSTOOL_I386)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXX		= $(CXX_CROSSTOOL_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=crosstool-ppc-O0=default:
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-notes0080=  Baseline C:   ppc-gcc -O0
-COPTIMIZE	= -O0 -g
-notes0085=  Baseline C++: ppc-g++ -O0
-CXXOPTIMIZE	= -O0 -g
+notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
+COPTIMIZE	= $(COPTIMIZE_O0)
+notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 feedback=0
 
 int=base=crosstool-ppc-O0-hard-float=default:
-notes0080=  Baseline C:   ppc-gcc -O0
+notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O0 -g -mhard-float
-notes0085=  Baseline C++: ppc-g++ -O0
-CXXOPTIMIZE	= -O0 -g -mhard-float
+COPTIMIZE	= $(COPTIMIZE_O0-hard-float)
+notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0-hard-float)
 feedback=0
 
 int=base=crosstool-ppc-O0-soft-float=default:
-notes0080=  Baseline C:   ppc-gcc -O0
+notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O0 -g -msoft-float
-notes0085=  Baseline C++: ppc-g++ -O0
-CXXOPTIMIZE	= -O0 -g -msoft-float
+COPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0-soft-float)
 feedback=0
 
 int=base=crosstool-ppc-O2=default:
 notes0080=  Baseline C:   gcc -O2
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 feedback=0
 
 int=base=crosstool-ppc-O2-hard-float=default:
 notes0080=  Baseline C:   gcc -O2
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O2 -g -mhard-float
+COPTIMIZE	= $(COPTIMIZE_O2-hard-float)
 notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -g -mhard-float
+CXXOPTIMIZE	= $(COPTIMIZE_O2-hard-float)
 feedback=0
 
 int=base=crosstool-ppc-O2-soft-float=default:
 notes0080=  Baseline C:   gcc -O2
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O2 -g -msoft-float
-notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -g -msoft-float
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O2-soft-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2-soft-float)
 
 int=base=crosstool-ppc-O3=default:
 notes0080=  Baseline C:   gcc -O3
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O3 -g
-notes0085=  Baseline C++: g++ -O3
-CXXOPTIMIZE	= -O3
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
 
-int=base=crosstool-ppc-O3f=default:
+int=base=crosstool-ppc-O3U=default:
+CC		= $(CC_CROSSTOOL_PPC)
+CXX		= $(CXX_CROSSTOOL_PPC)
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+
+int=base=crosstool-ppc-O3u=default:
 notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= -O3 -funroll-all-loops -g
-notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
-CXXOPTIMIZE	= -O3 -funroll-all-loops
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+
+
 
 int=base=gcc-x64-O0=default:
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O0 -g
-notes0085=  Baseline C++: g++ -O0
-CXXOPTIMIZE	= -O0 -g
-feedback=0
-
-int=base=gcc-x64-O0-hard-float=default:
-CC		= $(CC_GCC_X64)
-CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O0 -g
-notes0085=  Baseline C++: g++ -O0
-CXXOPTIMIZE	= -O0 -g
+COPTIMIZE	= $(COPTIMIZE_O0)
+notes0085=  Baseline C++: g++ $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 feedback=0
 
 int=base=gcc-x64-O0-soft-float=default:
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O0 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
-notes0085=  Baseline C++: g++ -O0
-CXXOPTIMIZE	= -O0 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
+COPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+notes0085=  Baseline C++: g++ $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0-soft-float)
 feedback=0
 
 int=base=gcc-x64-O2=default:
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
 notes0080=  Baseline C:   gcc -O2
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 feedback=0
 
 int=base=gcc-x64-O2U=default:
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-notes0080=  Baseline C:   gcc -O2
-COPTIMIZE	= -O2 -funroll-loops -g
-notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= -O2 -funroll-loops -g
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O2U)
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
+
+int=base=gcc-x64-O2u=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
 
 int=base=gcc-x64-O2ofp=default:
-notes0080=  Baseline C:   gcc -O2 -fomit-frame-pointer
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O2 -g -fomit-frame-pointer
-notes0085=  Baseline C++: g++ -O2 -fomit-frame-pointer
-CXXOPTIMIZE	= -O2 -g -fomit-frame-pointer
-X64_SOFT_FLOAT_LIB = -L/cronus/sc1/sbansal/gcc/objdir/gcc -lmygcc-ofp
-feedback=0
+COPTIMIZE	= $(COPTIMIZE_O2ofp)
+CXXOPTIMIZE	= $(COPTIMIZE_O2ofp)
 
-int=base=gcc-x64-O2-hard-float=default:
-notes0080=  Baseline C:   gcc -O2
-CC		= $(CC_GCC_X64)
-CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O2 -g
-notes0085=  Baseline C++: g++ -O
-CXXOPTIMIZE	= -O2 -g
-feedback=0
-
-int=base=gcc-x64-O2-soft-float=default:
-notes0080=  Baseline C:   gcc -O2
-CC		= $(CC_GCC_X64)
-CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O2 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
-notes0085=  Baseline C++: g++ -O
-CXXOPTIMIZE	= -O2 -g -msoft-float $(X64_SOFT_FLOAT_LIB)
-feedback=0
 
 int=base=gcc-x64-O3=default:
-notes0080=  Baseline C:   gcc -O3
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O3 -g
-notes0085=  Baseline C++: g++ -O3
-CXXOPTIMIZE	= -O3 -g
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
 
-int=base=gcc-x64-O3f=default:
-notes0080=  Baseline C:   gcc -O3 -funroll-all-loops
+int=base=gcc-x64-O3U=default:
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= -O3 -funroll-all-loops -g
-notes0085=  Baseline C++: g++ -O3 -funroll-all-loops
-CXXOPTIMIZE	= -O3 -funroll-all-loops -g
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+
+int=base=gcc-x64-O3u=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+
+int=base=gcc-x64-O3ofp=default:
+CC		= $(CC_GCC_X64)
+CXX		= $(CXX_GCC_X64)
+COPTIMIZE	= $(COPTIMIZE_O3ofp)
+CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
 
 int=base=clang-x64-O0=default:
 CC		= $(CC_CLANG_X64)
-COPTIMIZE	= -O0 -g
+COPTIMIZE	= $(COPTIMIZE_O0)
 CXX		= $(CXX_CLANG_X64)
-CXXOPTIMIZE	= -O0 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=clang-x64-O2=default:
 CC		= $(CC_CLANG_X64)
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 CXX		= $(CXX_CLANG_X64)
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=clang-x64-O2U=default:
 CC		= $(CC_CLANG_X64)
-COPTIMIZE	= -O2 -g -funroll-loops
+COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_CLANG_X64)
-CXXOPTIMIZE	= -O2 -g -funroll-loops
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O2u=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O2ofp=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= $(COPTIMIZE_O2ofp)
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O2ofp)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O3=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O3U=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=clang-x64-O3u=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+
+
+int=base=clang-x64-O3ofp=default:
+CC		= $(CC_CLANG_X64)
+COPTIMIZE	= $(COPTIMIZE_O3ofp)
+CXX		= $(CXX_CLANG_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
 
 int=base=icc-x64-O0=default:
 CC		= $(CC_ICC_X64)
-COPTIMIZE	= -O0 -g
+COPTIMIZE	= $(COPTIMIZE_O0)
 CXX		= $(CXX_ICC_X64)
-CXXOPTIMIZE	= -O0 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=icc-x64-O2=default:
 CC		= $(CC_ICC_X64)
-COPTIMIZE	= -O2 -g
+COPTIMIZE	= $(COPTIMIZE_O2)
 CXX		= $(CXX_ICC_X64)
-CXXOPTIMIZE	= -O2 -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 
 int=base=icc-x64-O2U=default:
 CC		= $(CC_ICC_X64)
-COPTIMIZE	= -O2 -funroll-loops -g
+COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_ICC_X64)
-CXXOPTIMIZE	= -O2 -funroll-loops -g
+CXXOPTIMIZE	= $(COPTIMIZE_O2U)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O2u=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= $(COPTIMIZE_O2u)
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O2u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O2ofp=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= $(COPTIMIZE_O2ofp)
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O2ofp)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+
+
+int=base=icc-x64-O3=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O3U=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= $(COPTIMIZE_O3U)
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3U)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+int=base=icc-x64-O3u=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= $(COPTIMIZE_O3u)
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3u)
+CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+
+
+
+int=base=icc-x64-O3ofp=default:
+CC		= $(CC_ICC_X64)
+COPTIMIZE	= $(COPTIMIZE_O3ofp)
+CXX		= $(CXX_ICC_X64)
+CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
