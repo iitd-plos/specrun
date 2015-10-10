@@ -44,21 +44,34 @@ $(build)/spec.mycfg.hdr:
 	echo CC_ICC_X64=$(CC_ICC_X64) >> $@
 	echo CXX_ICC_X64=$(CXX_ICC_X64) >> $@
 
-$(SPEC2006_DIR)/config/spec2006.mycfg: $(build)/spec.mycfg.hdr
-	cat $< $(SRCDIR)/misc/spec2006.mycfg > $(SPEC2006_DIR)/config/spec2006.mycfg
+$(SPEC2006_DIR)/config/spec.mycfg: $(build)/spec.mycfg.hdr
+	cat $< $(SRCDIR)/misc/spec.common.mycfg $(SRCDIR)/misc/spec2006.mycfg > $(SPEC2006_DIR)/config/spec.mycfg
 
-$(SPEC2006_DIR)/config/spec2006.mycfg: $(build)/spec.mycfg.hdr
-	cat $< $(SRCDIR)/misc/spec2000.mycfg > $(SPEC2000_DIR)/config/spec2000.mycfg
+$(SPEC2000_DIR)/config/spec.mycfg: $(build)/spec.mycfg.hdr
+	cat $< $(SRCDIR)/misc/spec.common.mycfg $(SRCDIR)/misc/spec2000.mycfg > $(SPEC2000_DIR)/config/spec.mycfg
 
-.PHONY: specbuild2006
-specbuild2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2 \
-		$(SRCDIR)/misc/specbuild2006.pl $(SPEC2006_DIR)/config/spec2006.mycfg
+.PHONY: $(build)/installs/cpu2006
+$(build)/installs/cpu2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2
 	mkdir -p $(build)/installs
 	rm -rf $(SPEC2006_DIR) $(build)/installs/cpu2006
 	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2 && cd -
 	-chmod -f +w $(build)/installs/cpu2006 $(build)/installs/cpu2006/* $(build)/installs/cpu2006/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*/*
 	#cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006.patch && cd -
+
+.PHONY: $(build)/installs/spec_cpu_2000
+$(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
+	mkdir -p $(build)/installs
+	rm -rf $(SPEC2000_DIR) $(build)/installs/spec_cpu_2000
+	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 && cd -
+	-chmod -f +w $(build)/installs/spec_cpu_2000 $(build)/installs/spec_cpu_2000/* $(build)/installs/spec_cpu_2000/*/* $(build)/installs/spec_cpu_2000/*/*/* $(build)/installs/spec_cpu_2000/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/*/*/*
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000.patch && cd -
+
+
+.PHONY: specbuild2006
+specbuild2006: $(build)/installs/cpu2006 \
+		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
+		&& $(SPEC2006_DIR)/bin/relocate \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext i386 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext x64 \
 		&& cd -"
@@ -66,14 +79,9 @@ specbuild2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2 \
 
 
 .PHONY: specbuild2000
-specbuild2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 \
-		                    $(SRCDIR)/misc/specbuild2000.pl \
-		$(SPEC2000_DIR)/config/spec2000.mycfg
-	mkdir -p $(build)/installs
-	rm -rf $(SPEC2000_DIR) $(build)/installs/spec_cpu_2000
-	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2 && cd -
-	-chmod -f +w $(build)/installs/spec_cpu_2000 $(build)/installs/spec_cpu_2000/* $(build)/installs/spec_cpu_2000/*/* $(build)/installs/spec_cpu_2000/*/*/* $(build)/installs/spec_cpu_2000/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/*/* $(build)/installs/spec_cpu_2000/*/*/*/*/*/*/*/*/*/*
-	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000.patch && cd -
+specbuild2000: $(build)/installs/spec_cpu_2000 \
+		                    $(SRCDIR)/misc/specbuild.pl \
+		$(SPEC2000_DIR)/config/spec.mycfg
 	ln -sf $(SPEC2000_DIR)/benchspec/CINT2000/197.parser/data/all/input/words $(build)/
 	sed "s#^/words/#words/#" \
 		$(SPEC2000_DIR)/benchspec/CINT2000/197.parser/data/all/input/2.1.dict > \

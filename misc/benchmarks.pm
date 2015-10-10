@@ -16,8 +16,11 @@ our $spec_test = "$spec_dir/test";
 #our @default_opts = ("O2", "O0");
 our @default_opts = ("O2");
 
-our @all_specs = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
+our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
 #, "255.vortex"
+
+our @all_specs2006 = ("464.h264ref", "458.sjeng", "483.xalancbmk", "481.wrf", "470.lbm", "456.hmmer", "435.gromacs", "434.zeusmp", "403.gcc", "459.GemsFDTD", "444.namd", "437.leslie3d", "401.bzip2", "400.perlbench", "416.gamess", "473.astar", "465.tonto", "447.dealII", "462.libquantum", "450.soplex", "454.calculix", "429.mcf", "410.bwaves", "482.sphinx3", "453.povray", "445.gobmk", "436.cactusADM", "999.specrand", "998.specrand", "471.omnetpp", "433.milc");
+
 
 #@default_opts = ("O0");
 #@all_specs = ("253.perlbmk");
@@ -46,7 +49,7 @@ our $cpu2000 = "$superopt_build/installs/spec_cpu_2000";
 our $cint2000 = "$cpu2000/benchspec/CINT2000";
 
 our $cpu2006 = "$superopt_build/installs/cpu2006";
-our $cint2006 = "$cpu2000/benchspec/CPU2006";
+our $cint2006 = "$cpu2006/benchspec/CPU2006";
 
 our @mcf_args = ("$spec_ref/inp.in");
 our @bzip2_args = ("$spec_ref/input.source", "$spec_ref/input.graphic", "$spec_ref/input.program");
@@ -105,7 +108,7 @@ sub specs_args_patsubst
   my $args = shift;
   my $pat = shift;
   my $rep = shift;
-  for my $spec (@all_specs) {
+  for my $spec (@all_specs2000) {
     my $exname = spec_exec_name($spec);
     my %hargs = %$args;
     my $elem = $hargs{$exname};
@@ -152,7 +155,7 @@ for my $cur_exec (keys %args) {
 sub is_spec_benchmark
 {
   my $bench = shift;
-  for my $spec (@all_specs) {
+  for my $spec (@all_specs2000) {
     return 1 if ($bench eq spec_exec_name($spec));
   }
   return 0;
@@ -281,7 +284,7 @@ sub make_endianness_adjustments
 #  }
 }
 our @spec_execs;
-foreach my $exec (@all_specs) {
+foreach my $exec (@all_specs2000) {
   push(@spec_execs, spec_exec_name($exec));
 }
 our @all_execs = ("hello_world", "one_bbl", "fibo", "combox", @spec_execs);
