@@ -25,63 +25,61 @@ use benchmarks;
 use execute;
 #use binprobe;
 
-our @all_execs;
+#our @all_execs;
 our @all_opts;
 our $srcdir;
 our %args;
 our %opts;
 our %small_args;
+our $build_dir;
+our @all_specs2000;
+our @all_specs2006;
+our @default_opts;
+
 
 my $run_iter = 1;
 my $small_inputs = 0;
 
 sub usage
 {
-  print "./specrun.pl -bench 2000|2006 [exec1 exec2 ...]\n";
+  print "./specrun.pl -bench 2000|2006 -ext <all|i386|x64|ppc|O0|O2|O2ofp|O3|O3U|pg|".
+         "soft-float|hard-float|<ext>> [exec1 exec2 ...]\n";
   exit(1);
 }
 
 my $bench;
-GetOptions(
-  "bench=s" => \$bench
-);
+my $extension;
 
+GetOptions(
+  "bench=s" => \$bench,
+  "extension=s" => \$extension,
+);
+ 
+my $benchname;
 my $specdir;
 my @all_execs;
 
 if ($bench eq "2000") {
-  $specdir = "$build_dir/specs2000";
+  $benchname = "specs2000";
   @all_execs = @all_specs2000;
 } elsif ($bench eq "2006") {
-  $specdir = "$build_dir/specs2006";
+  $benchname = "specs2006";
   @all_execs = @all_specs2006;
 } else {
   usage();
 }
+$specdir = "$build_dir/$benchname";
 
+$extension = "all" if (!$extension);
 
-
-my $comp_out;
-
-sub get_bench_from_exec
-{
-  my $exec = shift;
-  if ($exec =~ /^tmpexec\.([^\.]+)\./) {
-    return $1;
-  } else {
-    return $exec;
-  }
-}
+@default_opts = get_cfgs_from_extension($extension);
 
 $| = 1;     # turn on autoflush of stdout
 
-my @execs
+my @execs;
 foreach my $e (@all_execs) {
   push(@execs, spec_exec_name($e));
 }
-
-#@execs = ("cc1", "perlbmk", "gap", "bzip2", "twolf", "gzip", "vpr", "mcf", "crafty", "parser", "eon");
-#@execs = @all_execs;
 
 if ($#ARGV >= 0) {
   @execs = ();
@@ -109,20 +107,28 @@ if ($#ARGV >= 0) {
   }
 }
 
-$SIG{INT} = \&interrupt_exit;
+sub get_bench_from_exec
+{
+  my $exec = shift;
+  if ($exec =~ /^tmpexec\.([^\.]+)\./) {
+    return $1;
+  } else {
+    return $exec;
+  }
+}
 
-#print "Testing write_new_peep_tab() tmp_peep_tab=$tmp_peep_tab\n";
-#write_new_peep_tab($num_peep_intervals, \@start_peep_intervals, \@stop_peep_intervals);
+$SIG{INT} = \&interrupt_exit;
 
 for my $cur_exec (@execs) {
   for my $opt (get_opts($cur_exec)) {
     for (my $iter = 0; $iter < $run_iter; $iter++) {
-      my $i386_execfile = get_execfile($cur_exec, $opt, "i386");
+      my $execfile = get_execfile($cur_exec, $opt);
       my $cur_exec_bench = get_bench_from_exec($cur_exec);
+      defined $args{$cur_exec_bench} or die "args undefined for $cur_exec_bench.\n";
       my @cur_args;
       @cur_args = @{$args{$cur_exec_bench}};
       for my $cur_arg (@cur_args) {
-        my $command = "$i386_execfile $cur_arg";
+        my $command = "$execfile $cur_arg";
 	#print "$command\n";
         my $start = Time::HiRes::time;
         system("bash -c \"$command > out 2> err\"");

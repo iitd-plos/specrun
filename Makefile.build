@@ -97,4 +97,10 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 
 .PHONY: specrun2000
 specrun2000:
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun2000.pl
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext x64 \
+	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext i386
+
+.PHONY: specrun2006
+specrun2006:
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64 \
+	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext i386

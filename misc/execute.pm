@@ -6,29 +6,7 @@ use Time::HiRes qw( usleep ualarm gettimeofday tv_interval );
 use lib "misc";
 use config_host;
 use myutils;
-use benchmarks;
-
-sub kill_recursive
-{
-  my $sig = shift;
-  my $pid = shift;
-
-  my @children;
-  open (PS_OUTPUT, "pgrep -P $pid|");
-  while (my $line = <PS_OUTPUT>) {
-    if ($line =~ /^(\S*)$/) {
-      push(@children, $1);
-    }
-  }
-  close (PS_OUTPUT);
-
-  print "Killing process $pid with signal $sig\n";
-  kill ($sig,$pid);
-
-  foreach my $child (@children) {
-    kill_recursive($sig, $child);
-  }
-}
+#use benchmarks;
 
 
 sub timed_exec_and_compare
