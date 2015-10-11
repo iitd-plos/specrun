@@ -37,7 +37,7 @@ our @all_specs2006;
 our @default_opts;
 
 
-my $run_iter = 1;
+my $run_iter = 5;
 my $small_inputs = 0;
 
 sub usage
@@ -119,9 +119,9 @@ sub get_bench_from_exec
 
 $SIG{INT} = \&interrupt_exit;
 
-for my $cur_exec (@execs) {
-  for my $opt (get_opts($cur_exec)) {
-    for (my $iter = 0; $iter < $run_iter; $iter++) {
+for (my $iter = 0; $iter < $run_iter; $iter++) {
+  for my $cur_exec (@execs) {
+    for my $opt (get_opts($cur_exec)) {
       my $execfile = get_execfile($specname, $cur_exec, $opt);
       my $cur_exec_bench = get_bench_from_exec($cur_exec);
       $cur_exec_bench = "$specname.$cur_exec_bench";
