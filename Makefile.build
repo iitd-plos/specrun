@@ -4,8 +4,8 @@ SPEC2000_DIR=$(build)/installs/$(SPEC2000)
 SPEC2006_DIR=$(build)/installs/$(SPEC2006)
 
 #64-bit
-CC_GCC_X64=gcc -static
-CXX_GCC_X64=g++ -static
+CC_GCC_X64=/usr/bin/gcc -static
+CXX_GCC_X64=/usr/bin/g++ -static
 CC_ICC_X64=/opt/intel/bin/icc -static
 CXX_ICC_X64=/opt/intel/bin/icpc -static
 CC_CLANG_X64=clang -static
@@ -14,9 +14,8 @@ CXX_CLANG_X64=clang++ -static
 #32-bit
 CC_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-gcc -m32 -static 
 CXX_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-g++ -m32 -static
-CXX_GCC_I386=g++ -m32 -static
-CC_GCC_I386=gcc -m32 -static
-CXX_GCC_I386=g++ -m32 -static
+CXX_GCC_I386=/usr/bin/g++ -m32 -static
+CC_GCC_I386=/usr/bin/gcc -m32 -static
 CC_ICC_I386=/opt/intel/bin/icc -m32 -static
 CXX_ICC_I386=/opt/intel/bin/icpc -m32 -static
 CC_CLANG_I386=$(SRCDIR)/misc/clang32 -static
@@ -102,5 +101,7 @@ specrun2000:
 
 .PHONY: specrun2006
 specrun2006:
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64 bzip2 mcf\
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64 bzip2 mcf cactusADM GemsFDTD omnetpp \
+	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext i386 bzip2 mcf cactusADM GemsFDTD omnetpp
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64 bzip2 mcf \
 	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext i386 bzip2 mcf

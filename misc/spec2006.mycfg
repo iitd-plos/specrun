@@ -51,8 +51,8 @@ default=default=default=default:
 # Compiler selection
 #
 #####################################################################
-CC           = $(CC_X86)
-CXX          = $(CXX_X86)
+CC           = /default/value/should/not/be/seen
+CXX          = /default/value/should/not/be/seen
 FC           = /usr/bin/gfortran
 
 

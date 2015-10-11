@@ -51,17 +51,18 @@ my $outdir;
 if ($bench eq "2000") {
   $cpu_dir = $cpu2000;
   $cint_dir = $cint2000;
-  $outdir = "$build_dir/specs2000";
+  $specname = "spec2000";
   @all_execs = @all_specs2000;
 } elsif ($bench eq "2006") {
+  $specname = "spec2006";
   $cpu_dir = $cpu2006;
   $cint_dir = $cint2006;
-  $outdir = "$build_dir/specs2006";
   @all_execs = @all_specs2006;
 } else {
   usage();
 }
 
+$outdir = "$build_dir/$specname";
 $extension = "all" if (!$extension);
 
 sub search_suffix
@@ -79,7 +80,8 @@ sub build_execs
   my $cfg = shift;
   system ("rm -rf $cint_dir/*/run/*");
 
-  my @execs = ("int");
+  #my @execs = ("int");
+  my @execs = @all_execs;
   @execs = @ARGV if ($#ARGV >= 0);
 
   my $runspec = system ("$cpu_dir/bin/runspec -c spec.mycfg -e $cfg ".
