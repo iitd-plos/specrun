@@ -4,6 +4,7 @@ use warnings;
 use Switch;
 use config_host;
 use spec2000_runargs;
+use spec2006_runargs;
 
 #our $srcdir = "/home/sbansal/superopt";
 our $srcdir;
@@ -19,7 +20,7 @@ my @hard_float = ("i386-O2-hard-float", "i386-O0-hard-float", "ppc-O0-hard-float
   "ppc-O2-hard-float");
 
 our @all_specs2000;
-our @all_specs2006 = ("464.h264ref", "458.sjeng", "483.xalancbmk", "481.wrf", "470.lbm", "456.hmmer", "435.gromacs", "434.zeusmp", "403.gcc", "459.GemsFDTD", "444.namd", "437.leslie3d", "401.bzip2", "400.perlbench", "416.gamess", "473.astar", "465.tonto", "447.dealII", "462.libquantum", "450.soplex", "454.calculix", "429.mcf", "410.bwaves", "482.sphinx3", "453.povray", "445.gobmk", "436.cactusADM", "999.specrand", "998.specrand", "471.omnetpp", "433.milc");
+our @all_specs2006;
 
 
 our @fibo_args = ("");
@@ -34,9 +35,6 @@ our @combox_args = ("bubsort 10000", "mergesort 10000000",
   "link_list_search 200000","binary_search 10000000","openhash_search 10000000",
   "closedhash_search 400000", "sum8 100000000", "image_diff 8000000",
   "min 8000000", "comparison 8000000", "xor 8000000", "sprite_copy 8000000");
-
-our $cpu2006 = "$build_dir/installs/cpu2006";
-our $cint2006 = "$cpu2006/benchspec/CPU2006";
 
 our %opts;
 my @as_opt = ("AS");
@@ -79,6 +77,7 @@ sub get_opts
 
 sub get_execfile
 {
+  my $specname = shift;
   my $bench = shift;
   my $option = shift;
   #my $arch = shift;
@@ -86,8 +85,8 @@ sub get_execfile
   my @my_opts = get_opts($bench);
   foreach my $opt (@my_opts) {
     if ($opt eq $option) {
-      if (is_spec2000_benchmark($bench)) {
-        return "$build_dir/specs2000/$option/$bench";
+      if (is_spec2000_benchmark($bench) || is_spec2006_benchmark($bench)) {
+        return "$build_dir/$specname/$option/$bench";
       } elsif ($bench =~ /^tmpexec/) {
         return "$build_dir/tmpexecs/$option/$bench";
       } else {

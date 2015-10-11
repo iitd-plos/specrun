@@ -6,6 +6,7 @@ use config_host;
 use spec_common;
 
 our $build_dir;
+our (%args, %small_args);
 
 our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
 #, "255.vortex"
@@ -13,7 +14,7 @@ our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.g
 our $cpu2000 = "$build_dir/installs/spec_cpu_2000";
 our $cint2000 = "$cpu2000/benchspec/CINT2000";
 
-our $spec2000_dir = "$build_dir/specs2000";
+our $spec2000_dir = "$build_dir/spec2000";
 our $spec2000_ref = "$spec2000_dir/ref";
 our $spec2000_all = "$spec2000_dir/all";
 our $spec2000_test = "$spec2000_dir/test";
@@ -43,7 +44,6 @@ our @gzip_small_args = ("", "$spec2000_test/input.compressed");
 our @bzip2_small_args = ("", "$spec2000_test/input.random");
 
 
-our %args, our %small_args;
 $args{"spec2000.mcf"} = \@mcf_args;
 $args{"spec2000.bzip2"} = \@bzip2_args;
 $args{"spec2000.gzip"} = \@gzip_args;
@@ -67,31 +67,10 @@ $small_args{"spec2000.gzip"} = \@gzip_small_args;
 $small_args{"spec2000.bzip2"} = \@bzip2_small_args;
 $small_args{"spec2000.vortex"} = \@vortex_small_args;
 
-sub spec2000_args_patsubst
-{
-  my $args = shift;
-  my $pat = shift;
-  my $rep = shift;
-  for my $spec (@all_specs2000) {
-    my $exname = spec_exec_name($spec);
-    my %hargs = %$args;
-    my $elem = $hargs{$exname};
-    if (defined $elem) {
-      my @eargs = @$elem;
-      my @new_eargs = ();
-      foreach my $earg (@eargs) {
-        $earg =~ s/$pat/$cint2000\/$spec\/data\/$rep\/input/g;
-        push(@new_eargs, $earg);
-      }
-      $$args{$exname} = \@new_eargs;
-    }
-  }
-}
-
-spec2000_args_patsubst(\%args, $spec2000_ref, "ref");
-spec2000_args_patsubst(\%args, $spec2000_all, "all");
-spec2000_args_patsubst(\%small_args, $spec2000_test, "test");
-spec2000_args_patsubst(\%small_args, $spec2000_all, "all");
+spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%args, $spec2000_ref, "ref");
+spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%args, $spec2000_all, "all");
+spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_test, "test");
+spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_all, "all");
 
 sub make_endianness_adjustments
 {

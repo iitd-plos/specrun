@@ -55,20 +55,20 @@ GetOptions(
   "extension=s" => \$extension,
 );
  
-my $benchname;
+my $specname;
 my $specdir;
 my @all_execs;
 
 if ($bench eq "2000") {
-  $benchname = "specs2000";
+  $specname = "spec2000";
   @all_execs = @all_specs2000;
 } elsif ($bench eq "2006") {
-  $benchname = "specs2006";
+  $specname = "spec2006";
   @all_execs = @all_specs2006;
 } else {
   usage();
 }
-$specdir = "$build_dir/$benchname";
+$specdir = "$build_dir/$specname";
 
 $extension = "all" if (!$extension);
 
@@ -122,11 +122,14 @@ $SIG{INT} = \&interrupt_exit;
 for my $cur_exec (@execs) {
   for my $opt (get_opts($cur_exec)) {
     for (my $iter = 0; $iter < $run_iter; $iter++) {
-      my $execfile = get_execfile($cur_exec, $opt);
+      my $execfile = get_execfile($specname, $cur_exec, $opt);
       my $cur_exec_bench = get_bench_from_exec($cur_exec);
-      defined $args{$cur_exec_bench} or die "args undefined for $cur_exec_bench.\n";
+      $cur_exec_bench = "$specname.$cur_exec_bench";
+      defined $args{"$cur_exec_bench"}
+        or die "args undefined for $cur_exec_bench.\n";
       my @cur_args;
       @cur_args = @{$args{$cur_exec_bench}};
+      my $argnum = 0;
       for my $cur_arg (@cur_args) {
         my $command = "$execfile $cur_arg";
 	#print "$command\n";
@@ -135,9 +138,11 @@ for my $cur_exec (@execs) {
         my $stop = Time::HiRes::time;
 	$stop = $stop - $start;
         print "$cur_exec :";
+        print " arg$argnum :";
         print " $opt : ";
         print " iter$iter :";
 	print " $stop\n";
+        $argnum++;
       }
     }
   }

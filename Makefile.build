@@ -102,5 +102,5 @@ specrun2000:
 
 .PHONY: specrun2006
 specrun2006:
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64 \
-	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext i386
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64 bzip2 mcf\
+	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext i386 bzip2 mcf
