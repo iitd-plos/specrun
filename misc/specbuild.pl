@@ -47,6 +47,7 @@ GetOptions(
 my $cpu_dir;
 my $cint_dir;
 my $outdir;
+my $specname;
 
 if ($bench eq "2000") {
   $cpu_dir = $cpu2000;
