@@ -19,7 +19,7 @@ our $spec2006_all = "$spec2006_dir/all";
 our $spec2006_test = "$spec2006_dir/test";
 
 
-our @bzip2_args = ("$spec2006_ref/input.source 280", "$spec2006_ref/chicken.jpg 30", "$spec2006_ref/liberty.jpg 30", "$spec2006_all/input.program 280", "$spec2006_all/text.html 280", "$spec2006_ref/input.combined 200");
+our @bzip2_args = ("$spec2006_ref/input.source 280", "$spec2006_ref/chicken.jpg 30", "$spec2006_ref/liberty.jpg 30", "$spec2006_all/input.program 280", "$spec2006_ref/text.html 280", "$spec2006_all/input.combined 200");
 our @mcf_args = ("$spec2006_ref/inp.in");
 #our @gzip_args = ("$spec2006_ref/input.source 60", "$spec2006_ref/input.graphic 60", "$spec2006_ref/input.program 60", "$spec2006_ref/input.random 60", "$spec2006_ref/input.log 60");
 #our @parser_args =("2.1.dict.mod -batch < $spec2006_ref/ref.in > /tmp/out");
