@@ -9,6 +9,7 @@ COPTIMIZE_O2-hard-float=-O2 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O2U=-O2 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O2u=-O2 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O2ofp=-O2 -fomit-frame-pointer $(DEBUG_FLAG)
+COPTIMIZE_O3=-O3 $(DEBUG_FLAG)
 COPTIMIZE_O3U=-O3 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O3u=-O3 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(DEBUG_FLAG)
