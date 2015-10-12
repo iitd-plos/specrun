@@ -137,7 +137,7 @@ for (my $iter = 0; $iter < $run_iter; $iter++) {
         my $command = "$execfile $cur_arg > out.$cur_exec_bench 2> err.$cur_exec_bench";
 	#print "$command\n";
         my $start = Time::HiRes::time;
-        system("bash -c \"mkdir $build_dir/run_tmpdir && cd $build_dir/run_tmpdir && $prepcmd && $command > out 2> err && cd -\"");
+        system("bash -c \"mkdir -p $build_dir/run_tmpdir && cd $build_dir/run_tmpdir && $prepcmd && $command > out 2> err && cd -\"");
         my $stop = Time::HiRes::time;
 	$stop = $stop - $start;
         print "$cur_exec :";
