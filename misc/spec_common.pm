@@ -4,7 +4,7 @@ use warnings;
 use Switch;
 use config_host;
 
-our %args, our %small_args, our %prepcmd;
+our %args, our %small_args, our %prep_commands;
 
 sub spec_exec_name {
   my $exec = shift;

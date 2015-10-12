@@ -4,7 +4,7 @@ use warnings;
 use Switch;
 use config_host;
 use spec_common;
-our (%args, %small_args);
+our (%args, %small_args, %prep_commands);
 
 our $build_dir;
 
@@ -26,7 +26,7 @@ our @GemsFDTD_args = ("");
 our @omnetpp_args = ("$spec2006_ref/omnetpp.ini");
 our @perlbmk_args = ("-I$spec2006_all/lib $spec2006_ref/checkspam.pl 2500 5 25 11 150 1 1 1 1", "-I$spec2006_all/lib $spec2006_all/diffmail.pl 4 800 10 17 19 300", "-I$spec2006_all/lib $spec2006_all/splitmail.pl 1600 12 26 16 4500");
 our @bwaves_args = ("");
-our @gamess_args = ("< $spec_ref/cytosine.2.config", "< $spec_ref/h2ocu2+.gradient.config", "< $spec_ref/triazolium.config");
+our @gamess_args = ("< $spec2006_ref/cytosine.2.config", "< $spec2006_ref/h2ocu2+.gradient.config", "< $spec2006_ref/triazolium.config");
 
 $args{"spec2006.mcf"} = \@mcf_args;
 $args{"spec2006.bzip2"} = \@bzip2_args;
@@ -37,7 +37,7 @@ $args{"spec2006.perlbmk"} = \@perlbmk_args;
 $args{"spec2006.bwaves"} = \@bwaves_args;
 $args{"spec2006.gamess"} = \@gamess_args;
 
-$prepcmd{"spec2006.gamess"} = "cp $spec_ref/cytosine.2.inp $spec_ref/h2ocu2+.gradient.inp $spec_ref/triazolium.inp .";
+$prep_commands{"spec2006.gamess"} = "cp $spec2006_ref/cytosine.2.inp $spec2006_ref/h2ocu2+.gradient.inp $spec2006_ref/triazolium.inp .";
 
 sub is_spec2006_benchmark
 {
