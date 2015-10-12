@@ -130,11 +130,13 @@ for (my $iter = 0; $iter < $run_iter; $iter++) {
       my @cur_args;
       @cur_args = @{$args{$cur_exec_bench}};
       my $argnum = 0;
+      my $prepcmd = $prep_commands{$cur_exec_bench};
+      $prepcmd = "/bin/true" if (not defined $prepcmd);
       for my $cur_arg (@cur_args) {
-        my $command = "$execfile $cur_arg";
+        my $command = "$execfile $cur_arg > out.$cur_exec_bench 2> err.$cur_exec_branch";
 	#print "$command\n";
         my $start = Time::HiRes::time;
-        system("bash -c \"$command > out 2> err\"");
+        system("bash -c \"mkdir $build_dir/run_tmpdir && cd $build_dir/run_tmpdir && $prepcmd && $command > out 2> err && cd -\"");
         my $stop = Time::HiRes::time;
 	$stop = $stop - $start;
         print "$cur_exec :";

@@ -21,50 +21,23 @@ our $spec2006_test = "$spec2006_dir/test";
 
 our @bzip2_args = ("$spec2006_ref/input.source 280", "$spec2006_ref/chicken.jpg 30", "$spec2006_ref/liberty.jpg 30", "$spec2006_all/input.program 280", "$spec2006_ref/text.html 280", "$spec2006_all/input.combined 200");
 our @mcf_args = ("$spec2006_ref/inp.in");
-#our @gzip_args = ("$spec2006_ref/input.source 60", "$spec2006_ref/input.graphic 60", "$spec2006_ref/input.program 60", "$spec2006_ref/input.random 60", "$spec2006_ref/input.log 60");
-#our @parser_args =("2.1.dict.mod -batch < $spec2006_ref/ref.in > /tmp/out");
-#our @vpr_args = ("$spec2006_ref/net.in $spec2006_ref/arch.in /tmp/place.out /tmp/dum.out -nodisp -place_only -init_t 5 -exit_t 0.005 -alpha_t 0.9412 -inner_num 2", "$spec2006_ref/net.in $spec2006_ref/arch.in $spec2006_ref/place.in /tmp/route.out -nodisp -route_only -route_chan_width 15 -pres_fac_mult 2 -acc_fac 1 -first_iter_pres_fac 4 -initial_pres_fac 8");
-#our @twolf_args = ("$build_dir/ref");
-#our @vortex_args = ("$spec2006_ref/lendian1.raw", "$spec2006_ref/lendian2.raw", "$spec2006_ref/lendian3.raw");
-#our @cc1_args = ("$spec2006_ref/166.i -o $spec2006_ref/166.s", "$spec2006_ref/200.i -o $spec2006_ref/200.s", "$spec2006_ref/expr.i -o $spec2006_ref/expr.s", "$spec2006_ref/integrate.i -o $spec2006_ref/integrate.s", "$spec2006_ref/scilab.i -o $spec2006_ref/scilab.s");
-#our @crafty_args = (" < $spec2006_ref/crafty.in");
-#our @eon_args = ("$spec2006_ref/chair.control.cook $spec2006_ref/chair.camera $spec2006_ref/chair.surfaces $spec2006_ref/chair.cook.ppm ppm $spec2006_ref/pixels_out.cook", "$spec2006_ref/chair.control.rushmeier $spec2006_ref/chair.camera $spec2006_ref/chair.surfaces $spec2006_ref/chair.rushmeier.ppm ppm $spec2006_ref/pixels_out.rushmeier", "$spec2006_ref/chair.control.kajiya $spec2006_ref/chair.camera $spec2006_ref/chair.surfaces $spec2006_ref/chair.kajiya.ppm ppm $spec2006_ref/pixels_out.kajiya");
-#our @gap_args = (" -l $spec2006_all -q -m 192M < $spec2006_ref/ref.in");
-#our @perlbmk_args = ("-I$spec2006_all/lib $spec2006_all/diffmail.pl 2 550 15 24 23 100", "-I$spec2006_all -I$spec2006_all/lib $spec2006_ref/makerand.pl", "-I$spec2006_all/lib $spec2006_all/perfect.pl b 3 m 4", "-I$spec2006_all/lib $spec2006_ref/splitmail.pl 850 5 19 18 1500", "-I$spec2006_all/lib $spec2006_ref/splitmail.pl 704 12 26 16 836", "-I$spec2006_all/lib $spec2006_ref/splitmail.pl 535 13 25 24 1091", "-I$spec2006_all/lib $spec2006_ref/splitmail.pl 957 12 23 26 1014");
-#
-#our @twolf_small_args = ("$spec2006_test/test");
-#our @perlbmk_small_args = ("$spec2006_test/arith.t");
-#our @eon_small_args = ("$spec2006_test/chair.control.cook $spec2006_test/chair.camera $spec2006_test/chair.surfaces $spec2006_test/chair.cook.ppm ppm $spec2006_test/pixels_out.cook");
-#our @gap_small_args = (" -l $spec2006_ref -q -m 192M < $spec2006_test/gap.test.in");
-#our @vpr_small_args = ("$spec2006_test/net.in $spec2006_test/arch.in /tmp/place.out /tmp/dum.out -nodisp -place_only -init_t 5 -exit_t 0.005 -alpha_t 0.9412 -inner_num 2");
-#our @mcf_small_args = ("$spec2006_test/inp.in");
-#our @vortex_small_args = ("$spec2006_test/lendian1.raw", "$spec2006_test/lendian2.raw", "$spec2006_test/lendian3.raw");
-#our @gzip_small_args = ("", "$spec2006_test/input.compressed");
-#our @bzip2_small_args = ("", "$spec2006_test/input.random");
-
+our @cactusADM_args = ("$spec2006_ref/benchADM.par");
+our @GemsFDTD_args = ("");
+our @omnetpp_args = ("$spec2006_ref/omnetpp.ini");
+our @perlbmk_args = ("-I$spec2006_all/lib $spec2006_ref/checkspam.pl 2500 5 25 11 150 1 1 1 1", "-I$spec2006_all/lib $spec2006_all/diffmail.pl 4 800 10 17 19 300", "-I$spec2006_all/lib $spec2006_all/splitmail.pl 1600 12 26 16 4500");
+our @bwaves_args = ("");
+our @gamess_args = ("< $spec_ref/cytosine.2.config", "< $spec_ref/h2ocu2+.gradient.config", "< $spec_ref/triazolium.config");
 
 $args{"spec2006.mcf"} = \@mcf_args;
 $args{"spec2006.bzip2"} = \@bzip2_args;
-#$args{"spec2006.gzip"} = \@gzip_args;
-#$args{"spec2006.parser"} = \@parser_args;
-#$args{"spec2006.twolf"} = \@twolf_args;
-#$args{"spec2006.vpr"} = \@vpr_args;
-#$args{"spec2006.crafty"} = \@crafty_args;
-#$args{"spec2006.cc1"} = \@cc1_args;
-#$args{"spec2006.eon"} = \@eon_args;
-#$args{"spec2006.perlbmk"} = \@perlbmk_args;
-#$args{"spec2006.gap"} = \@gap_args;
-#$args{"spec2006.vortex"} = \@vortex_args;
+$args{"spec2006.cactusADM"} = \@cactusADM_args;
+$args{"spec2006.GemsFDTD"} = \@GemsFDTD_args;
+$args{"spec2006.omnetpp"} = \@omnetpp_args;
+$args{"spec2006.perlbmk"} = \@perlbmk_args;
+$args{"spec2006.bwaves"} = \@bwaves_args;
+$args{"spec2006.gamess"} = \@gamess_args;
 
-#$small_args{"spec2006.twolf"} = \@twolf_small_args;
-#$small_args{"spec2006.perlbmk"} = \@perlbmk_small_args;
-#$small_args{"spec2006.eon"} = \@eon_small_args;
-#$small_args{"spec2006.gap"} = \@gap_small_args;
-#$small_args{"spec2006.vpr"} = \@vpr_small_args;
-#$small_args{"spec2006.mcf"} = \@mcf_small_args;
-#$small_args{"spec2006.gzip"} = \@gzip_small_args;
-#$small_args{"spec2006.bzip2"} = \@bzip2_small_args;
-#$small_args{"spec2006.vortex"} = \@vortex_small_args;
+$prepcmd{"spec2006.gamess"} = "cp $spec_ref/cytosine.2.inp $spec_ref/h2ocu2+.gradient.inp $spec_ref/triazolium.inp .";
 
 sub is_spec2006_benchmark
 {
