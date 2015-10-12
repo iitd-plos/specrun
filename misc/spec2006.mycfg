@@ -60,7 +60,7 @@ FC           = /usr/bin/gfortran
 # Optimization
 #####################################################################
 ## Base is low opt
-default=base=default=default:
+default=default=default=default:
 COPTIMIZE     = coptimize_should_not_be_seen
 CXXOPTIMIZE  = cxxoptimize_should_not_be_seen
 FOPTIMIZE    = -O3
