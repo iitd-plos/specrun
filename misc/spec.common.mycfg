@@ -1,11 +1,11 @@
 notes0000=DEBUG_FLAG = -g
 DEBUG_FLAG=
 COPTIMIZE_O0=-O0 $(DEBUG_FLAG)
-COPTIMIZE_O0-soft-float=-O0 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
-COPTIMIZE_O0-hard-float=-O0 $(DEBUG_FLAG) -mhard-float
+COPTIMIZE_O0_soft_float=-O0 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
+COPTIMIZE_O0_hard_float=-O0 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O2=-O2 $(DEBUG_FLAG)
-COPTIMIZE_O2-soft-float=-O2 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
-COPTIMIZE_O2-hard-float=-O2 $(DEBUG_FLAG) -mhard-float
+COPTIMIZE_O2_soft_float=-O2 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
+COPTIMIZE_O2_hard_float=-O2 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O2U=-O2 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O2u=-O2 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O2ofp=-O2 -fomit-frame-pointer $(DEBUG_FLAG)
@@ -23,8 +23,8 @@ CXXOPTIMIZE	= $(COPTIMIZE_O0)
 default=default=gcc-i386-O0-soft-float=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= $(COPTIMIZE_O0-soft-float)
-CXXOPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 
 default=default=gcc-i386-O2=default:
 CC		= $(CC_GCC_I386)
@@ -56,8 +56,8 @@ feedback=0
 default=default=gcc-i386-O2-soft-float=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
-COPTIMIZE	= $(COPTIMIZE_O2-soft-float)
-CXXOPTIMIZE	= $(COPTIMIZE_O2-soft-float)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
 
 default=default=gcc-i386-O3=default:
 CC		= $(CC_GCC_I386)
@@ -247,18 +247,18 @@ default=default=crosstool-ppc-O0-hard-float=default:
 notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= $(COPTIMIZE_O0-hard-float)
+COPTIMIZE	= $(COPTIMIZE_O0_hard_float)
 notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
-CXXOPTIMIZE	= $(COPTIMIZE_O0-hard-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_hard_float)
 feedback=0
 
 default=default=crosstool-ppc-O0-soft-float=default:
 notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
-CXXOPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 feedback=0
 
 default=default=crosstool-ppc-O2=default:
@@ -274,17 +274,17 @@ default=default=crosstool-ppc-O2-hard-float=default:
 notes0080=  Baseline C:   gcc -O2
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= $(COPTIMIZE_O2-hard-float)
+COPTIMIZE	= $(COPTIMIZE_O2_hard_float)
 notes0085=  Baseline C++: g++ -O2
-CXXOPTIMIZE	= $(COPTIMIZE_O2-hard-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_hard_float)
 feedback=0
 
 default=default=crosstool-ppc-O2-soft-float=default:
 notes0080=  Baseline C:   gcc -O2
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-COPTIMIZE	= $(COPTIMIZE_O2-soft-float)
-CXXOPTIMIZE	= $(COPTIMIZE_O2-soft-float)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
 
 default=default=crosstool-ppc-O3=default:
 notes0080=  Baseline C:   gcc -O3
@@ -319,9 +319,9 @@ feedback=0
 default=default=gcc-x64-O0-soft-float=default:
 CC		= $(CC_GCC_X64)
 CXX		= $(CXX_GCC_X64)
-COPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 notes0085=  Baseline C++: g++ $(COPTIMIZE_O0)
-CXXOPTIMIZE	= $(COPTIMIZE_O0-soft-float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 feedback=0
 
 default=default=gcc-x64-O2=default:

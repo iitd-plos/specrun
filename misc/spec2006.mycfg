@@ -61,8 +61,6 @@ FC           = /usr/bin/gfortran
 #####################################################################
 ## Base is low opt
 default=base=default=default:
-COPTIMIZE     = -O3
-CXXOPTIMIZE  = -O3
 FOPTIMIZE    = -O3
 
 notes0100= C base flags: $[COPTIMIZE]
