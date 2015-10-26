@@ -139,6 +139,10 @@ sub get_cfgs_from_extension {
         "clang-x64-O0", "clang-x64-O2", "clang-x64-O2U", "clang-x64-O2u", "clang-x64-O2ofp", "clang-x64-O3", "clang-x64-O3U", "clang-x64-O3u", "clang-x64-O3ofp",
         #,"icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U")
     );}
+    case "x64-i386" {@cfgs = ("gcc-x64-O0", "gcc-i386-O0", "gcc-x64-O2", "gcc-i386-O2", "gcc-x64-O2U", "gcc-i386-O2U", "gcc-x64-O2u", "gcc-i386-O2u", "gcc-x64-O2ofp", "gcc-i386-O2ofp", "gcc-x64-O3", "gcc-i386-O3", "gcc-x64-O3U", "gcc-i386-O3U", "gcc-x64-O3u", "gcc-i386-O3u", "gcc-x64-O3ofp", "gcc-i386-O3ofp",
+        "clang-x64-O0", "clang-x64-O2", "clang-x64-O2U", "clang-x64-O2u", "clang-x64-O2ofp", "clang-x64-O3", "clang-x64-O3U", "clang-x64-O3u", "clang-x64-O3ofp",
+        #,"icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U", "icc-x64-O0", "icc-x64-O2", "icc-x64-O3", "icc-x64-O3U")
+    );}
     case "ppc" {@cfgs = ("crosstool-ppc-O0", "crosstool-ppc-O2", "crosstool-ppc-O3", "crosstool-ppc-O3U");}
     case "O0" {@cfgs = ("crosstool-i386-O0", "crosstool-ppc-O0");}
     case "O2" {@cfgs = ("crosstool-i386-O2", "crosstool-ppc-O2");}
