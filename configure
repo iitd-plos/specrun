@@ -11,6 +11,7 @@ fi
 
 spec2000=spec_cpu_2000
 spec2006=cpu2006
+gcc_soft_float=gcc-4.6.2
 
 if [ $source_path == `pwd` ]; then
   #make build directory
@@ -28,6 +29,7 @@ if [ $source_path == `pwd` ]; then
   echo "build=\$(abspath $build_dir)" >> $config_host_mak
   echo "SPEC2000=$spec2000"     >> $config_host_mak
   echo "SPEC2006=$spec2006"     >> $config_host_mak
+  echo "GCC_SOFT_FLOAT=$gcc_soft_float"     >> $config_host_mak
  
   echo "include $source_path/config-host.mak" > $config_mak
 

@@ -23,8 +23,21 @@ CXX_CLANG_I386=$(SRCDIR)/misc/clang32++ -static
 CC_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-gcc -static
 CXX_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-g++ -static
 
+
+$(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a: $(SRCDIR)/../tars/$(GCC_SOFT_FLOAT).tar.bz2
+	cd $(build)/installs && rm -rf $(GCC_SOFT_FLOAT) && tar xf $< && patch -p0 < $(SRCDIR)/misc/$(GCC_SOFT_FLOAT).softfloat.patch && cd -
+	cd $(build)/installs/$(GCC_SOFT_FLOAT)/gcc/config/soft-fp \
+	&& $(CC_GCC_I386) -msoft-float -c -I.. -I../i386 -I../../../libgcc \
+	   -I../../../gcc/ adddf3.c addsf3.c addtf3.c subdf3.c subsf3.c subtf3.c \
+	   gedf2.c gesf2.c getf2.c mul*.c div*.c eq*.c extend*.c neg*.c \
+	   trunc*.c unord*.c \
+	&& ar -crv libsoftfloat.i386.a *.o \
+	&& cd -
+	mv $(build)/installs/$(GCC_SOFT_FLOAT)/gcc/config/soft-fp/libsoftfloat.i386.a $(build)/installs/$(GCC_SOFT_FLOAT)
+	
+
 .PHONY: $(build)/spec.mycfg.hdr
-$(build)/spec.mycfg.hdr:
+$(build)/spec.mycfg.hdr: $(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a
 	echo "" > $@
 	echo CC_CROSSTOOL_PPC32=$(CC_CROSSTOOL_PPC32) >> $@
 	echo CXX_CROSSTOOL_PPC32=$(CXX_CROSSTOOL_PPC32) >> $@
@@ -42,6 +55,7 @@ $(build)/spec.mycfg.hdr:
 	echo CXX_CLANG_X64=$(CXX_CLANG_X64) >> $@
 	echo CC_ICC_X64=$(CC_ICC_X64) >> $@
 	echo CXX_ICC_X64=$(CXX_ICC_X64) >> $@
+	echo I386_SOFT_FLOAT_LIB=$(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a >> $@
 
 $(SPEC2006_DIR)/config/spec.mycfg: $(build)/spec.mycfg.hdr
 	cat $< $(SRCDIR)/misc/spec.common.mycfg $(SRCDIR)/misc/spec2006.mycfg > $(SPEC2006_DIR)/config/spec.mycfg

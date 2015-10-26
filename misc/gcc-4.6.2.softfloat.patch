@@ -1,0 +1,40 @@
+diff -ur gcc-4.6.2/libgcc/config/i386/32/sfp-machine.h gcc-4.6.2.patched/libgcc/config/i386/32/sfp-machine.h
+--- gcc-4.6.2/libgcc/config/i386/32/sfp-machine.h	2010-05-19 21:01:00.000000000 +0530
++++ gcc-4.6.2.patched/libgcc/config/i386/32/sfp-machine.h	2015-10-26 19:15:40.571801125 +0530
+@@ -70,9 +70,15 @@
+ 	     "g" ((USItype) (y0)))
+ 
+ 
++#define _FP_MUL_MEAT_S(R,X,Y)					\
++  _FP_MUL_MEAT_1_wide(_FP_WFRACBITS_S,R,X,Y,umul_ppmm)
++#define _FP_MUL_MEAT_D(R,X,Y)					\
++  _FP_MUL_MEAT_2_wide(_FP_WFRACBITS_D,R,X,Y,umul_ppmm)
+ #define _FP_MUL_MEAT_Q(R,X,Y)					\
+   _FP_MUL_MEAT_4_wide(_FP_WFRACBITS_Q,R,X,Y,umul_ppmm)
+ 
++#define _FP_DIV_MEAT_S(R,X,Y)   _FP_DIV_MEAT_1_loop(S,R,X,Y)
++#define _FP_DIV_MEAT_D(R,X,Y)   _FP_DIV_MEAT_2_udiv(D,R,X,Y)
+ #define _FP_DIV_MEAT_Q(R,X,Y)   _FP_DIV_MEAT_4_udiv(Q,R,X,Y)
+ 
+ #define _FP_NANFRAC_S		_FP_QNANBIT_S
+@@ -131,7 +137,7 @@
+   unsigned short int __unused5;
+ };
+ 
+-#define FP_HANDLE_EXCEPTIONS						\
++//#define FP_HANDLE_EXCEPTIONS						\
+   do {									\
+     if (_fex & FP_EX_INVALID)						\
+       {									\
+diff -ur gcc-4.6.2/libgcc/config/i386/64/sfp-machine.h gcc-4.6.2.patched/libgcc/config/i386/64/sfp-machine.h
+--- gcc-4.6.2/libgcc/config/i386/64/sfp-machine.h	2011-08-24 01:00:06.000000000 +0530
++++ gcc-4.6.2.patched/libgcc/config/i386/64/sfp-machine.h	2015-10-26 19:15:45.187801088 +0530
+@@ -87,7 +87,7 @@
+  #define ASM_DIVZERO "divss %1, %0"
+ #endif
+ 
+-#define FP_HANDLE_EXCEPTIONS						\
++//#define FP_HANDLE_EXCEPTIONS						\
+   do {									\
+     if (_fex & FP_EX_INVALID)						\
+       {									\

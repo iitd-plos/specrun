@@ -1,10 +1,10 @@
 notes0000=DEBUG_FLAG = -g
 DEBUG_FLAG=
 COPTIMIZE_O0=-O0 $(DEBUG_FLAG)
-COPTIMIZE_O0_soft_float=-O0 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
+COPTIMIZE_O0_soft_float=-O0 $(DEBUG_FLAG) -msoft-float
 COPTIMIZE_O0_hard_float=-O0 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O2=-O2 $(DEBUG_FLAG)
-COPTIMIZE_O2_soft_float=-O2 $(DEBUG_FLAG) -msoft-float $(I386_SOFT_FLOAT_LIB)
+COPTIMIZE_O2_soft_float=-O2 $(DEBUG_FLAG) -msoft-float
 COPTIMIZE_O2_hard_float=-O2 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O2U=-O2 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O2u=-O2 -funroll-loops $(DEBUG_FLAG)
@@ -13,6 +13,8 @@ COPTIMIZE_O3=-O3 $(DEBUG_FLAG)
 COPTIMIZE_O3U=-O3 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O3u=-O3 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(DEBUG_FLAG)
+
+EXTRA_LIBS_soft_float=$(I386_SOFT_FLOAT_LIB)
 
 default=default=gcc-i386-O0=default:
 CC		= $(CC_GCC_I386)
@@ -25,6 +27,7 @@ CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
 COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=gcc-i386-O2=default:
 CC		= $(CC_GCC_I386)
@@ -58,6 +61,7 @@ CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
 CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=gcc-i386-O3=default:
 CC		= $(CC_GCC_I386)
