@@ -116,10 +116,11 @@ sub build_execs
 
 sub copy_execs
 {
+  my $specname = shift;
   my $cfg = shift;
 
   foreach my $exec (@all_execs) {
-    my $exname = spec_exec_name($exec);
+    my $exname = spec_exec_name($specname, $exec);
     my $consider_exec;
     if ($#ARGV >= 0) {
       $consider_exec = 0;
@@ -149,5 +150,5 @@ my @cfgs;
 
 foreach my $cfg (@cfgs) {
   build_execs($cfg);
-  copy_execs($cfg);
+  copy_execs($specname, $cfg);
 }
