@@ -12,8 +12,8 @@ CC_CLANG_X64=clang -static
 CXX_CLANG_X64=clang++ -static
 
 #32-bit
-CC_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-gcc -m32 -static 
-CXX_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-g++ -m32 -static
+CC_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-gcc -m32 -static  -msoft-float
+CXX_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-g++ -m32 -static -msoft-float
 CXX_GCC_I386=/usr/bin/g++ -m32 -static
 CC_GCC_I386=/usr/bin/gcc -m32 -static
 CC_ICC_I386=/opt/intel/bin/icc -m32 -static
@@ -23,8 +23,19 @@ CXX_CLANG_I386=$(SRCDIR)/misc/clang32++ -static
 CC_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-gcc -static
 CXX_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-g++ -static
 
+
+$(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a: $(SRCDIR)/../tars/$(GCC_SOFT_FLOAT).tar.bz2
+	cd $(build)/installs && rm -rf $(GCC_SOFT_FLOAT) && tar xf $< && patch -p0 < $(SRCDIR)/misc/$(GCC_SOFT_FLOAT).softfloat.patch && cd -
+	cd $(build)/installs/$(GCC_SOFT_FLOAT)/gcc/config/soft-fp \
+	&& $(CC_GCC_I386) -msoft-float -c -I.. -I../i386 -I../../../libgcc \
+	   -I../../../gcc/ *.c \
+	&& ar -crv libsoftfloat.i386.a *.o \
+	&& cd -
+	mv $(build)/installs/$(GCC_SOFT_FLOAT)/gcc/config/soft-fp/libsoftfloat.i386.a $(build)/installs/$(GCC_SOFT_FLOAT)
+	
+
 .PHONY: $(build)/spec.mycfg.hdr
-$(build)/spec.mycfg.hdr:
+$(build)/spec.mycfg.hdr: $(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a
 	echo "" > $@
 	echo CC_CROSSTOOL_PPC32=$(CC_CROSSTOOL_PPC32) >> $@
 	echo CXX_CROSSTOOL_PPC32=$(CXX_CROSSTOOL_PPC32) >> $@
@@ -42,6 +53,7 @@ $(build)/spec.mycfg.hdr:
 	echo CXX_CLANG_X64=$(CXX_CLANG_X64) >> $@
 	echo CC_ICC_X64=$(CC_ICC_X64) >> $@
 	echo CXX_ICC_X64=$(CXX_ICC_X64) >> $@
+	echo I386_SOFT_FLOAT_LIB=$(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a >> $@
 
 $(SPEC2006_DIR)/config/spec.mycfg: $(build)/spec.mycfg.hdr
 	cat $< $(SRCDIR)/misc/spec.common.mycfg $(SRCDIR)/misc/spec2006.mycfg > $(SPEC2006_DIR)/config/spec.mycfg
@@ -55,7 +67,7 @@ $(build)/installs/cpu2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2
 	rm -rf $(SPEC2006_DIR) $(build)/installs/cpu2006
 	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2 && cd -
 	-chmod -f +w $(build)/installs/cpu2006 $(build)/installs/cpu2006/* $(build)/installs/cpu2006/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*/*
-	#cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006.patch && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006.patch && cd -
 
 .PHONY: $(build)/installs/spec_cpu_2000
 $(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
@@ -71,8 +83,8 @@ specbuild2006: $(build)/installs/cpu2006 \
 		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
 		&& $(SPEC2006_DIR)/bin/relocate \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext x64 \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext i386 \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc-i386-O2-soft-float \
 		&& cd -"
 	touch $@
 

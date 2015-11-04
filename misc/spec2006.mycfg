@@ -53,16 +53,14 @@ default=default=default=default:
 #####################################################################
 CC           = /default/value/should/not/be/seen
 CXX          = /default/value/should/not/be/seen
-FC           = /usr/bin/gfortran
+FC           = /default/value/should/not/be/seen
 
 
 #####################################################################
 # Optimization
 #####################################################################
 ## Base is low opt
-default=default=default=default:
-COPTIMIZE     = coptimize_should_not_be_seen
-CXXOPTIMIZE  = cxxoptimize_should_not_be_seen
+default=base=default=default:
 FOPTIMIZE    = -O3
 
 notes0100= C base flags: $[COPTIMIZE]
@@ -75,7 +73,7 @@ notes0120= Fortran base flags: $[FOPTIMIZE]
 
 default=base=default=default:
 notes25= PORTABILITY=-DSPEC_CPU_LP64 is applied to all benchmarks in base.
-PORTABILITY = -DSPEC_CPU_LP64
+notes25_1= PORTABILITY = -DSPEC_CPU_LP64 //commented out
 
 
 #####################################################################
@@ -84,7 +82,8 @@ PORTABILITY = -DSPEC_CPU_LP64
 
 400.perlbench=default=default=default:
 notes35    = 400.perlbench: -DSPEC_CPU_LINUX_X64
-CPORTABILITY= -DSPEC_CPU_LINUX_X64
+notes22=CPORTABILITY= -DSPEC_CPU_LINUX_X64
+CPORTABILITY= -DSPEC_CPU_LINUX
 
 462.libquantum=default=default=default:
 notes60= 462.libquantum: -DSPEC_CPU_LINUX

@@ -1,0 +1,71 @@
+diff -ur gcc-4.6.2/libgcc/config/i386/32/sfp-machine.h gcc-4.6.2.patched/libgcc/config/i386/32/sfp-machine.h
+--- gcc-4.6.2/libgcc/config/i386/32/sfp-machine.h	2010-05-19 21:01:00.000000000 +0530
++++ gcc-4.6.2.patched/libgcc/config/i386/32/sfp-machine.h	2015-10-27 13:18:35.410572155 +0530
+@@ -3,6 +3,12 @@
+ #define _FP_WS_TYPE		signed int
+ #define _FP_I_TYPE		int
+ 
++typedef int TI;
++typedef int TItype;// __attribute__ ((mode (TI)));
++typedef unsigned int UTItype;// __attribute__ ((mode (TI)));
++
++#define TI_BITS (__CHAR_BIT__ * (int)sizeof(TItype))
++
+ /* The type of the result of a floating point comparison.  This must
+    match `__libgcc_cmp_return__' in GCC for the target.  */
+ typedef int __gcc_CMPtype __attribute__ ((mode (__libgcc_cmp_return__)));
+@@ -70,9 +76,15 @@
+ 	     "g" ((USItype) (y0)))
+ 
+ 
++#define _FP_MUL_MEAT_S(R,X,Y)					\
++  _FP_MUL_MEAT_1_wide(_FP_WFRACBITS_S,R,X,Y,umul_ppmm)
++#define _FP_MUL_MEAT_D(R,X,Y)					\
++  _FP_MUL_MEAT_2_wide(_FP_WFRACBITS_D,R,X,Y,umul_ppmm)
+ #define _FP_MUL_MEAT_Q(R,X,Y)					\
+   _FP_MUL_MEAT_4_wide(_FP_WFRACBITS_Q,R,X,Y,umul_ppmm)
+ 
++#define _FP_DIV_MEAT_S(R,X,Y)   _FP_DIV_MEAT_1_loop(S,R,X,Y)
++#define _FP_DIV_MEAT_D(R,X,Y)   _FP_DIV_MEAT_2_udiv(D,R,X,Y)
+ #define _FP_DIV_MEAT_Q(R,X,Y)   _FP_DIV_MEAT_4_udiv(Q,R,X,Y)
+ 
+ #define _FP_NANFRAC_S		_FP_QNANBIT_S
+@@ -131,7 +143,7 @@
+   unsigned short int __unused5;
+ };
+ 
+-#define FP_HANDLE_EXCEPTIONS						\
++//#define FP_HANDLE_EXCEPTIONS						\
+   do {									\
+     if (_fex & FP_EX_INVALID)						\
+       {									\
+@@ -181,7 +193,7 @@
+ #define _FP_DECL_EX \
+   unsigned short _fcw __attribute__ ((unused)) = FP_RND_NEAREST
+ 
+-#define FP_INIT_ROUNDMODE			\
++//#define FP_INIT_ROUNDMODE			\
+   do {						\
+     __asm__ ("fnstcw %0" : "=m" (_fcw));	\
+   } while (0)
+diff -ur gcc-4.6.2/libgcc/config/i386/64/sfp-machine.h gcc-4.6.2.patched/libgcc/config/i386/64/sfp-machine.h
+--- gcc-4.6.2/libgcc/config/i386/64/sfp-machine.h	2011-08-24 01:00:06.000000000 +0530
++++ gcc-4.6.2.patched/libgcc/config/i386/64/sfp-machine.h	2015-10-27 13:18:41.002572309 +0530
+@@ -87,7 +87,7 @@
+  #define ASM_DIVZERO "divss %1, %0"
+ #endif
+ 
+-#define FP_HANDLE_EXCEPTIONS						\
++//#define FP_HANDLE_EXCEPTIONS						\
+   do {									\
+     if (_fex & FP_EX_INVALID)						\
+       {									\
+@@ -133,7 +133,7 @@
+ #define _FP_DECL_EX \
+   unsigned short _fcw __attribute__ ((unused)) = FP_RND_NEAREST
+ 
+-#define FP_INIT_ROUNDMODE			\
++//#define FP_INIT_ROUNDMODE			\
+   do {						\
+     __asm__ ("fnstcw %0" : "=m" (_fcw));	\
+   } while (0)

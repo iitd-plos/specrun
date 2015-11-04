@@ -1,8 +1,7 @@
-To switch between 32-bit and 64-bit executables:
-change CC_X86, CXX_X86 variables in Makefile.build
+sudo apt-get install libmpfr-dev libmpfr-dbg libmpc-dev libmpc3 libgmp3-dev gfortran-multilib
 
 To build:
-make specbuild  # this may take some time. copy spec_cpu_2000.tar.bz2 in ../tars beforehand
+make specbuild2006  # this may take some time. copy spec_cpu_2000.tar.bz2 in ../tars beforehand
 
 To run
-make specrun
+make specrun2006

@@ -7,9 +7,10 @@ use config_host;
 our %args, our %small_args, our %prep_commands;
 
 sub spec_exec_name {
+  my $specname = shift;
   my $exec = shift;
   $exec =~ /^\d*\.(.*)$/;
-  my $exname = ($1 eq "gcc")?"cc1":$1;
+  my $exname = ($1 eq "gcc" && $specname eq "spec2000")?"cc1":$1;
   return $exname;
 }
 
