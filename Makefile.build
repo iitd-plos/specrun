@@ -148,6 +148,16 @@ $(OCAMLOPT):
 		--partialld "ld -r --format $(ELF_TYPE)"
 	cd $(OCAML_DIR) && make world && (make opt || echo make opt failed) && make install
 
+compcert: $(COMPCERT_INSTALL)/bin/ccomp
+
+$(COMPCERT_INSTALL)/bin/ccomp: $(MENHIR_INSTALL)/bin/menhir $(COQ_INSTALL)/bin/coqc
+	rm -rf $(COMPCERT_DIR)
+	mkdir -p $(build)/installs
+	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(COMPCERT).tgz && mv $(COMPCERT_CAPS_FIRST_FOURTH_LETTER) $(COMPCERT) && cd -
+	cd $(COMPCERT_DIR) && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH ./configure -prefix $(COMPCERT_INSTALL) ia32-linux && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH make && make install && cd -
+
+
+
 .PHONY: specbuild2006
 specbuild2006: $(build)/installs/cpu2006 \
 		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
@@ -184,21 +194,12 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 
 .PHONY: specrun2000
 specrun2000:
-	   perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-soft-float bzip2 gzip \
-	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float bzip2 gzip
-	&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float bzip2 gzip
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-soft-float bzip2 gzip \
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float bzip2 gzip
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float bzip2 gzip
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float bzip2 gzip
 
 .PHONY: specrun2006
 specrun2006:
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386 bzip2 mcf perlbmk cactusADM GemsFDTD omnetpp bwaves gamess
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf
-
-compcert: $(COMPCERT_INSTALL)/bin/ccomp
-
-$(COMPCERT_INSTALL)/bin/ccomp: $(MENHIR_INSTALL)/bin/menhir $(COQ_INSTALL)/bin/coqc
-	rm -rf $(COMPCERT_DIR)
-	mkdir -p $(build)/installs
-	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(COMPCERT).tgz && mv $(COMPCERT_CAPS_FIRST_FOURTH_LETTER) $(COMPCERT) && cd -
-	cd $(COMPCERT_DIR) && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH ./configure -prefix $(COMPCERT_INSTALL) ia32-linux && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH make && make install && cd -
-
-
