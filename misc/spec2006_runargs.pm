@@ -43,7 +43,7 @@ sub is_spec2006_benchmark
 {
   my $bench = shift;
   for my $spec (@all_specs2006) {
-    return 1 if ($bench eq spec_exec_name($spec));
+    return 1 if ($bench eq spec_exec_name("spec2006", $spec));
   }
   return 0;
 }

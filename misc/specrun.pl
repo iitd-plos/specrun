@@ -79,7 +79,7 @@ $| = 1;     # turn on autoflush of stdout
 
 my @execs;
 foreach my $e (@all_execs) {
-  push(@execs, spec_exec_name($e));
+  push(@execs, spec_exec_name($specname, $e));
 }
 
 if ($#ARGV >= 0) {
@@ -124,7 +124,9 @@ for (my $iter = 0; $iter < $run_iter; $iter++) {
   for my $cur_exec (@execs) {
     for my $opt (get_opts($cur_exec)) {
       my $execfile = get_execfile($specname, $cur_exec, $opt);
+      #print "execfile= $execfile\n";
       my $cur_exec_bench = get_bench_from_exec($cur_exec);
+      #print "cur_exec_bench= $cur_exec_bench\n";
       $cur_exec_bench = "$specname.$cur_exec_bench";
       defined $args{"$cur_exec_bench"}
         or die "args undefined for $cur_exec_bench.\n";
@@ -134,6 +136,7 @@ for (my $iter = 0; $iter < $run_iter; $iter++) {
       my $prepcmd = $prep_commands{$cur_exec_bench};
       $prepcmd = "/bin/true" if (not defined $prepcmd);
       for my $cur_arg (@cur_args) {
+        #print "cur_arg = $cur_arg\n";
         my $command = "$execfile $cur_arg > out.$cur_exec_bench.arg$argnum 2> err.$cur_exec_bench.arg$argnum";
 	#print "$command\n";
         my $start = Time::HiRes::time;

@@ -151,7 +151,9 @@ sub is_spec2000_benchmark
 {
   my $bench = shift;
   for my $spec (@all_specs2000) {
-    return 1 if ($bench eq spec_exec_name($spec));
+    my $specbench = spec_exec_name("spec2000", $spec);
+    #print "bench $bench spec $spec specbench $specbench\n";
+    return 1 if ($bench eq $specbench);
   }
   return 0;
 }

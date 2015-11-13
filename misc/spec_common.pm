@@ -23,7 +23,7 @@ sub spec_args_patsubst
   my $pat = shift;
   my $rep = shift;
   for my $spec (@$all_specs) {
-    my $exname = spec_exec_name($spec);
+    my $exname = spec_exec_name($specname, $spec);
     my %hargs = %$args;
     my $elem = $hargs{"$specname.$exname"};
     #print "exname = $exname\n";
