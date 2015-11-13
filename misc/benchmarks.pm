@@ -114,10 +114,6 @@ sub get_compare_files
   return \@files;
 }
 
-#our @spec_execs;
-#foreach my $exec (@all_specs2000) {
-#  push(@spec_execs, spec_exec_name($exec));
-#}
 our @nonspec_execs = ("hello_world", "one_bbl", "fibo", "combox");
 
 sub get_cfgs_from_extension {

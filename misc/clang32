@@ -31,9 +31,13 @@ my @linklibs;
 my @linkdirs;
 my @new_argv;
 my $std_str;
+my $ver = "";
 
 for (my $i = 0; $i <= $#ARGV; $i++) {
-  if ($ARGV[$i] =~ /^-([fIDWlL])(.*)$/) {
+  print "argv[$i]=$ARGV[$i]\n";
+  if ($ARGV[$i] =~ /^-v(.*)$/) {
+    $ver = "-$1";
+  } elsif ($ARGV[$i] =~ /^-([fIDWlL])(.*)$/) {
     my $o = $1;
     my $d = $2;
     push(@new_argv, "-$o");
@@ -140,10 +144,10 @@ foreach my $l (@linklibs) {
 my $clang;
 my $gcc;
 if ($0 =~ /clang32$/) {
-  $clang = "clang";
+  $clang = "clang$ver";
   $gcc = "gcc";
 } elsif ($0 =~ /clang32++/) {
-  $clang = "clang++";
+  $clang = "clang++$ver";
   $gcc = "g++";
 } else {
   die "Unknown program name: $0\n";
@@ -151,7 +155,7 @@ if ($0 =~ /clang32$/) {
 
 if ($compile == 1) {
   psystem("$clang -m32 -emit-llvm $debug_str $define_str $prog.$prog_suffix $opt_str -c -o $prog.bc @ARGV");
-  psystem("llc $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
+  psystem("llc$ver $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
   psystem("$gcc $prog.S -m32 $debug_str $static_link_str $object_file_output_str -o $output_file");
 } else {
   psystem("$gcc -m32 $debug_str $static_link_str $object_file_output_str -o $output_file $prog.$prog_suffix @ARGV $link_str");

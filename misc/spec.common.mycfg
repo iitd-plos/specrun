@@ -15,7 +15,7 @@ COPTIMIZE_O3_hard_float=-O3 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O3U=-O3 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O3u=-O3 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(DEBUG_FLAG)
-COPTIMIZE_CCOMP_soft_float=-fno-fpu -fnone -fvararg-calls
+COPTIMIZE_CCOMP_soft_float=-fno-fpu -fnone -fvararg-calls -funprototyped 
 CPORTABILITY_i386=
 CPORTABILITY_x64=-DSPEC_CPU_LP64
 
