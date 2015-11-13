@@ -10,9 +10,12 @@ COPTIMIZE_O2U=-O2 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O2u=-O2 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O2ofp=-O2 -fomit-frame-pointer $(DEBUG_FLAG)
 COPTIMIZE_O3=-O3 $(DEBUG_FLAG)
+COPTIMIZE_O3_soft_float=-O3 $(DEBUG_FLAG) -msoft-float
+COPTIMIZE_O3_hard_float=-O3 $(DEBUG_FLAG) -mhard-float
 COPTIMIZE_O3U=-O3 -funroll-all-loops $(DEBUG_FLAG)
 COPTIMIZE_O3u=-O3 -funroll-loops $(DEBUG_FLAG)
 COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(DEBUG_FLAG)
+COPTIMIZE_CCOMP_soft_float=-fno-fpu -fnone -fvararg-calls
 CPORTABILITY_i386=
 CPORTABILITY_x64=-DSPEC_CPU_LP64
 
@@ -35,6 +38,7 @@ COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
 
 default=default=gcc-i386-O2=default:
 CC		= $(CC_GCC_I386)
@@ -72,6 +76,14 @@ CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
 CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc-i386-O3-soft-float=default:
+CC		= $(CC_GCC_I386)
+CXX		= $(CXX_GCC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -576,3 +588,160 @@ CXX		= $(CXX_ICC_X64)
 CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
 CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
 FC              = $(FC_X64)
+
+
+
+default=default=gcc44-i386-O0-soft-float=default:
+CC		= $(CC_GCC44_I386)
+CXX		= $(CXX_GCC44_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc44-i386-O2-soft-float=default:
+CC		= $(CC_GCC44_I386)
+CXX		= $(CXX_GCC44_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc44-i386-O3-soft-float=default:
+CC		= $(CC_GCC44_I386)
+CXX		= $(CXX_GCC44_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc46-i386-O0-soft-float=default:
+CC		= $(CC_GCC46_I386)
+CXX		= $(CXX_GCC46_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc46-i386-O2-soft-float=default:
+CC		= $(CC_GCC46_I386)
+CXX		= $(CXX_GCC46_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc46-i386-O3-soft-float=default:
+CC		= $(CC_GCC46_I386)
+CXX		= $(CXX_GCC46_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc47-i386-O0-soft-float=default:
+CC		= $(CC_GCC47_I386)
+CXX		= $(CXX_GCC47_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc47-i386-O2-soft-float=default:
+CC		= $(CC_GCC47_I386)
+CXX		= $(CXX_GCC47_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc47-i386-O3-soft-float=default:
+CC		= $(CC_GCC47_I386)
+CXX		= $(CXX_GCC47_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+
+default=default=gcc48-i386-O0-soft-float=default:
+CC		= $(CC_GCC48_I386)
+CXX		= $(CXX_GCC48_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc48-i386-O2-soft-float=default:
+CC		= $(CC_GCC48_I386)
+CXX		= $(CXX_GCC48_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc48-i386-O3-soft-float=default:
+CC		= $(CC_GCC48_I386)
+CXX		= $(CXX_GCC48_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+
+default=default=clang35-i386-O0-soft-float=default:
+CC		= $(CC_CLANG35_I386)
+CXX		= $(CXX_CLANG35_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=clang35-i386-O2-soft-float=default:
+CC		= $(CC_CLANG35_I386)
+CXX		= $(CXX_CLANG35_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=clang35-i386-O3-soft-float=default:
+CC		= $(CC_CLANG35_I386)
+CXX		= $(CXX_CLANG35_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+
+default=default=clang36-i386-O0-soft-float=default:
+CC		= $(CC_CLANG36_I386)
+CXX		= $(CXX_CLANG36_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=clang36-i386-O2-soft-float=default:
+CC		= $(CC_CLANG36_I386)
+CXX		= $(CXX_CLANG36_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=clang36-i386-O3-soft-float=default:
+CC		= $(CC_CLANG36_I386)
+CXX		= $(CXX_CLANG36_I386)
+COPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=ccomp-i386-soft-float=default:
+CC		= $(CC_CCOMP_I386)
+CXX		= 
+COPTIMIZE	= $(COPTIMIZE_CCOMP_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_CCOMP_soft_float)
+FC              = 
+EXTRA_LIBS      = 

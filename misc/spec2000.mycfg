@@ -62,10 +62,15 @@ teerunout=yes
 # NOTE: The F90 benchmarks will *not* work with this compiler
 #       setting.
 default=default=default=default:
-CC	= $(CC_X64)
-CXX	= $(CXX_X64)
-FC      = g77 
-F77     = g77
+CC           = /default/value/should/not/be/seen
+CXX          = /default/value/should/not/be/seen
+FC           = /default/value/should/not/be/seen
+#CC	= $(CC_X64)
+#CXX	= $(CXX_X64)
+#FC      = g77 
+#F77     = g77
+default=base=default=default:
+FOPTIMIZE    = -O3
 
 ################################################################
 # Portability Flags
