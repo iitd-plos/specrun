@@ -1,5 +1,4 @@
-notes0000=DEBUG_FLAG = -g
-DEBUG_FLAG=
+DEBUG_FLAG=-g
 COPTIMIZE_O0=-O0 $(DEBUG_FLAG)
 COPTIMIZE_O0_soft_float=-O0 $(DEBUG_FLAG) -msoft-float
 COPTIMIZE_O0_hard_float=-O0 $(DEBUG_FLAG) -mhard-float
