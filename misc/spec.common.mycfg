@@ -1,19 +1,22 @@
 DEBUG_FLAG=-g
-COPTIMIZE_O0=-O0 $(DEBUG_FLAG)
-COPTIMIZE_O0_soft_float=-O0 $(DEBUG_FLAG) -msoft-float
-COPTIMIZE_O0_hard_float=-O0 $(DEBUG_FLAG) -mhard-float
-COPTIMIZE_O2=-O2 $(DEBUG_FLAG)
-COPTIMIZE_O2_soft_float=-O2 $(DEBUG_FLAG) -msoft-float
-COPTIMIZE_O2_hard_float=-O2 $(DEBUG_FLAG) -mhard-float
-COPTIMIZE_O2U=-O2 -funroll-all-loops $(DEBUG_FLAG)
-COPTIMIZE_O2u=-O2 -funroll-loops $(DEBUG_FLAG)
-COPTIMIZE_O2ofp=-O2 -fomit-frame-pointer $(DEBUG_FLAG)
-COPTIMIZE_O3=-O3 $(DEBUG_FLAG)
-COPTIMIZE_O3_soft_float=-O3 $(DEBUG_FLAG) -msoft-float
-COPTIMIZE_O3_hard_float=-O3 $(DEBUG_FLAG) -mhard-float
-COPTIMIZE_O3U=-O3 -funroll-all-loops $(DEBUG_FLAG)
-COPTIMIZE_O3u=-O3 -funroll-loops $(DEBUG_FLAG)
-COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(DEBUG_FLAG)
+GCC_EQCHECKER_FLAGS=-fno-inline -fno-inline-functions -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector
+CLANG_EQCHECKER_FLAGS=-fno-asm -fno-inline -fno-inline-functions -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector
+COMMON_FLAGS=$(DEBUG_FLAG) $(CLANG_EQCHECKER_FLAGS)
+COPTIMIZE_O0=-O0 $(COMMON_FLAGS) $(CLANG_EQCHECKER_FLAGS)
+COPTIMIZE_O0_soft_float=-O0 $(COMMON_FLAGS) -msoft-float
+COPTIMIZE_O0_hard_float=-O0 $(COMMON_FLAGS) -mhard-float
+COPTIMIZE_O2=-O2 $(COMMON_FLAGS)
+COPTIMIZE_O2_soft_float=-O2 $(COMMON_FLAGS) -msoft-float
+COPTIMIZE_O2_hard_float=-O2 $(COMMON_FLAGS) -mhard-float
+COPTIMIZE_O2U=-O2 -funroll-all-loops $(COMMON_FLAGS)
+COPTIMIZE_O2u=-O2 -funroll-loops $(COMMON_FLAGS)
+COPTIMIZE_O2ofp=-O2 -fomit-frame-pointer $(COMMON_FLAGS)
+COPTIMIZE_O3=-O3 $(COMMON_FLAGS)
+COPTIMIZE_O3_soft_float=-O3 $(COMMON_FLAGS) -msoft-float
+COPTIMIZE_O3_hard_float=-O3 $(COMMON_FLAGS) -mhard-float
+COPTIMIZE_O3U=-O3 -funroll-all-loops $(COMMON_FLAGS)
+COPTIMIZE_O3u=-O3 -funroll-loops $(COMMON_FLAGS)
+COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(COMMON_FLAGS)
 COPTIMIZE_CCOMP_soft_float=-fno-fpu -fnone -fvararg-calls -funprototyped 
 CPORTABILITY_i386=
 CPORTABILITY_x64=-DSPEC_CPU_LP64
@@ -289,27 +292,21 @@ FC              = $(FC_I386)
 default=default=crosstool-ppc-O0=default:
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
-notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 COPTIMIZE	= $(COPTIMIZE_O0)
-notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
 CXXOPTIMIZE	= $(COPTIMIZE_O0)
 feedback=0
 
 default=default=crosstool-ppc-O0-hard-float=default:
-notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
 COPTIMIZE	= $(COPTIMIZE_O0_hard_float)
-notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
 CXXOPTIMIZE	= $(COPTIMIZE_O0_hard_float)
 feedback=0
 
 default=default=crosstool-ppc-O0-soft-float=default:
-notes0080=  Baseline C:   ppc$(DEBUG_FLAG)cc $(COPTIMIZE_O0)
 CC		= $(CC_CROSSTOOL_PPC)
 CXX		= $(CXX_CROSSTOOL_PPC)
 COPTIMIZE	= $(COPTIMIZE_O0_soft_float)
-notes0085=  Baseline C++: ppc$(DEBUG_FLAG)++ $(COPTIMIZE_O0)
 CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float)
 feedback=0
 
