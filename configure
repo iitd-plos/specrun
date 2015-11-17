@@ -17,6 +17,7 @@ menhir=menhir-20151012
 coq=coq-8.4pl6
 compcert=compcert-2.5
 
+chmod +x misc/clang32
 if [ $source_path == `pwd` ]; then
   #make build directory
   build_dir=`pwd`/../$name-build
