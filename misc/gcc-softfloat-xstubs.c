@@ -35,3 +35,9 @@ void __getf2 (void) { abort(); }
 void __letf2 (void) { abort(); }
 void __lttf2 (void) { abort(); }
 
+void memset(char *dst, int c, int n) {
+  int i;
+  for (i = 0; i < n; i++) {
+    dst[i] = c;
+  }
+}
