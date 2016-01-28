@@ -99,7 +99,7 @@ if ($debugging_on) {
   $debug_str = "";
 }
 
-my $opt_str;
+my $opt_str; # no longer needed, remove it
 if ($opt0) {
   $opt_str = "-O0";
 } elsif ($opt2) {
@@ -153,9 +153,20 @@ if ($0 =~ /clang32$/) {
   die "Unknown program name: $0\n";
 }
 
+# removed 
+# -globalopt
+# -barrier  does not exist in 3.4 (TODO make opt_options conditional with clang versions)
+my $opt_options = "-lower-expect -targetlibinfo -no-aa -tbaa -basicaa -notti -ipsccp -deadargelim -instcombine -simplifycfg -basiccg -prune-eh -inline-cost -inline -functionattrs -sroa -domtree -early-cse -lazy-value-info -jump-threading -correlated-propagation -simplifycfg -instcombine -tailcallelim -simplifycfg -reassociate -domtree -loops -loop-simplify -lcssa -loop-rotate -licm -lcssa -loop-unswitch -instcombine -scalar-evolution -loop-simplify -lcssa -indvars -loop-idiom -loop-deletion -loop-unroll -memdep -gvn -memdep -memcpyopt -sccp -instcombine -lazy-value-info -jump-threading -correlated-propagation -domtree -memdep -dse -loops -scalar-evolution -slp-vectorizer -adce -simplifycfg -instcombine -domtree -loops -loop-simplify -lcssa -scalar-evolution -loop-simplify -lcssa -loop-vectorize -instcombine -simplifycfg -strip-dead-prototypes -globaldce -constmerge -domtree -verify";
+
 if ($compile == 1) {
-  psystem("$clang -m32 -emit-llvm $debug_str $define_str $prog.$prog_suffix $opt_str -c -o $prog.bc @ARGV");
-  psystem("llc$ver $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
+  psystem("$clang -m32 -emit-llvm $debug_str $define_str $prog.$prog_suffix -c -o $prog.bc @ARGV");
+  if ($opt2) {
+    psystem("opt$ver $opt_options $prog.bc -o $prog.opt.bc");
+    psystem("llc$ver $prog.opt.bc -march=x86 -mcpu=i386 -o $prog.S");
+  }
+  else {
+    psystem("llc$ver $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
+  }
   psystem("$gcc $prog.S -m32 $debug_str $static_link_str $object_file_output_str -o $output_file");
 } else {
   psystem("$gcc -m32 $debug_str $static_link_str $object_file_output_str -o $output_file $prog.$prog_suffix @ARGV $link_str");
