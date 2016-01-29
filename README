@@ -1,4 +1,4 @@
-sudo apt-get install libmpfr-dev libmpc-dev libmpc3 libgmp3-dev gfortran-multilib gcc-4.4 gcc-4.4-multilib gcc-4.6 gcc-4.6-multilib gcc-4.7 gcc-4.7-multilib gcc-4.8 gcc-4.8-multilib clang-3.5 clang-3.6 camlp5
+sudo apt-get install libmpfr-dev libmpc-dev libmpc3 libgmp3-dev gfortran-multilib gcc-4.4 gcc-4.4-multilib gcc-4.6 gcc-4.6-multilib gcc-4.7 gcc-4.7-multilib gcc-4.8 gcc-4.8-multilib clang-3.5 clang-3.6 camlp5 libunix-mknod-perl
 
 To build:
 make specbuild2006  # this may take some time. copy spec_cpu_2000.tar.bz2 in ../tars beforehand
