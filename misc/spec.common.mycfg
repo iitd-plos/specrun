@@ -1,5 +1,5 @@
 DEBUG_FLAG=-g
-GCC_EQCHECKER_FLAGS= -fno-inline -fno-inline-functions -fno-inline-small-functions -fno-indirect-inlining -fno-partial-inlining -fno-inline-functions-called-once -fno-early-inlining -fno-whole-program -fno-peel-loops -fipa-sra -fno-strict-overflow -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector  --param scev-max-expr-size=0 -fkeep-inline-functions -std=c11 -undef -DTIMING_OUTPUT -fkeep-inline-functions
+GCC_EQCHECKER_FLAGS= -fno-inline -fno-inline-functions -fno-inline-small-functions -fno-indirect-inlining -fno-partial-inlining -fno-inline-functions-called-once -fno-early-inlining -fno-whole-program -fno-peel-loops -fipa-sra -fno-strict-overflow -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector  --param scev-max-expr-size=0 -fkeep-inline-functions -fwrapv -std=c11 -undef -DTIMING_OUTPUT -fkeep-inline-functions
 CLANG_EQCHECKER_FLAGS= -fno-inline -fno-inline-functions -fno-builtin -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -std=c11 -undef -DTIMING_OUTPUT
 COMMON_FLAGS=$(DEBUG_FLAG)
 COPTIMIZE_O0=-O0 $(COMMON_FLAGS)
