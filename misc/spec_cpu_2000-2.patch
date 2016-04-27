@@ -1,0 +1,57 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/164.gzip/src/trees.c spec_cpu_2000.mod/benchspec/CINT2000/164.gzip/src/trees.c
+--- spec_cpu_2000/benchspec/CINT2000/164.gzip/src/trees.c	1998-11-09 20:42:32.000000000 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/164.gzip/src/trees.c	2016-04-27 17:17:07.013343122 +0530
+@@ -295,7 +295,7 @@
+ local void pqdownheap     OF((ct_data near *tree, int k));
+ local void gen_bitlen     OF((tree_desc near *desc));
+ local void gen_codes      OF((ct_data near *tree, int max_code));
+-local void build_tree     OF((tree_desc near *desc));
++local void build_tree2     OF((tree_desc near *desc));
+ local void scan_tree      OF((ct_data near *tree, int max_code));
+ local void send_tree      OF((ct_data near *tree, int max_code));
+ local int  build_bl_tree  OF((void));
+@@ -606,7 +606,7 @@
+  *     and corresponding code. The length opt_len is updated; static_len is
+  *     also updated if stree is not null. The field max_code is set.
+  */
+-local void build_tree(desc)
++local void build_tree2(desc)
+     tree_desc near *desc; /* the tree descriptor */
+ {
+     ct_data near *tree   = desc->dyn_tree;
+@@ -796,7 +796,7 @@
+     scan_tree((ct_data near *)dyn_dtree, d_desc.max_code);
+ 
+     /* Build the bit length tree: */
+-    build_tree((tree_desc near *)(&bl_desc));
++    build_tree2((tree_desc near *)(&bl_desc));
+     /* opt_len now includes the length of the tree representations, except
+      * the lengths of the bit lengths codes and the 5+5+4 bits for the counts.
+      */
+@@ -864,10 +864,10 @@
+     if (*file_type == (ush)UNKNOWN) set_file_type();
+ 
+     /* Construct the literal and distance trees */
+-    build_tree((tree_desc near *)(&l_desc));
++    build_tree2((tree_desc near *)(&l_desc));
+     Tracev((stderr, "\nlit data: dyn %ld, stat %ld", opt_len, static_len));
+ 
+-    build_tree((tree_desc near *)(&d_desc));
++    build_tree2((tree_desc near *)(&d_desc));
+     Tracev((stderr, "\ndist data: dyn %ld, stat %ld", opt_len, static_len));
+     /* At this point, opt_len and static_len are the total bit lengths of
+      * the compressed block data, excluding the tree representations.
+
+diff -ur spec_cpu_2000/benchspec/CINT2000/164.gzip/src/gzip.h spec_cpu_2000.mod/benchspec/CINT2000/164.gzip/src/gzip.h
+--- spec_cpu_2000/benchspec/CINT2000/164.gzip/src/gzip.h  1999-04-11 13:48:33.000000000 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/164.gzip/src/gzip.h  2016-04-27 17:26:46.425356083 +0530
+@@ -54,7 +54,7 @@
+ #  define RETSIGTYPE void
+ #endif
+
+-#define local static
++#define local
+
+ typedef unsigned char  uch;
+ typedef unsigned short ush;
+
