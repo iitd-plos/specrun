@@ -55,3 +55,15 @@ diff -ur spec_cpu_2000/benchspec/CINT2000/164.gzip/src/gzip.h spec_cpu_2000.mod/
  typedef unsigned char  uch;
  typedef unsigned short ush;
 
+diff -ur spec_cpu_2000/benchspec/CINT2000/164.gzip/src/unlzh.c spec_cpu_2000.mod/benchspec/CINT2000/164.gzip/src/unlzh.c
+--- spec_cpu_2000/benchspec/CINT2000/164.gzip/src/unlzh.c	1998-11-09 20:42:32.000000000 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/164.gzip/src/unlzh.c	2016-05-02 12:24:04.462452505 +0530
+@@ -348,7 +348,7 @@
+        before calling this function.
+      */
+ {
+-    local unsigned i;
++    static unsigned i;
+     unsigned r, c;
+ 
+     r = 0;
