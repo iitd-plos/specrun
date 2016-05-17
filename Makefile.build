@@ -188,6 +188,10 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
 		&& cd -"
 	touch $@
 
