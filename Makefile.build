@@ -224,9 +224,13 @@ specrun2000:
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-soft-float bzip2 gzip \
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float bzip2 gzip
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float bzip2 gzip
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float bzip2 gzip
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float bzip2 gzip
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O0-soft-float bzip2 gzip
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float bzip2 gzip
 
 .PHONY: specrun2006
 specrun2006:
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386 bzip2 mcf perlbmk cactusADM GemsFDTD omnetpp bwaves gamess
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O0-soft-float bzip2 mcf
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O2-soft-float bzip2 mcf
