@@ -63,7 +63,8 @@ $(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a: $(SRCDIR)/../tars/$(GCC
 	cd $(build)/installs && rm -rf $(GCC_SOFT_FLOAT) && tar xf $< && patch -p0 < $(SRCDIR)/misc/$(GCC_SOFT_FLOAT).softfloat.patch && cd -
 	cd $(build)/installs/$(GCC_SOFT_FLOAT)/gcc/config/soft-fp \
 	&& cp $(SRCDIR)/misc/gcc-softfloat-xstubs.c . \
-	&& $(CC_GCC_I386) -msoft-float -c -I.. -I../i386 -I../../../libgcc \
+	&& cp $(build)/installs/$(GCC_SOFT_FLOAT)/gcc/config/m68k/fpgnulib.c .\
+	&& $(CC_GCC_I386) -DEXTFLOAT -c -I.. -I../i386 -I../../../libgcc \
 	   -I../../../gcc/ *.c \
 	&& ar -crv libsoftfloat.i386.a *.o \
 	&& cd -
@@ -205,7 +206,6 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
 		&& cd -"
 	touch $@
-		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc-i386-O3-soft-float \
 
 .PHONY: specrebuild2000
 specrebuild2000: $(SRCDIR)/misc/specbuild.pl \
@@ -226,19 +226,37 @@ specrebuild2000: $(SRCDIR)/misc/specbuild.pl \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
 		&& cd -"
 	touch $@
-		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc-i386-O3-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
-
 
 .PHONY: specrun2000
 specrun2000:
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-soft-float bzip2 gzip \
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float bzip2 gzip
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float bzip2 gzip
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float bzip2 gzip
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float bzip2 gzip
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O0-soft-float parser vpr gap crafty
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float parser vpr gap crafty
 
 .PHONY: specrun2006
 specrun2006:
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386 bzip2 mcf perlbmk cactusADM GemsFDTD omnetpp bwaves gamess
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O0-soft-float bzip2 mcf
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O2-soft-float bzip2 mcf
+
+
+
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc-i386-O3-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
+
+
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc-i386-O3-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float
+
+
