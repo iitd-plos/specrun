@@ -31,6 +31,8 @@ CXX_ICC_X64=/opt/intel/bin/icpc
 CC_CLANG_X64=clang
 CXX_CLANG_X64=clang++
 
+CROSSTOOL_I386_BIN=$(build)/../superopt-build/installs/crosstool-0.43-install/gcc-4.1.0-glibc-2.3.6.mod.i386/i686-unknown-linux-gnu/bin/
+
 #32-bit
 CC_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-gcc -m32 -msoft-float
 CXX_CROSSTOOL_I386=$(CROSSTOOL_I386_BIN)/i686-unknown-linux-gnu-g++ -m32 -msoft-float
@@ -196,6 +198,8 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC2000_DIR) \
 		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext crosstool-i386-O0 \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext crosstool-i386-O2 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc61-i386-O0-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc61-i386-O2-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float \
