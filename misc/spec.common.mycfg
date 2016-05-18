@@ -686,6 +686,22 @@ FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 
+default=default=gcc61-i386-O0-soft-float=default:
+CC		= $(CC_GCC61_I386)
+CXX		= $(CXX_GCC61_I386)
+COPTIMIZE	= $(COPTIMIZE_O0_soft_float) $(GCC_EQCHECKER_FLAGS)
+CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float) $(GCC_EQCHECKER_FLAGS)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=gcc61-i386-O2-soft-float=default:
+CC		= $(CC_GCC61_I386)
+CXX		= $(CXX_GCC61_I386)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float) $(GCC_EQCHECKER_FLAGS)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float) $(GCC_EQCHECKER_FLAGS)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
 default=default=clang35-i386-O0-soft-float=default:
 CC		= $(CC_CLANG35_I386)
 CXX		= $(CXX_CLANG35_I386)
