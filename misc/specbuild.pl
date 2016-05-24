@@ -135,12 +135,18 @@ sub copy_execs
       if (!-e "$outdir/$cfg") {
         system("mkdir -p $outdir/$cfg");
       }
+      my $out_exname = $exname;
+      if ($exname eq "specrand") {
+        $exec =~ /^(\d*)\./;
+        my $id = $1;
+        $out_exname = "$exname.$id";
+      }
       copy("$cint_dir/$exec/exe/$exname\_base.$cfg",
-        "$outdir/$cfg/$exname")
+        "$outdir/$cfg/$out_exname")
         or print STDERR "Copy failed from ".
            "$cint_dir/$exec/exe/$exname\_base.$cfg to ".
            "$outdir/$cfg/$exname. Error $!\n";
-      chmod 0755, "$outdir/$cfg/$exname";
+      chmod 0755, "$outdir/$cfg/$out_exname";
     }
   }
 }
