@@ -122,6 +122,7 @@ $(build)/installs/cpu2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2
 	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2 && cd -
 	-chmod -f +w $(build)/installs/cpu2006 $(build)/installs/cpu2006/* $(build)/installs/cpu2006/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*/*
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006.patch && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006-2.patch && cd -
 
 .PHONY: $(build)/installs/spec_cpu_2000
 $(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
@@ -170,6 +171,7 @@ $(COMPCERT_INSTALL)/bin/ccomp: $(MENHIR_INSTALL)/bin/menhir $(COQ_INSTALL)/bin/c
 .PHONY: specbuild2006
 specbuild2006: $(build)/installs/cpu2006 \
 		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
+	rm -rf $(build)/spec2006/
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
 		&& $(SPEC2006_DIR)/bin/relocate \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O0-soft-float \
@@ -180,6 +182,23 @@ specbuild2006: $(build)/installs/cpu2006 \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext ccomp-i386-O2-soft-float \
 		&& cd -"
 	touch $@
+
+
+.PHONY: specrebuild2006
+specrebuild2006: \
+		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
+	rm -rf $(build)/spec2006/
+	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
+		&& $(SPEC2006_DIR)/bin/relocate \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O0-soft-float \
+		&& cd -"
+	touch $@
+
+    #&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O2-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext clang36-i386-O0-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext clang36-i386-O2-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext ccomp-i386-O0-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext ccomp-i386-O2-soft-float \
 
 
 .PHONY: specbuild2000
