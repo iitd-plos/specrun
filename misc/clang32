@@ -24,6 +24,7 @@ my $debugging_on = 0;
 my $object_file_output = 0;
 my $spec_cpu2000 = 0;
 my @defines;
+my @undefines;
 my @includes;
 my @warnings;
 my @f_options;
@@ -37,7 +38,7 @@ for (my $i = 0; $i <= $#ARGV; $i++) {
   print "argv[$i]=$ARGV[$i]\n";
   if ($ARGV[$i] =~ /^-v(.*)$/) {
     $ver = "-$1";
-  } elsif ($ARGV[$i] =~ /^-([fIDWlL])(.*)$/) {
+  } elsif ($ARGV[$i] =~ /^-([fIDUWlL])(.*)$/) {
     my $o = $1;
     my $d = $2;
     push(@new_argv, "-$o");
@@ -58,6 +59,7 @@ GetOptions(
   "c" => \$object_file_output,
   "I=s" => \@includes,
   "D=s" => \@defines,
+  "U=s" => \@undefines,
   "f=s" => \@f_options,
   "W=s" => \@warnings,
   "l=s" => \@linklibs,
@@ -125,6 +127,9 @@ foreach my $i (@includes) {
 }
 foreach my $d (@defines) {
   $define_str .= " -D$d";
+}
+foreach my $d (@undefines) {
+  $define_str .= " -U$d";
 }
 foreach my $w (@warnings) {
   $define_str .= " -W$w";
