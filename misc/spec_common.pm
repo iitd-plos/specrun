@@ -9,8 +9,15 @@ our %args, our %small_args, our %prep_commands;
 sub spec_exec_name {
   my $specname = shift;
   my $exec = shift;
-  $exec =~ /^\d*\.(.*)$/;
-  my $exname = ($1 eq "gcc" && $specname eq "spec2000")?"cc1":$1;
+  $exec =~ /^(\d*)\.(.*)$/;
+  my $id = $1;
+  my $name = $2;
+  my $exname;
+  #if ($name eq "specrand" && $specname eq "spec2006") {
+  #  $exname = "$name.$id";
+  #} else {
+    $exname = ($name eq "gcc" && $specname eq "spec2000")?"cc1":$name;
+  #}
   return $exname;
 }
 

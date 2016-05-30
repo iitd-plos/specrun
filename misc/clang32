@@ -159,12 +159,17 @@ if ($0 =~ /clang32$/) {
 }
 
 # removed 
-# -globalopt
-# -barrier  does not exist in 3.4 (TODO make opt_options conditional with clang versions)
-my $opt_options = "-lower-expect -targetlibinfo -no-aa -tbaa -basicaa -notti -ipsccp -deadargelim -instcombine -simplifycfg -basiccg -prune-eh -inline-cost -inline -functionattrs -sroa -domtree -early-cse -lazy-value-info -jump-threading -correlated-propagation -simplifycfg -instcombine -tailcallelim -simplifycfg -reassociate -domtree -loops -loop-simplify -lcssa -loop-rotate -licm -lcssa -loop-unswitch -instcombine -scalar-evolution -loop-simplify -lcssa -indvars -loop-idiom -loop-deletion -loop-unroll -memdep -gvn -memdep -memcpyopt -sccp -instcombine -lazy-value-info -jump-threading -correlated-propagation -domtree -memdep -dse -loops -scalar-evolution -slp-vectorizer -adce -simplifycfg -instcombine -domtree -loops -loop-simplify -lcssa -scalar-evolution -loop-simplify -lcssa -loop-vectorize -instcombine -simplifycfg -strip-dead-prototypes -globaldce -constmerge -domtree -verify";
+#-globalopt needed for gzip:lzw-AA
+#-barrier  does not exist in 3.4 (TODO make opt_options conditional with clang versions)
+#-loop-unswitch --needed for bzip2:hbAssign
+#-ipsccp
+#-scalar-evolution
+#-sccp 
+#-loop-unroll 
+my $opt_options = "-indvars -lower-expect -targetlibinfo -no-aa -tbaa -basicaa -notti -deadargelim -instcombine -basiccg -prune-eh -inline-cost -inline -functionattrs -sroa -domtree -early-cse -lazy-value-info -jump-threading -correlated-propagation -simplifycfg -instcombine -tailcallelim -reassociate -domtree -loops -loop-simplify -lcssa -loop-rotate -licm -instcombine -loop-idiom -loop-deletion -memdep -gvn -memdep -memcpyopt -instcombine -lazy-value-info -jump-threading -correlated-propagation -domtree -memdep -dse -slp-vectorizer -adce -instcombine -domtree -loop-vectorize -instcombine -strip-dead-prototypes -globaldce -constmerge -domtree -verify";
 
 if ($compile == 1) {
-  psystem("$clang -m32 -emit-llvm $debug_str $define_str $prog.$prog_suffix -c -o $prog.bc @ARGV");
+  psystem("$clang -m32 -emit-llvm -fwrapv -fno-strict-aliasing $debug_str $define_str $prog.$prog_suffix -c -o $prog.bc @ARGV");
   if ($opt2) {
     psystem("opt$ver $opt_options $prog.bc -o $prog.opt.bc");
     psystem("llc$ver $prog.opt.bc -march=x86 -mcpu=i386 -o $prog.S");

@@ -38,7 +38,7 @@ our @all_specs2006;
 our @default_opts;
 
 
-my $run_iter = 5;
+my $run_iter = 1;
 my $small_inputs = 0;
 
 sub usage
@@ -128,6 +128,7 @@ for (my $iter = 0; $iter < $run_iter; $iter++) {
       my $cur_exec_bench = get_bench_from_exec($cur_exec);
       #print "cur_exec_bench= $cur_exec_bench\n";
       $cur_exec_bench = "$specname.$cur_exec_bench";
+      make_endianness_adjustments($cur_exec_bench, "i386");
       defined $args{"$cur_exec_bench"}
         or die "args undefined for $cur_exec_bench.\n";
       my @cur_args;
