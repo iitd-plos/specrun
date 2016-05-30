@@ -167,15 +167,16 @@ if ($0 =~ /clang32$/) {
 #-sccp 
 #-loop-unroll 
 my $opt_options = "-indvars -lower-expect -targetlibinfo -no-aa -tbaa -basicaa -notti -deadargelim -instcombine -basiccg -prune-eh -inline-cost -inline -functionattrs -sroa -domtree -early-cse -lazy-value-info -jump-threading -correlated-propagation -simplifycfg -instcombine -tailcallelim -reassociate -domtree -loops -loop-simplify -lcssa -loop-rotate -licm -instcombine -loop-idiom -loop-deletion -memdep -gvn -memdep -memcpyopt -instcombine -lazy-value-info -jump-threading -correlated-propagation -domtree -memdep -dse -slp-vectorizer -adce -instcombine -domtree -loop-vectorize -instcombine -strip-dead-prototypes -globaldce -constmerge -domtree -verify";
+my $eqchecker_options = "-disable-simplify-libcalls";
 
 if ($compile == 1) {
   psystem("$clang -m32 -emit-llvm -fwrapv -fno-strict-aliasing $debug_str $define_str $prog.$prog_suffix -c -o $prog.bc @ARGV");
   if ($opt2) {
-    psystem("opt$ver $opt_options $prog.bc -o $prog.opt.bc");
-    psystem("llc$ver $prog.opt.bc -march=x86 -mcpu=i386 -o $prog.S");
+    psystem("opt$ver $opt_options $eqchecker_options $prog.bc -o $prog.opt.bc");
+    psystem("llc$ver $eqchecker_options $prog.opt.bc -march=x86 -mcpu=i386 -o $prog.S");
   }
   else {
-    psystem("llc$ver $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
+    psystem("llc$ver $eqchecker_options $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
   }
   psystem("$gcc $prog.S -m32 $debug_str $static_link_str $object_file_output_str -o $output_file");
 } else {
