@@ -1,8 +1,9 @@
 DEBUG_FLAG=-g
-GCC_EQCHECKER_FLAGS= -undef -fno-inline -fno-inline-functions -fno-inline-small-functions -fno-indirect-inlining -fno-partial-inlining -fno-inline-functions-called-once -fno-early-inlining -fno-whole-program -fno-peel-loops -fipa-sra -fno-strict-overflow -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector  --param scev-max-expr-size=0 -fkeep-inline-functions -fwrapv -std=c11 -DTIMING_OUTPUT -fkeep-inline-functions -fno-reorder-blocks
+GCC_EQCHECKER_FLAGS= -fno-inline -fno-inline-functions -fno-inline-small-functions -fno-indirect-inlining -fno-partial-inlining -fno-inline-functions-called-once -fno-early-inlining -fno-whole-program -fno-peel-loops -fipa-sra -fno-strict-overflow -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector  --param scev-max-expr-size=0 -fkeep-inline-functions -fwrapv -std=c11 -undef -DTIMING_OUTPUT -fkeep-inline-functions -fno-reorder-blocks
+CLANG_EQCHECKER_FLAGS= -fno-inline -fno-inline-functions -fno-builtin -ffreestanding -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -std=c11 -undef -DTIMING_OUTPUT -Dexit=myexit -U__GNUC__ -fno-reorder-blocks
 GCC_EQCHECKER_FLAGS_CROSSTOOL= -undef -m32 -fno-inline -fno-inline-functions -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -g -fno-inline -fno-inline-functions  -fno-inline-functions-called-once -fno-early-inlining -fno-whole-program -fno-peel-loops   -fno-builtin -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector  --param scev-max-expr-size=0 -fkeep-inline-functions -fwrapv -DTIMING_OUTPUT -fkeep-inline-functions -fno-reorder-blocks
-CLANG_EQCHECKER_FLAGS= -undef -fno-inline -fno-inline-functions -fno-builtin -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -std=c11 -DTIMING_OUTPUT
 ICC_EQCHECKER_FLAGS= -no-ip -nolib-inline -fno-optimize-sibling-calls -fargument-alias -unroll0 -no-ansi-alias -fno-alias -no-vec -fno-jump-tables -fno-builtin -inline-level=0 -fno-omit-frame-pointer -std=c11 -fno-strict-overflow
+
 COMMON_FLAGS=$(DEBUG_FLAG)
 COPTIMIZE_O0=-O0 $(COMMON_FLAGS)
 COPTIMIZE_O0_soft_float=-O0 $(COMMON_FLAGS) -msoft-float

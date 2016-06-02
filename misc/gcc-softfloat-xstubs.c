@@ -135,10 +135,14 @@ __cmpdf2(double x1, double x2)
   abort();
 }
 
-
 void memset(char *dst, int c, int n) {
   int i;
   for (i = 0; i < n; i++) {
     dst[i] = c;
   }
+}
+
+void myexit(int ec)
+{
+  exit(ec);
 }
