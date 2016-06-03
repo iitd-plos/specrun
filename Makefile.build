@@ -229,9 +229,6 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	touch $@
 
 
-		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
-		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0 \
-		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O2 \
 
 #		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext crosstool-i386-O0 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext crosstool-i386-O2 \
