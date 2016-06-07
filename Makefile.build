@@ -176,7 +176,14 @@ specbuild2006: $(build)/installs/cpu2006 \
 	rm -rf $(build)/spec2006/
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
 		&& $(SPEC2006_DIR)/bin/relocate \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O0-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O2-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext clang36-i386-O0-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext clang36-i386-O2-soft-float \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext icc-i386-O0-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext icc-i386-O2-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext ccomp-i386-O0-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext ccomp-i386-O2-soft-float \
 		&& cd -"
 	touch $@
 
