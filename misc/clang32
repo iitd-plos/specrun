@@ -28,6 +28,8 @@ my @undefines;
 my @includes;
 my @warnings;
 my @f_options;
+my @m_options;
+my @Xclang_options;
 my @linklibs;
 my @linkdirs;
 my @new_argv;
@@ -38,11 +40,14 @@ for (my $i = 0; $i <= $#ARGV; $i++) {
   print "argv[$i]=$ARGV[$i]\n";
   if ($ARGV[$i] =~ /^-v(.*)$/) {
     $ver = "-$1";
-  } elsif ($ARGV[$i] =~ /^-([fIDUWlL])(.*)$/) {
+  } elsif ($ARGV[$i] =~ /^-([fIDUmWlL])(.*)$/) {
     my $o = $1;
     my $d = $2;
     push(@new_argv, "-$o");
     push(@new_argv, $d);
+  } elsif ($ARGV[$i] eq "-Xclang") {
+    $i++;
+    push(@Xclang_options, $ARGV[$i]);
   } else {
     push(@new_argv, $ARGV[$i]);
   }
@@ -61,6 +66,7 @@ GetOptions(
   "D=s" => \@defines,
   "U=s" => \@undefines,
   "f=s" => \@f_options,
+  "m=s" => \@m_options,
   "W=s" => \@warnings,
   "l=s" => \@linklibs,
   "L=s" => \@linkdirs,
@@ -137,6 +143,14 @@ foreach my $w (@warnings) {
 foreach my $f (@f_options) {
   $define_str .= " -f$f";
 }
+foreach my $m (@m_options) {
+  $define_str .= " -m$m";
+}
+
+my $Xclang_options_str = "";
+foreach my $Xclang_option (@Xclang_options) {
+  $Xclang_options_str .= " $Xclang_option";
+}
 
 my $link_str = "";
 foreach my $l (@linkdirs) {
@@ -170,7 +184,7 @@ my $opt_options = "-indvars -lower-expect -targetlibinfo -no-aa -tbaa -basicaa -
 my $eqchecker_options = "-disable-simplify-libcalls";
 
 if ($compile == 1) {
-  psystem("$clang -m32 -emit-llvm -fwrapv -fno-strict-aliasing $debug_str $define_str $prog.$prog_suffix -c -o $prog.bc @ARGV");
+  psystem("$clang -m32 $Xclang_options_str -emit-llvm -fwrapv -fno-strict-aliasing $debug_str $define_str $prog.$prog_suffix -c -o $prog.bc @ARGV");
   if ($opt2) {
     psystem("opt$ver $opt_options $eqchecker_options $prog.bc -o $prog.opt.bc");
     psystem("llc$ver $eqchecker_options $prog.opt.bc -march=x86 -mcpu=i386 -o $prog.S");
@@ -178,9 +192,9 @@ if ($compile == 1) {
   else {
     psystem("llc$ver $eqchecker_options $prog.bc -march=x86 -mcpu=i386 -o $prog.S");
   }
-  psystem("$gcc $prog.S -m32 $debug_str $static_link_str $object_file_output_str -o $output_file");
+  psystem("$gcc $prog.S $Xclang_options_str -m32 $debug_str $static_link_str $object_file_output_str -o $output_file");
 } else {
-  psystem("$gcc -m32 $debug_str $static_link_str $object_file_output_str -o $output_file $prog.$prog_suffix @ARGV $link_str");
+  psystem("$gcc $Xclang_options_str -m32 $debug_str $static_link_str $object_file_output_str -o $output_file $prog.$prog_suffix @ARGV $link_str");
 }
 
 sub psystem {
