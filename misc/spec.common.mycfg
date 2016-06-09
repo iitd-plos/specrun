@@ -30,8 +30,8 @@ COPTIMIZE_O3_hard_float=-O3 $(COMMON_FLAGS) -mhard-float
 COPTIMIZE_O3U=-O3 -funroll-all-loops $(COMMON_FLAGS)
 COPTIMIZE_O3u=-O3 -funroll-loops $(COMMON_FLAGS)
 COPTIMIZE_O3ofp=-O3 -fomit-frame-pointer $(COMMON_FLAGS)
-COPTIMIZE_CCOMP_O0_soft_float=-O0 -g -fno-fpu -fnone -fvararg-calls -funprototyped -fstruct-return
-COPTIMIZE_CCOMP_O2_soft_float=-O2 -g -fno-fpu -fnone -fvararg-calls -funprototyped -fstruct-return
+COPTIMIZE_CCOMP_O0_soft_float=-O0 -g -fno-fpu -fnone -fvararg-calls -funprototyped -fstruct-return -fno-tailcalls
+COPTIMIZE_CCOMP_O2_soft_float=-O2 -g -fno-fpu -fnone -fvararg-calls -funprototyped -fstruct-return -fno-tailcalls
 CPORTABILITY_i386=
 CPORTABILITY_x64=-DSPEC_CPU_LP64
 
