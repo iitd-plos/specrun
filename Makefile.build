@@ -181,6 +181,7 @@ $(LLVM_BIN)/clang:
 	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(LLVM).src.tar.xz && mv $(LLVM).src $(LLVM) && cd -
 	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(CFE).src.tar.xz && mv $(CFE).src $(CFE) && cd -
 	cd $(build)/installs && mv $(CFE) $(LLVM)/tools/clang && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/llvm-no-jump-tables.patch && cd -
 	cd $(build)/installs && mkdir $(LLVM)-build && cd $(LLVM)-build && cmake -G "Unix Makefiles" ../$(LLVM) && make && cd -
 	#cd $(COMPCERT_DIR) && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH ./configure -prefix $(COMPCERT_INSTALL) ia32-linux && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH make && make install && cd -
 
