@@ -16,6 +16,8 @@ ocaml=ocaml-4.02.3
 menhir=menhir-20151012
 coq=coq-8.4pl6
 compcert=compcert-2.5
+llvm=llvm-3.6.0
+cfe=cfe-3.6.0
 
 chmod +x misc/clang32
 if [ $source_path == `pwd` ]; then
@@ -43,6 +45,8 @@ if [ $source_path == `pwd` ]; then
   echo "COQ=$coq" >> $config_host_mak
   echo "COMPCERT=$compcert" >> $config_host_mak
   echo "COMPCERT_CAPS_FIRST_FOURTH_LETTER=$compcert_caps_first_fourth_letter" >> $config_host_mak
+  echo "LLVM=$llvm" >> $config_host_mak
+  echo "CFE=$cfe" >> $config_host_mak
  
   echo "include $source_path/config-host.mak" > $config_mak
 

@@ -14,6 +14,8 @@ OCAML_DIR=$(build)/installs/$(OCAML)
 COMPCERT_DIR=$(build)/installs/$(COMPCERT)
 MENHIR_DIR=$(build)/installs/$(MENHIR)
 COQ_DIR=$(build)/installs/$(COQ)
+LLVM_DIR=$(build)/installs/$(LLVM)
+LLVM_BIN=$(build)/installs/$(LLVM)-build/bin
 
 OCAML_INSTALL=$(OCAML_DIR)-install
 MENHIR_INSTALL=$(MENHIR_DIR)-install
@@ -52,8 +54,8 @@ CC_CLANG35_I386=$(SRCDIR)/misc/clang32 -v3.5
 CXX_CLANG35_I386=$(SRCDIR)/misc/clang32++ -v3.5
 #CC_CLANG36_I386=$(SRCDIR)/misc/clang32 -v3.6
 #CXX_CLANG36_I386=$(SRCDIR)/misc/clang32++ -v3.6
-CC_CLANG36_I386=clang-3.6 -m32
-CXX_CLANG36_I386=clang++-3.6 -m32
+CC_CLANG36_I386=$(LLVM_BIN)/clang -m32
+CXX_CLANG36_I386=$(LLVM_BIN)/clang++ -m32
 CC_ICC_I386=/opt/intel/bin/icc -m32 -mia32
 CXX_ICC_I386=/opt/intel/bin/icpc -m32 -mia32
 CC_CLANG_I386=$(SRCDIR)/misc/clang32
@@ -169,10 +171,22 @@ $(COMPCERT_INSTALL)/bin/ccomp: $(MENHIR_INSTALL)/bin/menhir $(COQ_INSTALL)/bin/c
 	cd $(COMPCERT_DIR) && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH ./configure -prefix $(COMPCERT_INSTALL) ia32-linux && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH make && make install && cd -
 
 
+llvm-build: $(LLVM_BIN)/clang
+
+$(LLVM_BIN)/clang:
+	rm -rf $(LLVM_DIR)
+	rm -rf $(LLVM_DIR)-build
+	rm -rf $(CFE_DIR)
+	mkdir -p $(build)/installs
+	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(LLVM).src.tar.xz && mv $(LLVM).src $(LLVM) && cd -
+	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(CFE).src.tar.xz && mv $(CFE).src $(CFE) && cd -
+	cd $(build)/installs && mv $(CFE) $(LLVM)/tools/clang && cd -
+	cd $(build)/installs && mkdir $(LLVM)-build && cd $(LLVM)-build && cmake -G "Unix Makefiles" ../$(LLVM) && make && cd -
+	#cd $(COMPCERT_DIR) && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH ./configure -prefix $(COMPCERT_INSTALL) ia32-linux && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH make && make install && cd -
 
 .PHONY: specbuild2006
 specbuild2006: $(build)/installs/cpu2006 \
-		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg
+		$(SRCDIR)/misc/specbuild.pl $(SPEC2006_DIR)/config/spec.mycfg llvm-build
 	rm -rf $(build)/spec2006/
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
 		&& $(SPEC2006_DIR)/bin/relocate \
@@ -194,7 +208,7 @@ specrebuild2006: \
 	rm -rf $(build)/spec2006/
 	bash -c "cd $(SPEC2006_DIR) && source $(SPEC2006_DIR)/shrc \
 		&& $(SPEC2006_DIR)/bin/relocate \
-    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
 		&& cd -"
 	touch $@
 
@@ -209,7 +223,7 @@ specrebuild2006: \
 specbuild2000: $(build)/installs/spec_cpu_2000 \
 		                    $(SRCDIR)/misc/specbuild.pl \
 		$(SPEC2000_DIR)/config/spec.mycfg \
-	        compcert
+	        compcert llvm-build
 	rm -rf $(build)/spec2000/
 	ln -sf $(SPEC2000_DIR)/benchspec/CINT2000/197.parser/data/all/input/words $(build)/
 	sed "s#^/words/#words/#" \
@@ -219,14 +233,7 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC2000_DIR) \
 		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O2-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
 		&& cd -"
 	touch $@
 
@@ -238,6 +245,14 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc61-i386-O2-soft-float\
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O2-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
 
@@ -255,12 +270,7 @@ specrebuild2000: $(SRCDIR)/misc/specbuild.pl \
 	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC2000_DIR) \
 		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O2-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float \
 		&& cd -"
 	touch $@
 
