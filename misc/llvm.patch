@@ -1,0 +1,105 @@
+diff -ur llvm-toolchain-3.6-3.6/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp llvm-toolchain-3.6-3.6.mod/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp
+--- llvm-toolchain-3.6-3.6/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp	2016-06-13 21:58:48.332576211 +0530
++++ llvm-toolchain-3.6-3.6.mod/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp	2016-06-13 21:57:55.464574036 +0530
+@@ -2243,6 +2243,7 @@
+ }
+ 
+ static inline bool areJTsAllowed(const TargetLowering &TLI) {
++  return false;
+   return TLI.isOperationLegalOrCustom(ISD::BR_JT, MVT::Other) ||
+          TLI.isOperationLegalOrCustom(ISD::BRIND, MVT::Other);
+ }
+diff -ur llvm-toolchain-3.6-3.6/lib/Transforms/Scalar/Scalar.cpp llvm-toolchain-3.6-3.6.mod/lib/Transforms/Scalar/Scalar.cpp
+--- llvm-toolchain-3.6-3.6/lib/Transforms/Scalar/Scalar.cpp	2014-09-12 03:02:32.000000000 +0530
++++ llvm-toolchain-3.6-3.6.mod/lib/Transforms/Scalar/Scalar.cpp	2016-06-13 21:59:59.352579133 +0530
+@@ -27,48 +27,48 @@
+ /// initializeScalarOptsPasses - Initialize all passes linked into the
+ /// ScalarOpts library.
+ void llvm::initializeScalarOpts(PassRegistry &Registry) {
+-  initializeADCEPass(Registry);
+-  initializeAlignmentFromAssumptionsPass(Registry);
+-  initializeSampleProfileLoaderPass(Registry);
+-  initializeConstantHoistingPass(Registry);
+-  initializeConstantPropagationPass(Registry);
+-  initializeCorrelatedValuePropagationPass(Registry);
+-  initializeDCEPass(Registry);
+-  initializeDeadInstEliminationPass(Registry);
+-  initializeScalarizerPass(Registry);
+-  initializeDSEPass(Registry);
+-  initializeGVNPass(Registry);
+-  initializeEarlyCSEPass(Registry);
+-  initializeFlattenCFGPassPass(Registry);
+-  initializeIndVarSimplifyPass(Registry);
+-  initializeJumpThreadingPass(Registry);
+-  initializeLICMPass(Registry);
+-  initializeLoopDeletionPass(Registry);
+-  initializeLoopInstSimplifyPass(Registry);
+-  initializeLoopRotatePass(Registry);
+-  initializeLoopStrengthReducePass(Registry);
+-  initializeLoopRerollPass(Registry);
+-  initializeLoopUnrollPass(Registry);
+-  initializeLoopUnswitchPass(Registry);
+-  initializeLoopIdiomRecognizePass(Registry);
+-  initializeLowerAtomicPass(Registry);
+-  initializeLowerExpectIntrinsicPass(Registry);
+-  initializeMemCpyOptPass(Registry);
+-  initializeMergedLoadStoreMotionPass(Registry);
+-  initializePartiallyInlineLibCallsPass(Registry);
+-  initializeReassociatePass(Registry);
+-  initializeRegToMemPass(Registry);
+-  initializeSCCPPass(Registry);
+-  initializeIPSCCPPass(Registry);
+-  initializeSROAPass(Registry);
+-  initializeSROA_DTPass(Registry);
+-  initializeSROA_SSAUpPass(Registry);
+-  initializeCFGSimplifyPassPass(Registry);
+-  initializeStructurizeCFGPass(Registry);
+-  initializeSinkingPass(Registry);
+-  initializeTailCallElimPass(Registry);
+-  initializeSeparateConstOffsetFromGEPPass(Registry);
+-  initializeLoadCombinePass(Registry);
++  initializeADCEPass(Registry);
++  initializeAlignmentFromAssumptionsPass(Registry);
++  initializeSampleProfileLoaderPass(Registry);
++  initializeConstantHoistingPass(Registry);
++  initializeConstantPropagationPass(Registry);
++  initializeCorrelatedValuePropagationPass(Registry);
++  initializeDCEPass(Registry);
++  initializeDeadInstEliminationPass(Registry);
++  initializeScalarizerPass(Registry);
++  initializeDSEPass(Registry);
++  initializeGVNPass(Registry);
++  initializeEarlyCSEPass(Registry);
++  initializeFlattenCFGPassPass(Registry);
++  initializeIndVarSimplifyPass(Registry);
++  initializeJumpThreadingPass(Registry);
++  initializeLICMPass(Registry);
++  initializeLoopDeletionPass(Registry);
++  initializeLoopInstSimplifyPass(Registry);
++  initializeLoopRotatePass(Registry);
++  initializeLoopStrengthReducePass(Registry);
++  initializeLoopRerollPass(Registry);
++  initializeLoopUnrollPass(Registry);
++//  initializeLoopUnswitchPass(Registry);
++  initializeLoopIdiomRecognizePass(Registry);
++  initializeLowerAtomicPass(Registry);
++  initializeLowerExpectIntrinsicPass(Registry);
++  initializeMemCpyOptPass(Registry);
++  initializeMergedLoadStoreMotionPass(Registry);
++  initializePartiallyInlineLibCallsPass(Registry);
++  initializeReassociatePass(Registry);
++  initializeRegToMemPass(Registry);
++  initializeSCCPPass(Registry);
++  initializeIPSCCPPass(Registry);
++  initializeSROAPass(Registry);
++  initializeSROA_DTPass(Registry);
++  initializeSROA_SSAUpPass(Registry);
++  initializeCFGSimplifyPassPass(Registry);
++  initializeStructurizeCFGPass(Registry);
++  initializeSinkingPass(Registry);
++  initializeTailCallElimPass(Registry);
++  initializeSeparateConstOffsetFromGEPPass(Registry);
++  initializeLoadCombinePass(Registry);
+ }
+ 
+ void LLVMInitializeScalarOpts(LLVMPassRegistryRef R) {

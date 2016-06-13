@@ -15,7 +15,7 @@ COMPCERT_DIR=$(build)/installs/$(COMPCERT)
 MENHIR_DIR=$(build)/installs/$(MENHIR)
 COQ_DIR=$(build)/installs/$(COQ)
 LLVM_DIR=$(build)/installs/$(LLVM)
-LLVM_BIN=$(build)/installs/$(LLVM)-build/bin
+LLVM_BIN=$(build)/installs/$(LLVM)/llvm-toolchain-3.6-3.6/build-llvm/Release/bin
 
 OCAML_INSTALL=$(OCAML_DIR)-install
 MENHIR_INSTALL=$(MENHIR_DIR)-install
@@ -175,13 +175,25 @@ llvm-build: $(LLVM_BIN)/clang
 
 $(LLVM_BIN)/clang:
 	rm -rf $(LLVM_DIR)
+	mkdir -p $(LLVM_DIR)
+	sudo apt-get update
+	sudo apt-get install devscripts
+	cd $(LLVM_DIR) && fakeroot apt-get source clang-3.6 && cd llvm-toolchain-3.6-3.6 && \
+    sudo apt-get build-dep clang-3.6
+	cd $(LLVM_DIR) && patch -p0 < $(SRCDIR)/misc/llvm.patch
+	cd $(LLVM_DIR)/llvm-toolchain-3.6-3.6 && debuild -us -uc -b
+
+llvm-build-src: $(LLVM_BIN)/clang
+
+$(LLVM_BIN)/clang-src:
+	rm -rf $(LLVM_DIR)
 	rm -rf $(LLVM_DIR)-build
 	rm -rf $(CFE_DIR)
 	mkdir -p $(build)/installs
 	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(LLVM).src.tar.xz && mv $(LLVM).src $(LLVM) && cd -
 	cd $(build)/installs && tar xf $(SRCDIR)/../tars/$(CFE).src.tar.xz && mv $(CFE).src $(CFE) && cd -
 	cd $(build)/installs && mv $(CFE) $(LLVM)/tools/clang && cd -
-	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/llvm-no-jump-tables.patch && cd -
+#	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/llvm-no-jump-tables.patch && cd -
 	cd $(build)/installs && mkdir $(LLVM)-build && cd $(LLVM)-build && cmake -G "Unix Makefiles" ../$(LLVM) && make && cd -
 	#cd $(COMPCERT_DIR) && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH ./configure -prefix $(COMPCERT_INSTALL) ia32-linux && PATH=$(COQ_INSTALL)/bin:$(OCAML_INSTALL)/bin:$(MENHIR_INSTALL)/bin:$$PATH make && make install && cd -
 
