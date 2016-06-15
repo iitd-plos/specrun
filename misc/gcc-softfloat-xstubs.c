@@ -142,6 +142,11 @@ void memset(char *dst, int c, int n) {
   }
 }
 
+void myabort()
+{
+  abort();
+}
+
 void myexit(int ec)
 {
   exit(ec);
