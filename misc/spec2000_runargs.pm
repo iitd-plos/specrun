@@ -6,7 +6,7 @@ use config_host;
 use spec_common;
 
 our $build_dir;
-our (%args, %small_args);
+our (%args, %small_args, %prep_commands);
 
 our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
 #, "255.vortex"
@@ -71,6 +71,8 @@ spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%args, $spec2000_ref
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%args, $spec2000_all, "all");
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_test, "test");
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_all, "all");
+
+$prep_commands{"spec2000.parser"} = "cp -r $cint2000/197.parser/data/all/input/2.1.dict.mod $cint2000/197.parser/data/all/input/words .";
 
 sub make_endianness_adjustments
 {
