@@ -139,7 +139,7 @@ sub copy_execs
       if ($exname eq "specrand") {
         $exec =~ /^(\d*)\./;
         my $id = $1;
-        $out_exname = "$exname.$id";
+        $out_exname = "$exname$id";
       }
       copy("$cint_dir/$exec/exe/$exname\_base.$cfg",
         "$outdir/$cfg/$out_exname")

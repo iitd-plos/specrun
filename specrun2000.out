@@ -1,0 +1,196 @@
+cp Makefile.build /home/sbansal/specrun-build/Makefile
+make -C /home/sbansal/specrun-build BUILDFLAGS="" specrun2000
+make[1]: Entering directory `/home/sbansal/specrun-build'
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext gcc48-i386-O0-soft-float gzip bzip2 mcf gap parser
+extension gcc48-i386-O0-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : gcc48-i386-O0-soft-float :  iter0 : 19.2833571434021
+/home/sbansal/specrun-build
+gzip : arg1 : gcc48-i386-O0-soft-float :  iter0 : 19.4916729927063
+/home/sbansal/specrun-build
+gzip : arg2 : gcc48-i386-O0-soft-float :  iter0 : 38.7032358646393
+/home/sbansal/specrun-build
+gzip : arg3 : gcc48-i386-O0-soft-float :  iter0 : 15.8230810165405
+/home/sbansal/specrun-build
+gzip : arg4 : gcc48-i386-O0-soft-float :  iter0 : 8.67105317115784
+/home/sbansal/specrun-build
+bzip2 : arg0 : gcc48-i386-O0-soft-float :  iter0 : 31.1730849742889
+/home/sbansal/specrun-build
+bzip2 : arg1 : gcc48-i386-O0-soft-float :  iter0 : 40.4112739562988
+/home/sbansal/specrun-build
+bzip2 : arg2 : gcc48-i386-O0-soft-float :  iter0 : 35.4035630226135
+/home/sbansal/specrun-build
+mcf : arg0 : gcc48-i386-O0-soft-float :  iter0 : 31.6665530204773
+/home/sbansal/specrun-build
+gap : arg0 : gcc48-i386-O0-soft-float :  iter0 : 50.331876039505
+parser : arg0 : gcc48-i386-O0-soft-float :  iter0 : 4.25765609741211
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float gzip bzip2 mcf gap parser
+extension gcc48-i386-O2-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : gcc48-i386-O2-soft-float :  iter0 : 12.4517600536346
+/home/sbansal/specrun-build
+gzip : arg1 : gcc48-i386-O2-soft-float :  iter0 : 13.8757100105286
+/home/sbansal/specrun-build
+gzip : arg2 : gcc48-i386-O2-soft-float :  iter0 : 23.081573009491
+/home/sbansal/specrun-build
+gzip : arg3 : gcc48-i386-O2-soft-float :  iter0 : 11.3880920410156
+/home/sbansal/specrun-build
+gzip : arg4 : gcc48-i386-O2-soft-float :  iter0 : 6.1341609954834
+/home/sbansal/specrun-build
+bzip2 : arg0 : gcc48-i386-O2-soft-float :  iter0 : 17.5029761791229
+/home/sbansal/specrun-build
+bzip2 : arg1 : gcc48-i386-O2-soft-float :  iter0 : 21.706120967865
+/home/sbansal/specrun-build
+bzip2 : arg2 : gcc48-i386-O2-soft-float :  iter0 : 19.0689189434052
+/home/sbansal/specrun-build
+mcf : arg0 : gcc48-i386-O2-soft-float :  iter0 : 22.5482659339905
+/home/sbansal/specrun-build
+gap : arg0 : gcc48-i386-O2-soft-float :  iter0 : 24.8438079357147
+parser : arg0 : gcc48-i386-O2-soft-float :  iter0 : 2.90955114364624
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext clang36-i386-O0-soft-float gzip bzip2 mcf gap parser
+extension clang36-i386-O0-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : clang36-i386-O0-soft-float :  iter0 : 21.8064248561859
+/home/sbansal/specrun-build
+gzip : arg1 : clang36-i386-O0-soft-float :  iter0 : 23.992742061615
+/home/sbansal/specrun-build
+gzip : arg2 : clang36-i386-O0-soft-float :  iter0 : 39.1358239650726
+/home/sbansal/specrun-build
+gzip : arg3 : clang36-i386-O0-soft-float :  iter0 : 19.1586580276489
+/home/sbansal/specrun-build
+gzip : arg4 : clang36-i386-O0-soft-float :  iter0 : 10.9403958320618
+/home/sbansal/specrun-build
+bzip2 : arg0 : clang36-i386-O0-soft-float :  iter0 : 32.4104070663452
+/home/sbansal/specrun-build
+bzip2 : arg1 : clang36-i386-O0-soft-float :  iter0 : 43.7500278949738
+/home/sbansal/specrun-build
+bzip2 : arg2 : clang36-i386-O0-soft-float :  iter0 : 38.0081450939178
+/home/sbansal/specrun-build
+mcf : arg0 : clang36-i386-O0-soft-float :  iter0 : 35.6659190654755
+/home/sbansal/specrun-build
+gap : arg0 : clang36-i386-O0-soft-float :  iter0 : 62.5680940151215
+parser : arg0 : clang36-i386-O0-soft-float :  iter0 : 4.65391302108765
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float gzip bzip2 mcf gap parser
+extension clang36-i386-O2-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : clang36-i386-O2-soft-float :  iter0 : 11.8784329891205
+/home/sbansal/specrun-build
+gzip : arg1 : clang36-i386-O2-soft-float :  iter0 : 12.9483351707458
+/home/sbansal/specrun-build
+gzip : arg2 : clang36-i386-O2-soft-float :  iter0 : 22.4202542304993
+/home/sbansal/specrun-build
+gzip : arg3 : clang36-i386-O2-soft-float :  iter0 : 10.437488079071
+/home/sbansal/specrun-build
+gzip : arg4 : clang36-i386-O2-soft-float :  iter0 : 5.36175298690796
+/home/sbansal/specrun-build
+bzip2 : arg0 : clang36-i386-O2-soft-float :  iter0 : 16.8319439888
+/home/sbansal/specrun-build
+bzip2 : arg1 : clang36-i386-O2-soft-float :  iter0 : 21.5701749324799
+/home/sbansal/specrun-build
+bzip2 : arg2 : clang36-i386-O2-soft-float :  iter0 : 18.5287840366364
+/home/sbansal/specrun-build
+mcf : arg0 : clang36-i386-O2-soft-float :  iter0 : 22.4393699169159
+/home/sbansal/specrun-build
+gap : arg0 : clang36-i386-O2-soft-float :  iter0 : 24.9754650592804
+parser : arg0 : clang36-i386-O2-soft-float :  iter0 : 3.02642607688904
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext icc-i386-O0-soft-float gzip bzip2 mcf gap parser
+extension icc-i386-O0-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : icc-i386-O0-soft-float :  iter0 : 28.4490230083466
+/home/sbansal/specrun-build
+gzip : arg1 : icc-i386-O0-soft-float :  iter0 : 27.1068530082703
+/home/sbansal/specrun-build
+gzip : arg2 : icc-i386-O0-soft-float :  iter0 : 54.3957948684692
+/home/sbansal/specrun-build
+gzip : arg3 : icc-i386-O0-soft-float :  iter0 : 21.5649840831757
+/home/sbansal/specrun-build
+gzip : arg4 : icc-i386-O0-soft-float :  iter0 : 14.2811119556427
+/home/sbansal/specrun-build
+bzip2 : arg0 : icc-i386-O0-soft-float :  iter0 : 33.4626748561859
+/home/sbansal/specrun-build
+bzip2 : arg1 : icc-i386-O0-soft-float :  iter0 : 45.4474329948425
+/home/sbansal/specrun-build
+bzip2 : arg2 : icc-i386-O0-soft-float :  iter0 : 39.3328859806061
+/home/sbansal/specrun-build
+mcf : arg0 : icc-i386-O0-soft-float :  iter0 : 34.2238109111786
+/home/sbansal/specrun-build
+gap : arg0 : icc-i386-O0-soft-float :  iter0 : 64.9399220943451
+parser : arg0 : icc-i386-O0-soft-float :  iter0 : 4.54157090187073
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext icc-i386-O2-soft-float gzip bzip2 mcf gap parser
+extension icc-i386-O2-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : icc-i386-O2-soft-float :  iter0 : 13.1644389629364
+/home/sbansal/specrun-build
+gzip : arg1 : icc-i386-O2-soft-float :  iter0 : 14.5354771614075
+/home/sbansal/specrun-build
+gzip : arg2 : icc-i386-O2-soft-float :  iter0 : 24.5128879547119
+/home/sbansal/specrun-build
+gzip : arg3 : icc-i386-O2-soft-float :  iter0 : 12.0472929477692
+/home/sbansal/specrun-build
+gzip : arg4 : icc-i386-O2-soft-float :  iter0 : 6.26371788978577
+/home/sbansal/specrun-build
+bzip2 : arg0 : icc-i386-O2-soft-float :  iter0 : 16.6474750041962
+/home/sbansal/specrun-build
+bzip2 : arg1 : icc-i386-O2-soft-float :  iter0 : 20.8660268783569
+/home/sbansal/specrun-build
+bzip2 : arg2 : icc-i386-O2-soft-float :  iter0 : 17.9933409690857
+/home/sbansal/specrun-build
+mcf : arg0 : icc-i386-O2-soft-float :  iter0 : 22.5642058849335
+/home/sbansal/specrun-build
+gap : arg0 : icc-i386-O2-soft-float :  iter0 : 25.9419529438019
+parser : arg0 : icc-i386-O2-soft-float :  iter0 : 2.97459197044373
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext ccomp-i386-O0-soft-float gzip bzip2 mcf gap parser
+extension ccomp-i386-O0-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : ccomp-i386-O0-soft-float :  iter0 : 15.093169927597
+/home/sbansal/specrun-build
+gzip : arg1 : ccomp-i386-O0-soft-float :  iter0 : 17.1992900371552
+/home/sbansal/specrun-build
+gzip : arg2 : ccomp-i386-O0-soft-float :  iter0 : 28.6455149650574
+/home/sbansal/specrun-build
+gzip : arg3 : ccomp-i386-O0-soft-float :  iter0 : 14.279492855072
+/home/sbansal/specrun-build
+gzip : arg4 : ccomp-i386-O0-soft-float :  iter0 : 7.334303855896
+/home/sbansal/specrun-build
+bzip2 : arg0 : ccomp-i386-O0-soft-float :  iter0 : 19.9648158550262
+/home/sbansal/specrun-build
+bzip2 : arg1 : ccomp-i386-O0-soft-float :  iter0 : 26.9517071247101
+/home/sbansal/specrun-build
+bzip2 : arg2 : ccomp-i386-O0-soft-float :  iter0 : 23.0786590576172
+/home/sbansal/specrun-build
+mcf : arg0 : ccomp-i386-O0-soft-float :  iter0 : 25.0901460647583
+/home/sbansal/specrun-build
+gap : arg0 : ccomp-i386-O0-soft-float :  iter0 : 34.5828819274902
+parser : arg0 : ccomp-i386-O0-soft-float :  iter0 : 3.54576587677002
+
+perl -I/home/sbansal/specrun/misc /home/sbansal/specrun/misc/specrun.pl -bench 2000 -ext ccomp-i386-O2-soft-float gzip bzip2 mcf gap parser
+extension ccomp-i386-O2-soft-float
+/home/sbansal/specrun-build
+gzip : arg0 : ccomp-i386-O2-soft-float :  iter0 : 13.6214520931244
+/home/sbansal/specrun-build
+gzip : arg1 : ccomp-i386-O2-soft-float :  iter0 : 15.3757879734039
+/home/sbansal/specrun-build
+gzip : arg2 : ccomp-i386-O2-soft-float :  iter0 : 25.1538438796997
+/home/sbansal/specrun-build
+gzip : arg3 : ccomp-i386-O2-soft-float :  iter0 : 12.5802478790283
+/home/sbansal/specrun-build
+gzip : arg4 : ccomp-i386-O2-soft-float :  iter0 : 6.5740339756012
+/home/sbansal/specrun-build
+bzip2 : arg0 : ccomp-i386-O2-soft-float :  iter0 : 17.6888399124146
+/home/sbansal/specrun-build
+bzip2 : arg1 : ccomp-i386-O2-soft-float :  iter0 : 23.3517739772797
+/home/sbansal/specrun-build
+bzip2 : arg2 : ccomp-i386-O2-soft-float :  iter0 : 20.0808148384094
+/home/sbansal/specrun-build
+mcf : arg0 : ccomp-i386-O2-soft-float :  iter0 : 24.5907309055328
+/home/sbansal/specrun-build
+gap : arg0 : ccomp-i386-O2-soft-float :  iter0 : 29.4690999984741
+parser : arg0 : ccomp-i386-O2-soft-float :  iter0 : 3.28891897201538
+
+make[1]: Leaving directory `/home/sbansal/specrun-build'
