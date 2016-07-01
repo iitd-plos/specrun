@@ -303,9 +303,9 @@ specrun2000:
 specrun2006:
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O0-soft-float sjeng astar specrand998 specrand999
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O2-soft-float sjeng astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O0-soft-floasjeng astar t specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O2-soft-floasjeng astar t specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O0-soft-float spsjeng astar ecrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O2-soft-float spsjeng astar ecrand998 specrand999
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O0-soft-float sjeng astar specrand998 specrand999
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O2-soft-float sjeng astar specrand998 specrand999
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O0-soft-float sjeng astar specrand998 specrand999
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O2-soft-float sjeng astar specrand998 specrand999
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext ccomp-i386-O0-soft-float sjeng astar specrand998 specrand999
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext ccomp-i386-O2-soft-float sjeng astar specrand998 specrand999
