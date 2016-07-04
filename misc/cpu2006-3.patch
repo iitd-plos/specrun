@@ -1,0 +1,82 @@
+diff -Nur cpu2006/benchspec/CPU2006/998.specrand/src/main.c cpu2006.mod/benchspec/CPU2006/998.specrand/src/main.c
+--- cpu2006/benchspec/CPU2006/998.specrand/src/main.c	2015-10-09 14:45:18.000000000 +0530
++++ cpu2006.mod/benchspec/CPU2006/998.specrand/src/main.c	2016-07-04 15:20:28.667121404 +0530
+@@ -3,8 +3,9 @@
+ #include "specrand.h"
+ 
+ int main(int argc, char **argv) {
++  long long ret = 0;
+   int seed;
+-  int count, i;
++  int count, i, n;
+ 
+   if (argc < 2) {
+     printf("Please supply seed and count\n");
+@@ -14,15 +15,20 @@
+   count = atoi(argv[2]);
+ 
+   printf("seed = %d\ncount = %d\n", seed, count);
+-  printf("%%f sequence:\n");
++  //printf("%%f sequence:\n");
+   spec_srand(seed);
+-  for(i = 0; i < count; i++) {
+-    printf("%f\n", spec_rand());
++#define NUM_ITER 1024
++  for (n = 0; n < NUM_ITER; n++) {
++    for(i = 0; i < count; i++) {
++      //printf("%f\n", spec_rand());
++      ret += spec_rand();
++    }
+   }
+-  printf("%%d sequence (1-2048000):\n");
++  /*printf("%%d sequence (1-2048000):\n");
+   for(i = 0; i < count; i++) {
+     printf("%d\n", (int)((spec_rand()*2048000)+1));
+-  }
++  }*/
+ 
++  printf("ret = %lld\n", ret);
+   return(0);
+ }
+diff -Nur cpu2006/benchspec/CPU2006/999.specrand/src/main.c cpu2006.mod/benchspec/CPU2006/999.specrand/src/main.c
+--- cpu2006/benchspec/CPU2006/999.specrand/src/main.c	2015-10-09 14:45:18.000000000 +0530
++++ cpu2006.mod/benchspec/CPU2006/999.specrand/src/main.c	2016-07-04 16:40:32.455096947 +0530
+@@ -3,8 +3,9 @@
+ #include "specrand.h"
+ 
+ int main(int argc, char **argv) {
++  long long ret = 0;
+   int seed;
+-  int count, i;
++  int count, i, n;
+ 
+   if (argc < 2) {
+     printf("Please supply seed and count\n");
+@@ -14,15 +15,24 @@
+   count = atoi(argv[2]);
+ 
+   printf("seed = %d\ncount = %d\n", seed, count);
+-  printf("%%f sequence:\n");
++  //printf("%%f sequence:\n");
+   spec_srand(seed);
+-  for(i = 0; i < count; i++) {
++#define NUM_ITER 1024
++  for (n = 0; n < NUM_ITER; n++) {
++    for(i = 0; i < count; i++) {
++      //printf("%f\n", spec_rand());
++      ret += spec_rand();
++    }
++  }
++
++  /*for(i = 0; i < count; i++) {
+     printf("%f\n", spec_rand());
+   }
+   printf("%%d sequence (1-2048000):\n");
+   for(i = 0; i < count; i++) {
+     printf("%d\n", (int)((spec_rand()*2048000)+1));
+-  }
++  }*/
+ 
++  printf("ret = %lld\n", ret);
+   return(0);
+ }

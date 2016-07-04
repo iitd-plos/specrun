@@ -135,18 +135,21 @@ sub copy_execs
       if (!-e "$outdir/$cfg") {
         system("mkdir -p $outdir/$cfg");
       }
-      my $out_exname = $exname;
-      if ($exname eq "specrand") {
-        $exec =~ /^(\d*)\./;
-        my $id = $1;
-        $out_exname = "$exname$id";
+      my $in_exname = $exname;
+      my $in_exec = $exec;
+      if ($exname =~ /specrand/) {
+        #$exec =~ /^(\d*)\./;
+        #my $id = $1;
+        #$out_exname = "$exname$id";
+        $in_exname = "specrand";
+        $in_exec = substr($exec, 0, length($exec) - 3);
       }
-      copy("$cint_dir/$exec/exe/$exname\_base.$cfg",
-        "$outdir/$cfg/$out_exname")
+      copy("$cint_dir/$in_exec/exe/$in_exname\_base.$cfg",
+        "$outdir/$cfg/$exname")
         or print STDERR "Copy failed from ".
-           "$cint_dir/$exec/exe/$exname\_base.$cfg to ".
+           "$cint_dir/$in_exec/exe/$in_exname\_base.$cfg to ".
            "$outdir/$cfg/$exname. Error $!\n";
-      chmod 0755, "$outdir/$cfg/$out_exname";
+      chmod 0755, "$outdir/$cfg/$exname";
     }
   }
 }

@@ -127,6 +127,7 @@ $(build)/installs/cpu2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2
 	-chmod -f +w $(build)/installs/cpu2006 $(build)/installs/cpu2006/* $(build)/installs/cpu2006/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*/*
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006-2.patch && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006-3.patch && cd -
 
 .PHONY: $(build)/installs/spec_cpu_2000
 $(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
