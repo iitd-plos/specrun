@@ -176,10 +176,10 @@ llvm-build: $(LLVM_BIN)/clang
 $(LLVM_BIN)/clang:
 	rm -rf $(LLVM_DIR)
 	mkdir -p $(LLVM_DIR)
-	sudo apt-get update
-	sudo apt-get install devscripts
+	#sudo -E apt-get update
+	sudo -E apt-get install devscripts
 	cd $(LLVM_DIR) && fakeroot apt-get source clang-3.6 && cd llvm-toolchain-3.6-3.6 && \
-    sudo apt-get build-dep clang-3.6
+    sudo -E apt-get build-dep clang-3.6
 	cd $(LLVM_DIR) && patch -p0 < $(SRCDIR)/misc/llvm.patch
 	cd $(LLVM_DIR)/llvm-toolchain-3.6-3.6 && debuild -us -uc -b
 
