@@ -183,7 +183,7 @@ $(LLVM_BIN)/clang:
 	sudo apt-get install devscripts
 	cd $(LLVM_DIR) && fakeroot apt-get source clang-3.6 && cd llvm-toolchain-3.6-3.6 && \
     sudo apt-get build-dep clang-3.6
-	cd $(LLVM_DIR) && patch -p0 < $(SRCDIR)/misc/llvm.patch
+	cd $(LLVM_DIR) && patch -p0 < $(SRCDIR)/misc/llvm-no-jump-tables.patch
 	cd $(LLVM_DIR)/llvm-toolchain-3.6-3.6 && debuild -us -uc -b
 
 llvm-build-src: $(LLVM_BIN)/clang
