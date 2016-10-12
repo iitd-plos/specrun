@@ -1,0 +1,164 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/252.eon/src/ggRange.cc spec_cpu_2000.patched/benchspec/CINT2000/252.eon/src/ggRange.cc
+--- spec_cpu_2000/benchspec/CINT2000/252.eon/src/ggRange.cc	1999-03-05 14:36:51.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/252.eon/src/ggRange.cc	2016-10-12 10:39:55.871107441 +0530
+@@ -58,76 +58,4 @@
+ 
+ 
+ 
+-/*
+- * Non-friends
+- */
+ 
+-template <class T1, class T2, class T3>
+-T3
+-ggScaleIntegralToIntegral(const T1 x, const ggRange<T2> &domain,
+- const ggRange<T3> &range) {
+-
+-    T3 y = (T3) (((2*x - 2*domain.x0() + 1)*(range.x1() - range.x0() + 1))
+-     /(2*(domain.x1() - domain.x0() + 1)) + range.x0());
+-
+-    if (y < range.x0())
+-        y = range.x0();
+-    else if (y > range.x1())
+-        y = range.x1();
+-
+-    return y;
+-}
+-
+-template <class T1, class T2, class T3>
+-T3
+-ggScaleIntegralToReal(const T1 x, const ggRange<T2> &domain,
+- const ggRange<T3> &range) {
+-
+-    T3 y = (T3) ((x - domain.x0() + 0.5)*((range.x1() - range.x0())
+-     /(domain.x1() - domain.x0() + 1)) + range.x0());
+-
+-    if (y < range.x0())
+-        y = range.x0();
+-    else if (y > range.x1())
+-        y = range.x1();
+-
+-    return y;
+-}
+-
+-template <class T1, class T2, class T3>
+-T3
+-ggScaleRealToIntegral(const T1 x, const ggRange<T2> &domain,
+- const ggRange<T3> &range) {
+-
+-    T3 y = (T3) ((x - domain.x0())*((range.x1() - range.x0() + 1)
+-     /(domain.x1() - domain.x0())) + range.x0());
+-
+-    if (y < range.x0())
+-        y = range.x0();
+-    else if (y > range.x1())
+-        y = range.x1();
+-
+-    return y;
+-}
+-
+-template <class T1, class T2, class T3>
+-T3
+-ggScaleRealToReal(const T1 x, const ggRange<T2> &domain,
+- const ggRange<T3> &range) {
+-
+-    T3 y = (T3) ((x - domain.x0())*((range.x1() - range.x0())
+-     /(domain.x1() - domain.x0())) + range.x0());
+-
+-    if (y < range.x0())
+-        y = range.x0();
+-    else if (y > range.x1())
+-        y = range.x1();
+-
+-    return y;
+-}
+-
+-template <class T>
+-ostream &
+-operator<<(ostream &os, const ggRange<T> &r) {
+-    return os << "(" << r.x0() << ", " << r.x1() << ")";
+-}
+diff -ur spec_cpu_2000/benchspec/CINT2000/252.eon/src/ggRange.h spec_cpu_2000.patched/benchspec/CINT2000/252.eon/src/ggRange.h
+--- spec_cpu_2000/benchspec/CINT2000/252.eon/src/ggRange.h	1999-03-05 14:36:51.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/252.eon/src/ggRange.h	2016-10-12 10:39:55.871107441 +0530
+@@ -716,6 +716,80 @@
+     return ggScaleRealToReal(x, domain, range);
+ }
+ 
++/*
++ * Non-friends
++ */
++
++template <class T1, class T2, class T3>
++T3
++ggScaleIntegralToIntegral(const T1 x, const ggRange<T2> &domain,
++ const ggRange<T3> &range) {
++
++    T3 y = (T3) (((2*x - 2*domain.x0() + 1)*(range.x1() - range.x0() + 1))
++     /(2*(domain.x1() - domain.x0() + 1)) + range.x0());
++
++    if (y < range.x0())
++        y = range.x0();
++    else if (y > range.x1())
++        y = range.x1();
++
++    return y;
++}
++
++template <class T1, class T2, class T3>
++T3
++ggScaleIntegralToReal(const T1 x, const ggRange<T2> &domain,
++ const ggRange<T3> &range) {
++
++    T3 y = (T3) ((x - domain.x0() + 0.5)*((range.x1() - range.x0())
++     /(domain.x1() - domain.x0() + 1)) + range.x0());
++
++    if (y < range.x0())
++        y = range.x0();
++    else if (y > range.x1())
++        y = range.x1();
++
++    return y;
++}
++
++template <class T1, class T2, class T3>
++T3
++ggScaleRealToIntegral(const T1 x, const ggRange<T2> &domain,
++ const ggRange<T3> &range) {
++
++    T3 y = (T3) ((x - domain.x0())*((range.x1() - range.x0() + 1)
++     /(domain.x1() - domain.x0())) + range.x0());
++
++    if (y < range.x0())
++        y = range.x0();
++    else if (y > range.x1())
++        y = range.x1();
++
++    return y;
++}
++
++template <class T1, class T2, class T3>
++T3
++ggScaleRealToReal(const T1 x, const ggRange<T2> &domain,
++ const ggRange<T3> &range) {
++
++    T3 y = (T3) ((x - domain.x0())*((range.x1() - range.x0())
++     /(domain.x1() - domain.x0())) + range.x0());
++
++    if (y < range.x0())
++        y = range.x0();
++    else if (y > range.x1())
++        y = range.x1();
++
++    return y;
++}
++
++template <class T>
++ostream &
++operator<<(ostream &os, const ggRange<T> &r) {
++    return os << "(" << r.x0() << ", " << r.x1() << ")";
++}
++
+ //#if defined( _WIN32 )
+ //#include "ggRange.cpp"
+ //#endif

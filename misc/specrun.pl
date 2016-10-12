@@ -38,7 +38,7 @@ our @all_specs2006;
 our @default_opts;
 
 
-my $run_iter = 1;
+my $run_iter = 5;
 my $small_inputs = 0;
 
 sub usage
@@ -155,4 +155,3 @@ for (my $iter = 0; $iter < $run_iter; $iter++) {
   }
   print "\n";
 }
-
