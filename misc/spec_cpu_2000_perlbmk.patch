@@ -1,0 +1,36 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perl.h spec_cpu_2000.patched/benchspec/CINT2000/253.perlbmk/src/perl.h
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perl.h	1999-10-12 22:14:56.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/253.perlbmk/src/perl.h	2016-11-03 11:22:15.906972254 +0530
+@@ -117,7 +117,7 @@
+ 
+ #else /* !PERL_OBJECT */
+ 
+-#define STATIC static
++#define STATIC //static
+ #define CPERLscope(x) x
+ #define CPERLproto
+ #define _CPERLproto
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regcomp.c spec_cpu_2000.patched/benchspec/CINT2000/253.perlbmk/src/regcomp.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regcomp.c	1999-10-21 20:00:58.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/253.perlbmk/src/regcomp.c	2016-11-03 11:22:15.906972254 +0530
+@@ -98,7 +98,7 @@
+ #endif /* MSDOS */
+ 
+ #ifndef STATIC
+-#define	STATIC	static
++#define	STATIC	//static
+ #endif
+ 
+ #define	ISMULT1(c)	((c) == '*' || (c) == '+' || (c) == '?')
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regexec.c spec_cpu_2000.patched/benchspec/CINT2000/253.perlbmk/src/regexec.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regexec.c	1999-10-21 20:00:58.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/253.perlbmk/src/regexec.c	2016-11-03 11:22:15.906972254 +0530
+@@ -83,7 +83,7 @@
+ #define RS_set		2		/* replsv value is set */
+ 
+ #ifndef STATIC
+-#define	STATIC	static
++#define	STATIC	//static
+ #endif
+ 
+ #ifndef PERL_OBJECT
