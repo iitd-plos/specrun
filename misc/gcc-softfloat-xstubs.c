@@ -1,3 +1,4 @@
+#include <stddef.h>
 #define float32_add         __addsf3
 #define float64_add         __adddf3
 #define floatx80_add        __addxf3
@@ -150,4 +151,9 @@ void myabort()
 void myexit(int ec)
 {
   exit(ec);
+}
+
+void *myalloca(size_t size)
+{
+  return alloca(size);
 }

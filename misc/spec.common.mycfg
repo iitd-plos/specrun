@@ -1,7 +1,8 @@
+EMIT_RELOCS_FLAG=-Wl,--emit-relocs
 DEBUG_FLAG=-g
 
-EQCHECKER_DEFINES= -Dalloca=myabort -D_FORTIFY_SOURCE=0 #-Dexit=myexit -Dabort=myabort
-EQCHECKER_NO_BUILTINS=-fno-builtin-printf -fno-builtin-malloc -fno-builtin-abort -fno-builtin-exit -fno-builtin-fscanf -fno-builtin-abs -fno-builtin-acos -fno-builtin-asin -fno-builtin-atan2 -fno-builtin-atan -fno-builtin-calloc -fno-builtin-ceil -fno-builtin-cosh -fno-builtin-cos -fno-builtin-exit -fno-builtin-exp -fno-builtin-fabs -fno-builtin-floor -fno-builtin-fmod -fno-builtin-fprintf -fno-builtin-fputs -fno-builtin-frexp -fno-builtin-fscanf -fno-builtin-isalnum -fno-builtin-isalpha -fno-builtin-iscntrl -fno-builtin-isdigit -fno-builtin-isgraph -fno-builtin-islower -fno-builtin-isprint -fno-builtin-ispunct -fno-builtin-isspace -fno-builtin-isupper -fno-builtin-isxdigit -fno-builtin-tolower -fno-builtin-toupper -fno-builtin-labs -fno-builtin-ldexp -fno-builtin-log10 -fno-builtin-log -fno-builtin-malloc -fno-builtin-memchr -fno-builtin-memcmp -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-modf -fno-builtin-pow -fno-builtin-printf -fno-builtin-putchar -fno-builtin-puts -fno-builtin-scanf -fno-builtin-sinh -fno-builtin-sin -fno-builtin-snprintf -fno-builtin-sprintf -fno-builtin-sqrt -fno-builtin-sscanf -fno-builtin-strcat -fno-builtin-strchr -fno-builtin-strcmp -fno-builtin-strcpy -fno-builtin-strcspn -fno-builtin-strlen -fno-builtin-strncat -fno-builtin-strncmp -fno-builtin-strncpy -fno-builtin-strpbrk -fno-builtin-strrchr -fno-builtin-strspn -fno-builtin-strstr -fno-builtin-tanh -fno-builtin-tan -fno-builtin-vfprintf -fno-builtin-vsprintf
+EQCHECKER_DEFINES= -Dalloca=myalloca -D_FORTIFY_SOURCE=0 -Dexit=myexit -Dabort=myabort
+EQCHECKER_NO_BUILTINS=-fno-builtin-printf -fno-builtin-malloc -fno-builtin-abort -fno-builtin-exit -fno-builtin-fscanf -fno-builtin-abs -fno-builtin-acos -fno-builtin-asin -fno-builtin-atan2 -fno-builtin-atan -fno-builtin-calloc -fno-builtin-ceil -fno-builtin-cosh -fno-builtin-cos -fno-builtin-exit -fno-builtin-exp -fno-builtin-fabs -fno-builtin-floor -fno-builtin-fmod -fno-builtin-fprintf -fno-builtin-fputs -fno-builtin-frexp -fno-builtin-fscanf -fno-builtin-isalnum -fno-builtin-isalpha -fno-builtin-iscntrl -fno-builtin-isdigit -fno-builtin-isgraph -fno-builtin-islower -fno-builtin-isprint -fno-builtin-ispunct -fno-builtin-isspace -fno-builtin-isupper -fno-builtin-isxdigit -fno-builtin-tolower -fno-builtin-toupper -fno-builtin-labs -fno-builtin-ldexp -fno-builtin-log10 -fno-builtin-log -fno-builtin-malloc -fno-builtin-memchr -fno-builtin-memcmp -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-modf -fno-builtin-pow -fno-builtin-printf -fno-builtin-putchar -fno-builtin-puts -fno-builtin-scanf -fno-builtin-sinh -fno-builtin-sin -fno-builtin-snprintf -fno-builtin-sprintf -fno-builtin-sqrt -fno-builtin-sscanf -fno-builtin-strcat -fno-builtin-strchr -fno-builtin-strcmp -fno-builtin-strcpy -fno-builtin-strcspn -fno-builtin-strlen -fno-builtin-strncat -fno-builtin-strncmp -fno-builtin-strncpy -fno-builtin-strpbrk -fno-builtin-strrchr -fno-builtin-strspn -fno-builtin-strstr -fno-builtin-tanh -fno-builtin-tan -fno-builtin-vfprintf -fno-builtin-vsprintf -fno-builtin
 
 
 GCC_EQCHECKER_FLAGS_RUN= -fno-inline -fno-inline-functions -fno-inline-small-functions -fno-indirect-inlining -fno-partial-inlining -fno-inline-functions-called-once -fno-early-inlining -fno-whole-program -fipa-sra -fno-strict-overflow -fno-unit-at-a-time -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector  --param scev-max-expr-size=0 -fkeep-inline-functions -fwrapv -std=c11 -DTIMING_OUTPUT -fkeep-inline-functions -fno-reorder-blocks -fno-jump-tables -fno-zero-initialized-in-bss $(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS) #-fno-peel-loops 
@@ -19,13 +20,13 @@ GCC_EQCHECKER_FLAGS_CROSSTOOL_RUN= -m32 -fno-inline -fno-inline-functions -fno-u
 GCC_EQCHECKER_FLAGS_CROSSTOOL_NORUN= #-undef -msoft-float
 GCC_EQCHECKER_FLAGS_CROSSTOOL= $(GCC_EQCHECKER_FLAGS_CROSSTOOL_RUN) $(GCC_EQCHECKER_FLAGS_CROSSTOOL_NORUN)
 
-ICC_COMMON_EQCHECKER_FLAGS= -no-ip -nolib-inline -fno-optimize-sibling-calls -fargument-alias -unroll0 -no-ansi-alias -falias -no-vec -fno-jump-tables -inline-level=0 -fno-omit-frame-pointer -fno-strict-aliasing -fno-strict-overflow -fwrapv -fabi-version=1 -fno-inline-functions -finline-limit=0 -no-inline-calloc -no-inline-factor=0 -qno-opt-multi-version-aggressive -fno-stack-protector -no-bss-init $(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS)
+ICC_COMMON_EQCHECKER_FLAGS= -Gd -ffunction-sections -no-ip -ip-no-inlining -ip-no-pinlining -nolib-inline -fno-optimize-sibling-calls -fargument-alias -unroll0 -no-ansi-alias -falias -no-vec -fno-jump-tables -inline-level=0 -fno-omit-frame-pointer -fno-strict-aliasing -fno-strict-overflow -fwrapv -fabi-version=1 -fno-inline-functions -finline-limit=0 -no-inline-calloc -inline-factor=0 -qno-opt-multi-version-aggressive -fno-stack-protector -no-bss-init $(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS)
 ICC_EQCHECKER_FLAGS= $(ICC_COMMON_EQCHECKER_FLAGS) -std=c11 -ffreestanding -U__GNUC__
 ICC_CPP_EQCHECKER_FLAGS= $(ICC_COMMON_EQCHECKER_FLAGS)
 
-CCOMP_EQCHECKER_FLAGS= $(EQCHECKER_DEFINES)
+CCOMP_EQCHECKER_FLAGS= $(EQCHECKER_DEFINES) $(EMIT_RELOCS_FLAG)
 
-COMMON_FLAGS=$(DEBUG_FLAG)
+COMMON_FLAGS=$(DEBUG_FLAG) $(EMIT_RELOCS_FLAG)
 COPTIMIZE_O0=-O0 $(COMMON_FLAGS)
 COPTIMIZE_O0_soft_float=-O0 $(COMMON_FLAGS)
 COPTIMIZE_O0_hard_float=-O0 $(COMMON_FLAGS) -mhard-float
@@ -149,7 +150,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O0)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O0)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O2=default:
@@ -157,7 +158,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O2) $(CLANG_EQCHECKER_FLAGS)
 CXX		= $(CXX_CLANG_I386) 
 CXXOPTIMIZE	= $(COPTIMIZE_O2) $(CLANG_CPP_EQCHECKER_FLAGS)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O2U=default:
@@ -165,7 +166,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2U)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O2u=default:
@@ -173,7 +174,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O2u)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2u)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O2ofp=default:
@@ -181,7 +182,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O2ofp)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2ofp)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O3=default:
@@ -189,7 +190,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O3)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O3U=default:
@@ -197,7 +198,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O3U)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3U)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O3u=default:
@@ -205,7 +206,7 @@ CC		= $(CC_CLANG_I386)
 COPTIMIZE	= $(COPTIMIZE_O3u)
 CXX		= $(CXX_CLANG_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3u)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=clang-i386-O3ofp=default:
@@ -221,7 +222,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O0) $(ICC_EQCHECKER_FLAGS)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O0) $(ICC_CPP_EQCHECKER_FLAGS)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -230,7 +231,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2) $(ICC_EQCHECKER_FLAGS)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2) $(ICC_CPP_EQCHECKER_FLAGS)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -239,7 +240,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O3) $(ICC_EQCHECKER_FLAGS)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3) $(ICC_CPP_EQCHECKER_FLAGS)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -248,7 +249,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2U)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2U)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -257,7 +258,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2u)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2u)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -266,7 +267,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O3)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -275,7 +276,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O3U)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3U)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -284,7 +285,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O3u)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3u)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -293,7 +294,7 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O3ofp)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3ofp)
-CPORTABILITY    = -fpermissive -std=gnu89 -Wno-return-type
+CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
