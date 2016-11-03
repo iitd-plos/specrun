@@ -9,7 +9,7 @@ GCC_EQCHECKER_FLAGS_RUN= -fno-inline -fno-inline-functions -fno-inline-small-fun
 GCC_EQCHECKER_FLAGS_NORUN= #-undef -msoft-float
 GCC_EQCHECKER_FLAGS= $(GCC_EQCHECKER_FLAGS_RUN) $(GCC_EQCHECKER_FLAGS_NORUN)
 
-CLANG_COMMON_EQCHECKER_FLAGS_RUN=  -fno-inline -fno-inline-functions -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -DTIMING_OUTPUT -fno-reorder-blocks -fwrapv -fno-strict-overflow -fno-unroll-loops -Wno-return-type -nozero-initialized-in-bss $(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS)
+CLANG_COMMON_EQCHECKER_FLAGS_RUN=  -fno-inline -fno-inline-functions -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -DTIMING_OUTPUT -fno-reorder-blocks -fwrapv -fno-strict-overflow -fno-unroll-loops -Wno-return-type -fno-zero-initialized-in-bss $(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS)
 CLANG_EQCHECKER_FLAGS_NORUN= #-Xclang -msoft-float -Xclang -no-implicit-float
 CLANG_COMMON_EQCHECKER_FLAGS=  $(CLANG_COMMON_EQCHECKER_FLAGS_RUN) $(CLANG_EQCHECKER_FLAGS_NORUN)
 
