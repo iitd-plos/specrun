@@ -1,4 +1,4 @@
-EMIT_RELOCS_FLAG=-Wl,--emit-relocs
+EMIT_RELOCS_FLAG=-Wl,--emit-relocs -fdata-sections -Wl,-T,$(LINKER_SCRIPT)
 DEBUG_FLAG=-g
 
 EQCHECKER_DEFINES= -Dalloca=myalloca -D_FORTIFY_SOURCE=0 -Dexit=myexit -Dabort=myabort
