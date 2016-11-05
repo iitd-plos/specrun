@@ -1,12 +1,12 @@
 diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c cpu2006.mod/benchspec/CPU2006/458.sjeng/src/leval.c
---- cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c	2015-10-09 14:44:28.000000000 +0530
-+++ cpu2006.mod/benchspec/CPU2006/458.sjeng/src/leval.c	2016-05-27 16:01:19.219678722 +0530
+--- cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c	2016-11-05 14:37:20.354181074 +0530
++++ cpu2006.mod/benchspec/CPU2006/458.sjeng/src/leval.c	2016-11-05 14:38:58.266183666 +0530
 @@ -25,7 +25,7 @@
  0,0,0,0,0,0,0,0,0,0,0,0,
  0,0,0,0,0,0,0,0,0,0,0,0};
  
 -static int l_bishop_mobility(int square)
-+int l_bishop_mobility(int square)
++/*static */int l_bishop_mobility(int square)
  {
    register int l;
    register int m = 0;
@@ -15,7 +15,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c cpu2006.mod/benchspec/C
  }
  
 -static int l_rook_mobility(int square)
-+int l_rook_mobility(int square)
++/*static */int l_rook_mobility(int square)
  {
    register int l;
    register int m = 0;
@@ -24,7 +24,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c cpu2006.mod/benchspec/C
  
  
 -static int l_knight_mobility(int square)
-+int l_knight_mobility(int square)
++/*static */int l_knight_mobility(int square)
  { 
    static const int knight_o[8] = {10, -10, 14, -14, 23, -23, 25, -25};
    register int d, m = 0;
@@ -33,7 +33,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c cpu2006.mod/benchspec/C
  }
  
 -static int l_pawn_mobility(int square)
-+int l_pawn_mobility(int square)
++/*static */int l_pawn_mobility(int square)
  {
    register int m = 0;
  
@@ -42,19 +42,19 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/leval.c cpu2006.mod/benchspec/C
  }
  
 -static int l_king_mobility(int square)
-+int l_king_mobility(int square)
++/*static */int l_king_mobility(int square)
  {
    static const int king_o[8] = {13, 12, 11, 1, -1, -11, -12, -13};
    register int d, m = 0;
 diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/neval.c cpu2006.mod/benchspec/CPU2006/458.sjeng/src/neval.c
---- cpu2006/benchspec/CPU2006/458.sjeng/src/neval.c	2015-10-09 14:44:28.000000000 +0530
-+++ cpu2006.mod/benchspec/CPU2006/458.sjeng/src/neval.c	2016-05-27 16:02:01.720152556 +0530
+--- cpu2006/benchspec/CPU2006/458.sjeng/src/neval.c	2016-11-05 14:37:20.346181074 +0530
++++ cpu2006.mod/benchspec/CPU2006/458.sjeng/src/neval.c	2016-11-05 14:39:29.906184503 +0530
 @@ -202,7 +202,7 @@
  
  }
  
 -static int bishop_mobility(int square)
-+int bishop_mobility(int square)
++/*static */int bishop_mobility(int square)
  {
    register int l;
    register int m = 0;
@@ -63,19 +63,19 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/neval.c cpu2006.mod/benchspec/C
  }
  
 -static int rook_mobility(int square)
-+int rook_mobility(int square)
++/*static */int rook_mobility(int square)
  {
    register int l;
    register int m = 0;
 diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/CPU2006/458.sjeng/src/seval.c
---- cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c	2015-10-09 14:44:28.000000000 +0530
-+++ cpu2006.mod/benchspec/CPU2006/458.sjeng/src/seval.c	2016-05-27 16:02:29.832467243 +0530
+--- cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c	2016-11-05 14:37:20.354181074 +0530
++++ cpu2006.mod/benchspec/CPU2006/458.sjeng/src/seval.c	2016-11-05 14:40:16.250185729 +0530
 @@ -30,7 +30,7 @@
  static const int knight_o[8] = {10, -10, 14, -14, 23, -23, 25, -25};
    static const int king_o[8] = {13, 12, 11, 1, -1, -11, -12, -13};
  
 -static int s_bishop_mobility(int square)
-+int s_bishop_mobility(int square)
++/*static */int s_bishop_mobility(int square)
  {
    register int l;
    register int m = 0;
@@ -84,7 +84,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/C
  }
  
 -static int s_rook_mobility(int square)
-+int s_rook_mobility(int square)
++/*static */int s_rook_mobility(int square)
  {
    register int l;
    register int m = 0;
@@ -93,7 +93,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/C
  }
  
 -static int s_knight_mobility(int square)
-+int s_knight_mobility(int square)
++/*static */int s_knight_mobility(int square)
  { 
    register int d, m = 0;
    
@@ -102,7 +102,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/C
  }
  
 -static int s_pawn_mobility(int square)
-+int s_pawn_mobility(int square)
++/*static */int s_pawn_mobility(int square)
  {
    register int m = 0;
  
@@ -111,7 +111,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/C
  }
  
 -static int s_king_mobility(int square)
-+int s_king_mobility(int square)
++/*static */int s_king_mobility(int square)
  {
    register int d, m = 0;
    
@@ -120,7 +120,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/C
  }
  
 -static int black_saccers(int square)
-+int black_saccers(int square)
++/*static */int black_saccers(int square)
  {
    register int f = FALSE;
  
@@ -129,7 +129,7 @@ diff -ur cpu2006/benchspec/CPU2006/458.sjeng/src/seval.c cpu2006.mod/benchspec/C
  }
  
 -static int white_saccers(int square)
-+int white_saccers(int square)
++/*static */int white_saccers(int square)
  {
    /* for black pawn on square, any black
     * pieces that can sac themselves to it? */
