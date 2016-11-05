@@ -1,0 +1,93 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/254.gap/src/agcollec.c spec_cpu_2000.mod/benchspec/CINT2000/254.gap/src/agcollec.c
+--- spec_cpu_2000/benchspec/CINT2000/254.gap/src/agcollec.c	2016-11-05 11:37:05.277894875 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/254.gap/src/agcollec.c	2016-11-05 13:30:27.882074893 +0530
+@@ -158,7 +158,7 @@
+ **
+ **  This is step 5 in Vaughan-Lee's paper "Collection from the Left".
+ */
+-static void     AddString ( str, exp )
++/*static */void     AddString ( str, exp )
+     TypSword        * str;
+     TypExp          exp;
+ {
+@@ -204,7 +204,7 @@
+ **
+ **  This is step 4 in Vaughan-Lee's paper "Collection from the Left".
+ */
+-static void     AddGen ()
++/*static */void     AddGen ()
+ {
+     TypHandle       hd;
+     TypExp          * p, e;
+@@ -235,7 +235,7 @@
+ **
+ **  This is step 6 in Vaughan-Lee's paper "Collection from the Left".
+ */
+-static boolean  TripleWeight ()
++/*static */boolean  TripleWeight ()
+ {
+     TypHandle       hd;
+     TypExp          e, * p;
+@@ -295,7 +295,7 @@
+ **
+ **  This is a modified step 2.
+ */
+-static int  VLCombiCollect ()
++/*static */int  VLCombiCollect ()
+ {
+     TypSword        i,  f,  l = 0,  uw;
+     TypHandle       hd;
+@@ -359,7 +359,7 @@
+ **
+ **  The bound for <ue> can be decreased, if an integer overflow occures.
+ */
+-static boolean  CombiCollect ()
++/*static */boolean  CombiCollect ()
+ {
+     TypSword        j,  f,  l = 0,  uw,  * str;
+     TypHandle       hd;
+@@ -487,7 +487,7 @@
+ **
+ **  This is step 5 in Vaughan-Lee's paper "Collection from the Left"
+ */
+-static boolean  OrdinaryCollect ()
++/*static */boolean  OrdinaryCollect ()
+ {
+     TypHandle       hd;
+     TypSword        j;
+@@ -672,7 +672,7 @@
+ **
+ **  This is step 5 in Vaughan-Lee's paper "Collection from the Left".
+ */
+-static void     AddString2 ( str )
++/*static */void     AddString2 ( str )
+     TypSword        * str;
+ {
+     TypHandle       hd;
+@@ -701,7 +701,7 @@
+ **
+ **  This is step 4 in Vaughan-Lee's paper "Collection from the Left".
+ */
+-static void     AddGen2 ()
++/*static */void     AddGen2 ()
+ {
+     TypHandle       hd;
+ 
+@@ -725,7 +725,7 @@
+ **  to the collected part. If  <cg> > <CSeries>[(<Class>-<CWeights>(<ug>))/2]
+ **  then [ <cg>, <ug> ] commutes with all generators $k$ >= <cg>.
+ */
+-static boolean  CombiCollect2 ()
++/*static */boolean  CombiCollect2 ()
+ {
+     TypExp          * p, i;
+     TypSword        l, uw;
+@@ -769,7 +769,7 @@
+ **  Continue scanning towards the left stacking up commutators and entries in
+ **  collected part until we reach <ug> position.
+ */
+-static boolean  OrdinaryCollect2 ()
++/*static */boolean  OrdinaryCollect2 ()
+ {
+     TypHandle       hd;
+     TypExp          * p;
