@@ -1,0 +1,33 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/300.twolf/src/kenk.h spec_cpu_2000.mod/benchspec/CINT2000/300.twolf/src/kenk.h
+--- spec_cpu_2000/benchspec/CINT2000/300.twolf/src/kenk.h	2016-11-05 11:37:05.289894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/300.twolf/src/kenk.h	2016-11-05 14:13:42.322143549 +0530
+@@ -3,7 +3,7 @@
+ 
+ #define UNIX42
+ 
+-#define PRIVATE static
++#define PRIVATE //static
+ #define PUBLIC
+ #define PROC void
+ #define FORWARD extern
+diff -ur spec_cpu_2000/benchspec/CINT2000/300.twolf/src/mt.c spec_cpu_2000.mod/benchspec/CINT2000/300.twolf/src/mt.c
+--- spec_cpu_2000/benchspec/CINT2000/300.twolf/src/mt.c	2016-11-05 11:37:05.293894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/300.twolf/src/mt.c	2016-11-05 14:13:58.454143976 +0530
+@@ -17,7 +17,7 @@
+ typedef enum {false,true} Bool;
+ 
+ void MTIdenti() ;
+-static void MTInvert();
++/*static */void MTInvert();
+ 
+ MT *MTBegin()
+ /*
+@@ -378,7 +378,7 @@
+     return(false); }
+ }
+ 
+-static void MTInvert(t)
++/*static */void MTInvert(t)
+ MT *t;
+ /*
+ From CSVAX:ouster  Thu Jun 25 15:26:13 1981

@@ -144,6 +144,7 @@ $(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_perlbmk.2.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_gap.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_vpr.patch && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_twolf.patch && cd -
 
 
 menhir:$(MENHIR_INSTALL)/bin/menhir
