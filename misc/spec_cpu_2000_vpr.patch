@@ -1,0 +1,2194 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/check_route.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/check_route.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/check_route.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/check_route.c	2016-11-05 13:42:27.366093932 +0530
+@@ -9,14 +9,14 @@
+ 
+ /******************** Subroutines local to this module **********************/
+ 
+-static void check_source (int inode, int inet);
+-static void check_sink (int inode, int inet, boolean *pin_done); 
+-static void check_switch (struct s_trace *tptr, int num_switch); 
+-static boolean check_adjacent (int from_node, int to_node);
+-static int pin_and_chan_adjacent (int pin_node, int chan_node);
+-static int chanx_chany_adjacent (int chanx_node, int chany_node);
+-static void reset_flags (int inet, boolean *connected_to_route);
+-static void recompute_occupancy_from_scratch (void);
++/*static */void check_source (int inode, int inet);
++/*static */void check_sink (int inode, int inet, boolean *pin_done); 
++/*static */void check_switch (struct s_trace *tptr, int num_switch); 
++/*static */boolean check_adjacent (int from_node, int to_node);
++/*static */int pin_and_chan_adjacent (int pin_node, int chan_node);
++/*static */int chanx_chany_adjacent (int chanx_node, int chany_node);
++/*static */void reset_flags (int inet, boolean *connected_to_route);
++/*static */void recompute_occupancy_from_scratch (void);
+ 
+ 
+ /************************ Subroutine definitions ****************************/
+@@ -145,7 +145,7 @@
+ }
+  
+  
+-static void check_sink (int inode, int inet, boolean *pin_done) {
++/*static */void check_sink (int inode, int inet, boolean *pin_done) {
+  
+ /* Checks that this SINK node is one of the terminals of inet, and marks   *
+  * the appropriate pin as being reached.                                   */
+@@ -198,7 +198,7 @@
+ }
+ 
+ 
+-static void check_source (int inode, int inet) {
++/*static */void check_source (int inode, int inet) {
+  
+ /* Checks that the node passed in is a valid source for this net.        */
+  
+@@ -240,7 +240,7 @@
+ }
+ 
+ 
+-static void check_switch (struct s_trace *tptr, int num_switch) {
++/*static */void check_switch (struct s_trace *tptr, int num_switch) {
+ 
+ /* Checks that the switch leading from this traceback element to the next *
+  * one is a legal switch type.                                            */
+@@ -274,7 +274,7 @@
+ }
+  
+  
+-static void reset_flags (int inet, boolean *connected_to_route) {
++/*static */void reset_flags (int inet, boolean *connected_to_route) {
+  
+ /* This routine resets the flags of all the channel segments contained *
+  * in the traceback of net inet to 0.  This allows us to check the     * 
+@@ -294,7 +294,7 @@
+ }
+  
+  
+-static boolean check_adjacent (int from_node, int to_node) {
++/*static */boolean check_adjacent (int from_node, int to_node) {
+  
+ /* This routine checks if the rr_node to_node is reachable from from_node.   *
+  * It returns TRUE if is reachable and FALSE if it is not.  Check_node has   *
+@@ -427,7 +427,7 @@
+ }
+  
+  
+-static int chanx_chany_adjacent (int chanx_node, int chany_node) {
++/*static */int chanx_chany_adjacent (int chanx_node, int chany_node) {
+  
+ /* Returns 1 if the specified CHANX and CHANY nodes are adjacent, 0         *
+  * otherwise.                                                               */
+@@ -453,7 +453,7 @@
+ }
+  
+  
+-static int pin_and_chan_adjacent (int pin_node, int chan_node) {
++/*static */int pin_and_chan_adjacent (int pin_node, int chan_node) {
+  
+ /* Checks if pin_node is adjacent to chan_node.  It returns 1 if the two   *
+  * nodes are adjacent and 0 if they are not (any other value means there's *
+@@ -527,7 +527,7 @@
+ }
+ 
+ 
+-static void recompute_occupancy_from_scratch (void) {
++/*static */void recompute_occupancy_from_scratch (void) {
+ 
+ /* This routine updates the occ field in the rr_node_cost_inf structure     *
+  * according to the resource usage of the current routing.  It does a brute *
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/check_rr_graph.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/check_rr_graph.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/check_rr_graph.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/check_rr_graph.c	2016-11-05 13:42:33.774094102 +0530
+@@ -413,7 +413,7 @@
+ }
+ 
+ 
+-static void check_pass_transistors (int from_node) {
++/*static */void check_pass_transistors (int from_node) {
+ 
+ /* This routine checks that all pass transistors in the routing truly are  *
+  * bidirectional.  It may be a slow check, so don't use it all the time.   */
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/draw.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/draw.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/draw.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/draw.c	2016-11-05 13:45:10.558098251 +0530
+@@ -56,34 +56,34 @@
+ 
+ /********************** Subroutines local to this module ********************/
+ 
+-static void highlight_blocks (float x, float y);
+-static void drawscreen (void);
+-static void redraw_screen (void);
+-static void drawplace (void);
+-static void drawnets (void);
+-static void drawroute (enum e_draw_net_type draw_net_type);
+-static void get_block_center (int bnum, float *x, float *y);
+-static void deselect_all (void);
+-
+-static void draw_rr (void); 
+-static void draw_rr_edges (int from_node); 
+-static void draw_rr_pin (int inode, enum color_types color); 
+-static void draw_rr_chanx (int inode, int itrack);
+-static void draw_rr_chany (int inode, int itrack);
+-static void get_rr_pin_draw_coords (int inode, int iside, float *xcen, 
++/*static */void highlight_blocks (float x, float y);
++/*static */void drawscreen (void);
++/*static */void redraw_screen (void);
++/*static */void drawplace (void);
++/*static */void drawnets (void);
++/*static */void drawroute (enum e_draw_net_type draw_net_type);
++/*static */void get_block_center (int bnum, float *x, float *y);
++/*static */void deselect_all (void);
++
++/*static */void draw_rr (void); 
++/*static */void draw_rr_edges (int from_node); 
++/*static */void draw_rr_pin (int inode, enum color_types color); 
++/*static */void draw_rr_chanx (int inode, int itrack);
++/*static */void draw_rr_chany (int inode, int itrack);
++/*static */void get_rr_pin_draw_coords (int inode, int iside, float *xcen, 
+             float *ycen); 
+-static void draw_pin_to_chan_edge (int pin_node, int chan_node, int itrack,
++/*static */void draw_pin_to_chan_edge (int pin_node, int chan_node, int itrack,
+             boolean mark_conn); 
+-static void draw_x (float x, float y, float size); 
+-static void draw_chany_to_chany_edge (int from_node, int from_track,
++/*static */void draw_x (float x, float y, float size); 
++/*static */void draw_chany_to_chany_edge (int from_node, int from_track,
+             int to_node, int to_track, short switch_type);
+-static void draw_chanx_to_chanx_edge (int from_node, int from_track,
++/*static */void draw_chanx_to_chanx_edge (int from_node, int from_track,
+             int to_node, int to_track, short switch_type); 
+-static void draw_chanx_to_chany_edge (int chanx_node,  int chanx_track, 
++/*static */void draw_chanx_to_chany_edge (int chanx_node,  int chanx_track, 
+              int chany_node, int chany_track, enum e_edge_dir edge_dir,
+              short switch_type); 
+-static int get_track_num (int inode, int **chanx_track, int **chany_track); 
+-static void draw_rr_switch (float from_x, float from_y, float to_x, float to_y,
++/*static */int get_track_num (int inode, int **chanx_track, int **chany_track); 
++/*static */void draw_rr_switch (float from_x, float from_y, float to_x, float to_y,
+         boolean buffered); 
+ 
+ 
+@@ -126,7 +126,7 @@
+ }
+ 
+  
+-static void drawscreen (void) {
++/*static */void drawscreen (void) {
+ 
+ /* This is the screen redrawing routine that event_loop assumes exists.  *
+  * It erases whatever is on screen, then calls redraw_screen to redraw   *
+@@ -137,7 +137,7 @@
+ }
+ 
+ 
+-static void redraw_screen (void) {
++/*static */void redraw_screen (void) {
+ 
+ /* The screen redrawing routine called by drawscreen and           *
+  * highlight_blocks.  Call this routine instead of drawscreen if   *
+@@ -234,7 +234,7 @@
+ }
+ 
+ 
+-static void drawplace (void) {
++/*static */void drawplace (void) {
+ 
+ /* Draws the blocks placed on the proper clbs.  Occupied clbs are light *
+  * grey, while empty ones are left white and have a dashed border.      */
+@@ -333,7 +333,7 @@
+ }
+ 
+ 
+-static void drawnets (void) {
++/*static */void drawnets (void) {
+ 
+ /* This routine draws the nets on the placement.  The nets have not *
+  * yet been routed, so we just draw a chain showing a possible path *
+@@ -366,7 +366,7 @@
+ }
+ 
+ 
+-static void get_block_center (int bnum, float *x, float *y) {
++/*static */void get_block_center (int bnum, float *x, float *y) {
+ 
+ /* This routine finds the center of block bnum in the current placement, *
+  * and returns it in *x and *y.  This is used in routine shownets.       */
+@@ -398,7 +398,7 @@
+ }
+ 
+ 
+-static void draw_rr (void) {
++/*static */void draw_rr (void) {
+ 
+ /* Draws the routing resources that exist in the FPGA, if the user wants *
+  * them drawn.                                                           */
+@@ -458,7 +458,7 @@
+ }
+ 
+ 
+-static void draw_rr_chanx (int inode, int itrack) {
++/*static */void draw_rr_chanx (int inode, int itrack) {
+ 
+ /* Draws an x-directed channel segment.                       */
+ 
+@@ -473,7 +473,7 @@
+ }
+ 
+ 
+-static void draw_rr_chany (int inode, int itrack) {
++/*static */void draw_rr_chany (int inode, int itrack) {
+  
+ /* Draws a y-directed channel segment.                       */ 
+  
+@@ -488,7 +488,7 @@
+ }
+ 
+ 
+-static void draw_rr_edges (int inode) {
++/*static */void draw_rr_edges (int inode) {
+ 
+ /* Draws all the edges that the user wants shown between inode and what it *
+  * connects to.  inode is assumed to be a CHANX, CHANY, or OPIN.           */
+@@ -610,7 +610,7 @@
+ }
+ 
+ 
+-static void draw_pin_to_chan_edge (int pin_node, int chan_node, int itrack,
++/*static */void draw_pin_to_chan_edge (int pin_node, int chan_node, int itrack,
+              boolean mark_conn) {
+ 
+ /* This routine draws an edge from the pin_node to the chan_node (CHANX or   *
+@@ -673,7 +673,7 @@
+ }
+ 
+ 
+-static void draw_x (float x, float y, float size) {
++/*static */void draw_x (float x, float y, float size) {
+ 
+ /* Draws an X centered at (x,y).  The width and height of the X are each    *
+  * 2 * size.                                                                */
+@@ -683,7 +683,7 @@
+ }
+ 
+ 
+-static void draw_chanx_to_chany_edge (int chanx_node,  int chanx_track, 
++/*static */void draw_chanx_to_chany_edge (int chanx_node,  int chanx_track, 
+          int chany_node, int chany_track, enum e_edge_dir edge_dir, short 
+          switch_type) {
+ 
+@@ -729,7 +729,7 @@
+ }
+ 
+ 
+-static void draw_chanx_to_chanx_edge (int from_node, int from_track, 
++/*static */void draw_chanx_to_chanx_edge (int from_node, int from_track, 
+         int to_node, int to_track, short switch_type) {
+ 
+ /* Draws a connection between two x-channel segments.  Passing in the track *
+@@ -767,7 +767,7 @@
+ }
+ 
+ 
+-static void draw_chany_to_chany_edge (int from_node, int from_track,
++/*static */void draw_chany_to_chany_edge (int from_node, int from_track,
+         int to_node, int to_track, short switch_type) {
+  
+ /* Draws a connection between two y-channel segments.  Passing in the track *
+@@ -805,7 +805,7 @@
+ }
+ 
+ 
+-static void draw_rr_switch (float from_x, float from_y, float to_x, float to_y,
++/*static */void draw_rr_switch (float from_x, float from_y, float to_x, float to_y,
+         boolean buffered) {
+ 
+ /* Draws a buffer (triangle) or pass transistor (circle) on the edge        *
+@@ -846,7 +846,7 @@
+ }
+ 
+ 
+-static void draw_rr_pin (int inode, enum color_types color) {
++/*static */void draw_rr_pin (int inode, enum color_types color) {
+ 
+ /* Draws an IPIN or OPIN rr_node.  Note that the pin can appear on more    *
+  * than one side of a clb.  Also note that this routine can change the     *
+@@ -895,7 +895,7 @@
+ }
+ 
+ 
+-static void get_rr_pin_draw_coords (int inode, int iside, float *xcen, 
++/*static */void get_rr_pin_draw_coords (int inode, int iside, float *xcen, 
+             float *ycen) {
+ 
+ /* Returns the coordinates at which the center of this pin should be drawn. *
+@@ -959,7 +959,7 @@
+ }
+ 
+ 
+-static void drawroute (enum e_draw_net_type draw_net_type) {
++/*static */void drawroute (enum e_draw_net_type draw_net_type) {
+ 
+ /* Draws the nets in the positions fixed by the router.  If draw_net_type is *
+  * ALL_NETS, draw all the nets.  If it is HIGHLIGHTED, draw only the nets    *
+@@ -1117,7 +1117,7 @@
+ }
+ 
+ 
+-static int get_track_num (int inode, int **chanx_track, int **chany_track) {
++/*static */int get_track_num (int inode, int **chanx_track, int **chany_track) {
+ 
+ /* Returns the track number of this routing resource node.   */
+ 
+@@ -1148,7 +1148,7 @@
+ }
+ 
+ 
+-static void highlight_blocks (float x, float y) {
++/*static */void highlight_blocks (float x, float y) {
+ 
+ /* This routine is called when the user clicks in the graphics area. *
+  * It determines if a clb was clicked on.  If one was, it is         *
+@@ -1265,7 +1265,7 @@
+ }
+ 
+ 
+-static void deselect_all (void) {
++/*static */void deselect_all (void) {
+ 
+ /* Sets the color of all clbs and nets to the default.  */
+ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/graphics.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/graphics.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/graphics.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/graphics.c	2016-11-05 13:51:04.898107628 +0530
+@@ -122,18 +122,18 @@
+ 
+ /* Function declarations for button responses */
+ 
+-static void translate(int bnum, void (*drawscreen) (void)); 
+-static void zoom (int bnum, void (*drawscreen) (void));
+-static void adjustwin (int bnum, void (*drawscreen) (void)); 
+-static void postscript (int bnum, void (*drawscreen) (void));
+-static void proceed (int bnum, void (*drawscreen) (void));
+-static void quit (int bnum, void (*drawscreen) (void)); 
++/*static */void translate(int bnum, void (*drawscreen) (void)); 
++/*static */void zoom (int bnum, void (*drawscreen) (void));
++/*static */void adjustwin (int bnum, void (*drawscreen) (void)); 
++/*static */void postscript (int bnum, void (*drawscreen) (void));
++/*static */void proceed (int bnum, void (*drawscreen) (void));
++/*static */void quit (int bnum, void (*drawscreen) (void)); 
+ 
+-static Bool test_if_exposed (Display *disp, XEvent *event_ptr, 
++/*static */Bool test_if_exposed (Display *disp, XEvent *event_ptr, 
+           XPointer dummy);
+ 
+ 
+-static int xcoord (float worldx) {
++/*static */int xcoord (float worldx) {
+ /* Translates from my internal coordinates to X Windows coordinates   *
+  * in the x direction.  Add 0.5 at end for extra half-pixel accuracy. */
+ 
+@@ -158,7 +158,7 @@
+ }
+ 
+ 
+-static int ycoord (float worldy) {
++/*static */int ycoord (float worldy) {
+ /* Translates from my internal coordinates to X Windows coordinates   *
+  * in the y direction.  Add 0.5 at end for extra half-pixel accuracy. */
+ 
+@@ -174,7 +174,7 @@
+ }
+ 
+ 
+-static void load_font(int pointsize) {
++/*static */void load_font(int pointsize) {
+ 
+ /* Makes sure the font of the specified size is loaded.  Point_size   *
+  * MUST be between 1 and MAX_FONT_SIZE -- no check is performed here. */
+@@ -198,7 +198,7 @@
+ }
+ 
+ 
+-static void force_setcolor (int cindex) {
++/*static */void force_setcolor (int cindex) {
+ 
+  static char *ps_cnames[NUM_COLOR] = {"white", "black", "grey55", "grey75",
+         "blue", "green", "yellow", "cyan", "red", "darkgreen" };
+@@ -221,7 +221,7 @@
+ }
+ 
+ 
+-static void force_setlinestyle (int linestyle) {
++/*static */void force_setlinestyle (int linestyle) {
+ 
+ /* Note SOLID is 0 and DASHED is 1 for linestyle.                      */
+ 
+@@ -249,7 +249,7 @@
+ }
+ 
+ 
+-static void force_setlinewidth (int linewidth) {
++/*static */void force_setlinewidth (int linewidth) {
+ 
+ /* linewidth should be greater than or equal to 0 to make any sense. */
+ /* Note SOLID is 0 and DASHED is 1 for linestyle.                    */
+@@ -275,7 +275,7 @@
+ }
+ 
+ 
+-static void force_setfontsize (int pointsize) {
++/*static */void force_setfontsize (int pointsize) {
+ 
+ /* Valid point sizes are between 1 and MAX_FONT_SIZE */
+ 
+@@ -314,7 +314,7 @@
+ }
+ 
+ 
+-static void build_textarea (void) {
++/*static */void build_textarea (void) {
+ 
+ /* Creates a small window at the top of the graphics area for text messages */
+ 
+@@ -335,7 +335,7 @@
+ }
+ 
+ 
+-static void mapbut (int bnum, int x1, int y1, int width, int height) {
++/*static */void mapbut (int bnum, int x1, int y1, int width, int height) {
+ 
+  button[bnum].win = XCreateSimpleWindow(display,menu,
+           x1, y1, width, height, 0, colors[WHITE], colors[LIGHTGREY]); 
+@@ -343,7 +343,7 @@
+ }
+ 
+ 
+-static void setpoly(int bnum, int xc, int yc, int r, float theta) {
++/*static */void setpoly(int bnum, int xc, int yc, int r, float theta) {
+ /* Puts a triangle in the poly array for button[bnum] */
+ 
+  int i;
+@@ -358,7 +358,7 @@
+ }
+ 
+ 
+-static void build_menu (void) {
++/*static */void build_menu (void) {
+ /* Sets up all the menu buttons on the right hand side of the window. */
+ 
+  XSetWindowAttributes menu_attributes;
+@@ -587,7 +587,7 @@
+ }
+ 
+ 
+-static Bool test_if_exposed (Display *disp, XEvent *event_ptr, 
++/*static */Bool test_if_exposed (Display *disp, XEvent *event_ptr, 
+           XPointer dummy) {
+ 
+ /* Returns True if the event passed in is an exposure event.   Note that *
+@@ -601,7 +601,7 @@
+ }
+ 
+ 
+-static void menutext(Window win, int xc, int yc, char *text) {
++/*static */void menutext(Window win, int xc, int yc, char *text) {
+ 
+ /* draws text center at xc, yc -- used only by menu drawing stuff */
+ 
+@@ -615,7 +615,7 @@
+ }
+ 
+ 
+-static void drawbut (int bnum) {
++/*static */void drawbut (int bnum) {
+ 
+ /* Draws button bnum in either its pressed or unpressed state.    */
+ 
+@@ -706,7 +706,7 @@
+ }
+ 
+ 
+-static void turn_on_off (int pressed) {
++/*static */void turn_on_off (int pressed) {
+ 
+ /* Shows when the menu is active or inactive by colouring the *
+  * buttons.                                                   */
+@@ -720,7 +720,7 @@
+ }
+ 
+ 
+-static int which_button (Window win) {
++/*static */int which_button (Window win) {
+  int i;
+ 
+  for (i=0;i<NBUTTONS;i++) {
+@@ -732,7 +732,7 @@
+ }
+ 
+ 
+-static void drawmenu(void) {
++/*static */void drawmenu(void) {
+  int i;
+ 
+  for (i=0;i<NBUTTONS;i++)  {
+@@ -741,7 +741,7 @@
+ }
+ 
+ 
+-static void update_transform (void) {
++/*static */void update_transform (void) {
+ 
+ /* Set up the factors for transforming from the user world to X Windows *
+  * coordinates.                                                         */
+@@ -770,7 +770,7 @@
+ }
+ 
+ 
+-static void update_ps_transform (void) {
++/*static */void update_ps_transform (void) {
+ 
+ /* Postscript coordinates start at (0,0) for the lower left hand corner *
+  * of the page and increase upwards and to the right.  For 8.5 x 11     *
+@@ -902,7 +902,7 @@
+  }
+ }
+ 
+-static int rect_off_screen (float x1, float y1, float x2, float y2) {
++/*static */int rect_off_screen (float x1, float y1, float x2, float y2) {
+ 
+ /* Return 1 if I can quarantee no part of this rectangle will         *
+  * lie within the user drawing area.  Otherwise return 0.             *
+@@ -1010,7 +1010,7 @@
+ }
+ 
+ 
+-static float angnorm (float ang) {
++/*static */float angnorm (float ang) {
+ /* Normalizes an angle to be between 0 and 360 degrees. */
+ 
+  int scale;
+@@ -1253,7 +1253,7 @@
+ }
+ 
+ 
+-static void zoom(int bnum, void (*drawscreen) (void)) {
++/*static */void zoom(int bnum, void (*drawscreen) (void)) {
+ /* Zooms in or out by a factor of 1.666. */
+ 
+  float xdiff, ydiff;
+@@ -1276,7 +1276,7 @@
+  drawscreen();
+ }
+ 
+-static void translate(int bnum, void (*drawscreen) (void)) {
++/*static */void translate(int bnum, void (*drawscreen) (void)) {
+  float xstep, ystep;
+ 
+  xstep = (xright - xleft)/2.;
+@@ -1303,7 +1303,7 @@
+ }
+ 
+ 
+-static void update_win (int x[2], int y[2], void (*drawscreen)(void)) {
++/*static */void update_win (int x[2], int y[2], void (*drawscreen)(void)) {
+  float x1, x2, y1, y2;
+  
+  x[0] = min(x[0],top_width-MWIDTH);  /* Can't go under menu */
+@@ -1328,7 +1328,7 @@
+ }
+ 
+ 
+-static void adjustwin (int bnum, void (*drawscreen) (void)) {  
++/*static */void adjustwin (int bnum, void (*drawscreen) (void)) {  
+ /* The window button was pressed.  Let the user click on the two *
+  * diagonally opposed corners, and zoom in on this area.         */
+ 
+@@ -1409,7 +1409,7 @@
+ }
+ 
+ 
+-static void postscript (int bnum, void (*drawscreen) (void)) {
++/*static */void postscript (int bnum, void (*drawscreen) (void)) {
+ /* Takes a snapshot of the screen and stores it in pic?.ps.  The *
+  * first picture goes in pic1.ps, the second in pic2.ps, etc.    */
+ 
+@@ -1429,14 +1429,14 @@
+ }
+ 
+ 
+-static void proceed (int bnum, void (*drawscreen) (void)) {
++/*static */void proceed (int bnum, void (*drawscreen) (void)) {
+ 
+  /* Dummy routine.  Just exit the event loop. */
+ 
+ }
+ 
+ 
+-static void quit(int bnum, void (*drawscreen) (void)) {
++/*static */void quit(int bnum, void (*drawscreen) (void)) {
+ 
+  close_graphics();
+  exit(0);
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/hash.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/hash.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/hash.c	2016-11-05 11:37:05.297894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/hash.c	2016-11-05 13:52:49.646110400 +0530
+@@ -5,7 +5,7 @@
+ 
+ #define HASHSIZE 4093
+ 
+-static int hash_value (char *name);
++/*static */int hash_value (char *name);
+ 
+ 
+ 
+@@ -147,7 +147,7 @@
+ }
+ 
+ 
+-static int hash_value (char *name) {
++/*static */int hash_value (char *name) {
+ 
+ /* Creates a hash key from a character string.  Only the first character and *
+  * the last 8 characters of the string are used -- that may be dumb.         */
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/main.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/main.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/main.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/main.c	2016-11-05 13:53:26.142111365 +0530
+@@ -88,13 +88,13 @@
+ /********************** Subroutines local to this module ********************/
+ 
+ 
+-static void get_input (char *net_file, char *arch_file, int place_cost_type,
++/*static */void get_input (char *net_file, char *arch_file, int place_cost_type,
+      int num_regions, float aspect_ratio, boolean user_sized,
+      enum e_route_type route_type, struct s_det_routing_arch 
+      *det_routing_arch, struct s_segment_inf **segment_inf_ptr, 
+      t_timing_inf *timing_inf_ptr); 
+ 
+-static void parse_command (int argc, char *argv[], char *net_file, char
++/*static */void parse_command (int argc, char *argv[], char *net_file, char
+     *arch_file, char *place_file, char *route_file, int *operation,
+     float *aspect_ratio,  boolean *full_stats, boolean *user_sized, 
+     boolean *verify_binary_search, int *gr_automode, boolean *show_graphics, 
+@@ -102,8 +102,8 @@
+     *placer_opts, struct s_router_opts *router_opts, boolean 
+     *timing_analysis_enabled);
+ 
+-static int read_int_option (int argc, char *argv[], int iarg);
+-static float read_float_option (int argc, char *argv[], int iarg);
++/*static */int read_int_option (int argc, char *argv[], int iarg);
++/*static */float read_float_option (int argc, char *argv[], int iarg);
+ 
+ 
+ /************************* Subroutine definitions ***************************/
+@@ -190,7 +190,7 @@
+ }
+ 
+ 
+-static void parse_command (int argc, char *argv[], char *net_file, char
++/*static */void parse_command (int argc, char *argv[], char *net_file, char
+     *arch_file, char *place_file, char *route_file, int *operation,
+     float *aspect_ratio,  boolean *full_stats, boolean *user_sized,
+     boolean *verify_binary_search, int *gr_automode, boolean *show_graphics,
+@@ -894,7 +894,7 @@
+ }
+ 
+ 
+-static void get_input (char *net_file, char *arch_file, int place_cost_type,
++/*static */void get_input (char *net_file, char *arch_file, int place_cost_type,
+      int num_regions, float aspect_ratio, boolean user_sized,
+      enum e_route_type route_type, struct s_det_routing_arch 
+      *det_routing_arch, struct s_segment_inf **segment_inf_ptr,
+@@ -965,7 +965,7 @@
+ }
+ 
+ 
+-static int read_int_option (int argc, char *argv[], int iarg) {
++/*static */int read_int_option (int argc, char *argv[], int iarg) {
+ 
+ /* This routine returns the value in argv[iarg+1].  This value must exist *
+  * and be an integer, or an error message is printed and the program      *
+@@ -991,7 +991,7 @@
+ }
+ 
+ 
+-static float read_float_option (int argc, char *argv[], int iarg) { 
++/*static */float read_float_option (int argc, char *argv[], int iarg) { 
+ 
+ /* This routine returns the value in argv[iarg+1].  This value must exist * 
+  * and be a float, or an error message is printed and the program exits.  */ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/place.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/place.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/place.c	2016-11-05 11:37:05.297894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/place.c	2016-11-05 13:58:15.298119017 +0530
+@@ -87,67 +87,67 @@
+ 
+ /********************* Static subroutines local to place.c *******************/
+ 
+-static int binary_search_place_and_route (struct s_placer_opts
++/*static */int binary_search_place_and_route (struct s_placer_opts
+       placer_opts, char *place_file, char *net_file, char *arch_file,
+       char *route_file, boolean full_stats, boolean verify_binary_search,
+       struct s_annealing_sched annealing_sched, struct s_router_opts
+       router_opts, struct s_det_routing_arch det_routing_arch, struct 
+       s_segment_inf *segment_inf, t_timing_inf timing_inf); 
+ 
+-static void try_place (struct s_placer_opts placer_opts, 
++/*static */void try_place (struct s_placer_opts placer_opts, 
+         struct s_annealing_sched annealing_sched);
+-static void read_place (char *place_file, char *net_file, char *arch_file,
++/*static */void read_place (char *place_file, char *net_file, char *arch_file,
+             struct s_placer_opts placer_opts); 
+ 
+-static void alloc_and_load_unique_pin_list (void);
+-static void free_unique_pin_list (void); 
+-static void alloc_place_regions (int num_regions);
+-static void load_place_regions (int num_regions);
+-static void free_place_regions (int num_regions); 
+-static void alloc_and_load_placement_structs (int place_cost_type, 
++/*static */void alloc_and_load_unique_pin_list (void);
++/*static */void free_unique_pin_list (void); 
++/*static */void alloc_place_regions (int num_regions);
++/*static */void load_place_regions (int num_regions);
++/*static */void free_place_regions (int num_regions); 
++/*static */void alloc_and_load_placement_structs (int place_cost_type, 
+        int num_regions, float place_cost_exp, float ***old_region_occ_x, 
+        float ***old_region_occ_y); 
+-static void free_placement_structs (int place_cost_type, int num_regions,
++/*static*/ void free_placement_structs (int place_cost_type, int num_regions,
+         float **old_region_occ_x, float **old_region_occ_y); 
+-static void alloc_and_load_for_fast_cost_update (float place_cost_exp);
++/*static*/ void alloc_and_load_for_fast_cost_update (float place_cost_exp);
+ 
+-static void initial_placement (enum e_pad_loc_type pad_loc_type,
++/*static*/ void initial_placement (enum e_pad_loc_type pad_loc_type,
+             char *pad_loc_file);
+-static float comp_cost (int method, int place_cost_type, int num_regions);
+-static int try_swap (float t, float *cost, float rlim, int *pins_on_block,
++/*static*/ float comp_cost (int method, int place_cost_type, int num_regions);
++/*static*/ int try_swap (float t, float *cost, float rlim, int *pins_on_block,
+        int place_cost_type, float **old_region_occ_x, 
+        float **old_region_occ_y, int num_regions, boolean fixed_pins);
+-static void check_place (float cost, int place_cost_type, int num_regions);
+-static float starting_t (float *cost_ptr, int *pins_on_block, 
++/*static*/ void check_place (float cost, int place_cost_type, int num_regions);
++/*static*/ float starting_t (float *cost_ptr, int *pins_on_block, 
+        int place_cost_type, float **old_region_occ_x, float **old_region_occ_y,
+        int num_regions, boolean fixed_pins, struct s_annealing_sched 
+        annealing_sched, int max_moves);
+-static void update_t (float *t, float std_dev, float rlim, float success_rat,
++/*static*/ void update_t (float *t, float std_dev, float rlim, float success_rat,
+        struct s_annealing_sched annealing_sched); 
+-static void update_rlim (float *rlim, float success_rat);
+-static int exit_crit (float t, float cost, struct s_annealing_sched
++/*static*/ void update_rlim (float *rlim, float success_rat);
++/*static*/ int exit_crit (float t, float cost, struct s_annealing_sched
+        annealing_sched);
+-static double get_std_dev (int n, double sum_x_squared, double av_x);
+-static void free_fast_cost_update_structs (void); 
+-static float recompute_cost (int place_cost_type, int num_regions);
+-static int assess_swap (float delta_c, float t);
+-static void find_to (int x_from, int y_from, int type, float rlim, 
++/*static*/ double get_std_dev (int n, double sum_x_squared, double av_x);
++/*static*/ void free_fast_cost_update_structs (void); 
++/*static*/ float recompute_cost (int place_cost_type, int num_regions);
++/*static*/ int assess_swap (float delta_c, float t);
++/*static*/ void find_to (int x_from, int y_from, int type, float rlim, 
+          int *x_to, int *y_to);
+-static void update_bb (int inet, struct s_bb *bb_coord_new, struct s_bb 
++/*static*/ void update_bb (int inet, struct s_bb *bb_coord_new, struct s_bb 
+         *bb_edge_new, int xold, int yold, int xnew, int ynew);
+-static int find_affected_nets (int *nets_to_update, int *net_block_moved, 
++/*static*/ int find_affected_nets (int *nets_to_update, int *net_block_moved, 
+         int b_from, int b_to, int num_of_pins);
+-static float net_cost (int inet, struct s_bb *bb_ptr);
+-static float nonlinear_cong_cost (int num_regions);
+-static void update_region_occ (int inet, struct s_bb*coords, 
++/*static*/ float net_cost (int inet, struct s_bb *bb_ptr);
++/*static*/ float nonlinear_cong_cost (int num_regions);
++/*static*/ void update_region_occ (int inet, struct s_bb*coords, 
+         int add_or_sub, int num_regions);
+-static void save_region_occ (float **old_region_occ_x, 
++/*static*/ void save_region_occ (float **old_region_occ_x, 
+         float **old_region_occ_y, int num_regions);
+-static void restore_region_occ (float **old_region_occ_x,
++/*static*/ void restore_region_occ (float **old_region_occ_x,
+         float **old_region_occ_y, int num_regions);
+-static void get_bb_from_scratch (int inet, struct s_bb *coords, 
++/*static*/ void get_bb_from_scratch (int inet, struct s_bb *coords, 
+         struct s_bb *num_on_edges); 
+-static float comp_width (struct s_chan *chan, float x, float separation);
++/*static*/ float comp_width (struct s_chan *chan, float x, float separation);
+ 
+ 
+ /*****************************************************************************/
+@@ -248,7 +248,7 @@
+ }
+  
+  
+-static int binary_search_place_and_route (struct s_placer_opts
++/*static */int binary_search_place_and_route (struct s_placer_opts
+       placer_opts, char *place_file, char *net_file, char *arch_file,
+       char *route_file, boolean full_stats, boolean verify_binary_search,
+       struct s_annealing_sched annealing_sched, struct s_router_opts
+@@ -415,7 +415,7 @@
+ }
+ 
+ 
+-static void try_place (struct s_placer_opts placer_opts, 
++/*static */void try_place (struct s_placer_opts placer_opts, 
+         struct s_annealing_sched annealing_sched) {
+ 
+ /* Does almost all the work of placing a circuit.  Width_fac gives the   *
+@@ -625,7 +625,7 @@
+ }
+ 
+ 
+-static double get_std_dev (int n, double sum_x_squared, double av_x) {
++/*static */double get_std_dev (int n, double sum_x_squared, double av_x) {
+ 
+ /* Returns the standard deviation of data set x.  There are n sample points, *
+  * sum_x_squared is the summation over n of x^2 and av_x is the average x.   *
+@@ -648,7 +648,7 @@
+ }
+ 
+ 
+-static void update_rlim (float *rlim, float success_rat) {
++/*static */void update_rlim (float *rlim, float success_rat) {
+ 
+  /* Update the range limited to keep acceptance prob. near 0.44.  Use *
+   * a floating point rlim to allow gradual transitions at low temps.  */
+@@ -663,7 +663,7 @@
+ }
+ 
+ 
+-static void update_t (float *t, float std_dev, float rlim, 
++/*static */void update_t (float *t, float std_dev, float rlim, 
+      float success_rat, struct s_annealing_sched annealing_sched) {
+ 
+ /* Update the temperature according to the annealing schedule selected. */
+@@ -705,7 +705,7 @@
+ }
+ 
+ 
+-static int exit_crit (float t, float cost, struct s_annealing_sched 
++/*static */int exit_crit (float t, float cost, struct s_annealing_sched 
+          annealing_sched) {
+ 
+ /* Return 1 when the exit criterion is met.                        */
+@@ -730,7 +730,7 @@
+ }
+ 
+ 
+-static float starting_t (float *cost_ptr, int *pins_on_block, 
++/*static */float starting_t (float *cost_ptr, int *pins_on_block, 
+     int place_cost_type, float **old_region_occ_x, float **old_region_occ_y,
+     int num_regions, boolean fixed_pins, struct s_annealing_sched 
+     annealing_sched, int max_moves) {
+@@ -787,7 +787,7 @@
+ }
+ 
+ 
+-static int try_swap (float t, float *cost, float rlim, int *pins_on_block, 
++/*static */int try_swap (float t, float *cost, float rlim, int *pins_on_block, 
+    int place_cost_type, float **old_region_occ_x, 
+    float **old_region_occ_y, int num_regions, boolean fixed_pins) {
+ 
+@@ -1030,7 +1030,7 @@
+ }
+ 
+ 
+-static void save_region_occ (float **old_region_occ_x, 
++/*static */void save_region_occ (float **old_region_occ_x, 
+       float **old_region_occ_y, int num_regions) {
+ 
+ /* Saves the old occupancies of the placement subregions in case the  *
+@@ -1047,7 +1047,7 @@
+ }
+ 
+ 
+-static void restore_region_occ (float **old_region_occ_x, 
++/*static */void restore_region_occ (float **old_region_occ_x, 
+        float **old_region_occ_y, int num_regions) {
+ 
+ /* Restores the old occupancies of the placement subregions when the  *
+@@ -1064,7 +1064,7 @@
+ }
+ 
+ 
+-static int find_affected_nets (int *nets_to_update, int *net_block_moved,
++/*static */int find_affected_nets (int *nets_to_update, int *net_block_moved,
+     int b_from, int b_to, int num_of_pins) {
+ 
+ /* Puts a list of all the nets connected to b_from and b_to into          *
+@@ -1138,7 +1138,7 @@
+ }
+ 
+ 
+-static void find_to (int x_from, int y_from, int type, float rlim, 
++/*static */void find_to (int x_from, int y_from, int type, float rlim, 
+     int *x_to, int *y_to) {
+ 
+  /* Returns the point to which I want to swap, properly range limited. *
+@@ -1290,7 +1290,7 @@
+ }
+ 
+ 
+-static int assess_swap (float delta_c, float t) {
++/*static */int assess_swap (float delta_c, float t) {
+ 
+ /* Returns: 1 -> move accepted, 0 -> rejected. */ 
+ 
+@@ -1322,7 +1322,7 @@
+ }
+ 
+ 
+-static float recompute_cost (int place_cost_type, int num_regions) {
++/*static */float recompute_cost (int place_cost_type, int num_regions) {
+ 
+ /* Recomputes the cost to eliminate roundoff that may have accrued.  *
+  * This routine does as little work as possible to compute this new  *
+@@ -1367,7 +1367,7 @@
+ }
+ 
+ 
+-static float comp_cost (int method, int place_cost_type, int num_regions) {
++/*static */float comp_cost (int method, int place_cost_type, int num_regions) {
+ 
+ /* Finds the cost from scratch.  Done only when the placement   *
+  * has been radically changed (i.e. after initial placement).   *
+@@ -1426,7 +1426,7 @@
+ }
+ 
+ 
+-static float nonlinear_cong_cost (int num_regions) {
++/*static */float nonlinear_cong_cost (int num_regions) {
+ 
+ /* This routine computes the cost of a placement when the NONLINEAR_CONG *
+  * option is selected.  It assumes that the occupancies of all the       *
+@@ -1476,7 +1476,7 @@
+ }
+ 
+ 
+-static void update_region_occ (int inet, struct s_bb *coords, 
++/*static */void update_region_occ (int inet, struct s_bb *coords, 
+     int add_or_sub, int num_regions) {
+ 
+ /* Called only when the place_cost_type is NONLINEAR_CONG.  If add_or_sub *
+@@ -1566,7 +1566,7 @@
+ }
+ 
+ 
+-static void free_place_regions (int num_regions) {
++/*static */void free_place_regions (int num_regions) {
+ 
+ /* Frees the place_regions data structures needed by the NONLINEAR_CONG *
+  * cost function.                                                       */
+@@ -1582,7 +1582,7 @@
+ }
+ 
+ 
+-static void free_placement_structs (int place_cost_type, int num_regions,
++/*static */void free_placement_structs (int place_cost_type, int num_regions,
+         float **old_region_occ_x, float **old_region_occ_y) {
+ 
+ /* Frees the major structures needed by the placer (and not needed       *
+@@ -1605,7 +1605,7 @@
+ }
+ 
+ 
+-static void alloc_and_load_placement_structs (int place_cost_type, 
++/*static */void alloc_and_load_placement_structs (int place_cost_type, 
+        int num_regions, float place_cost_exp, float ***old_region_occ_x, 
+        float ***old_region_occ_y) {
+ 
+@@ -1640,7 +1640,7 @@
+ }
+ 
+ 
+-static void alloc_place_regions (int num_regions) {
++/*static */void alloc_place_regions (int num_regions) {
+ 
+ /* Allocates memory for the regional occupancy, cost, etc. counts *
+  * kept when we're using the NONLINEAR_CONG placement cost        *
+@@ -1660,7 +1660,7 @@
+ }
+ 
+ 
+-static void load_place_regions (int num_regions) {
++/*static */void load_place_regions (int num_regions) {
+ 
+ /* Loads the capacity values in each direction for each of the placement *
+  * regions.  The chip is divided into a num_regions x num_regions array. */
+@@ -1765,7 +1765,7 @@
+ }
+ 
+ 
+-static void free_unique_pin_list (void) {
++/*static */void free_unique_pin_list (void) {
+ 
+ /* Frees the unique pin list structures.                               */
+ 
+@@ -1787,7 +1787,7 @@
+ }
+ 
+ 
+-static void alloc_and_load_unique_pin_list (void) {
++/*static */void alloc_and_load_unique_pin_list (void) {
+ 
+ /* This routine looks for multiple pins going to the same block in the *
+  * pinlist of each net.  If it finds any, it marks that net as having  *
+@@ -1848,7 +1848,7 @@
+ }
+ 
+ 
+-static void get_bb_from_scratch (int inet, struct s_bb *coords, 
++/*static */void get_bb_from_scratch (int inet, struct s_bb *coords, 
+    struct s_bb *num_on_edges) {
+ 
+ /* This routine finds the bounding box of each net from scratch (i.e.    *
+@@ -1951,7 +1951,7 @@
+ }
+ 
+ 
+-static float net_cost (int inet, struct s_bb *bbptr) {
++/*static */float net_cost (int inet, struct s_bb *bbptr) {
+ 
+ /* Finds the cost due to one net by looking at its coordinate bounding  *
+  * box.                                                                 */
+@@ -2040,7 +2040,7 @@
+ }
+ 
+ 
+-static void update_bb (int inet, struct s_bb *bb_coord_new, struct s_bb 
++/*static */void update_bb (int inet, struct s_bb *bb_coord_new, struct s_bb 
+     *bb_edge_new, int xold, int yold, int xnew, int ynew) {
+ 
+ /* Updates the bounding box of a net by storing its coordinates in    *
+@@ -2234,7 +2234,7 @@
+ }
+ 
+ 
+-static void initial_placement (enum e_pad_loc_type pad_loc_type,
++/*static */void initial_placement (enum e_pad_loc_type pad_loc_type,
+             char *pad_loc_file) {  
+ 
+ /* Randomly places the blocks to create an initial placement.     */
+@@ -2408,7 +2408,7 @@
+ }
+ 
+ 
+-static float comp_width (struct s_chan *chan, float x, float separation) {
++/*static */float comp_width (struct s_chan *chan, float x, float separation) {
+ 
+ /* Return the relative channel density.  *chan points to a channel   *
+  * functional description data structure, and x is the distance      *
+@@ -2460,7 +2460,7 @@
+ }
+ 
+ 
+-static void free_fast_cost_update_structs (void) {
++/*static */void free_fast_cost_update_structs (void) {
+ 
+ /* Frees the structures used to speed up evaluation of the nonlinear   *
+  * congestion cost function.                                           */
+@@ -2479,7 +2479,7 @@
+ }
+ 
+ 
+-static void alloc_and_load_for_fast_cost_update (float place_cost_exp) {
++/*static */void alloc_and_load_for_fast_cost_update (float place_cost_exp) {
+ 
+ /* Allocates and loads the chanx_place_cost_fac and chany_place_cost_fac *
+  * arrays with the inverse of the average number of tracks per channel   *
+@@ -2567,7 +2567,7 @@
+ }
+ 
+ 
+-static void check_place (float cost, int place_cost_type, int num_regions) {
++/*static */void check_place (float cost, int place_cost_type, int num_regions) {
+ 
+ /* Checks that the placement has not confused our data structures. *
+  * i.e. the clb and block structures agree about the locations of  *
+@@ -2662,7 +2662,7 @@
+ }
+ 
+ 
+-static void read_place (char *place_file, char *net_file, char *arch_file,
++/*static */void read_place (char *place_file, char *net_file, char *arch_file,
+             struct s_placer_opts placer_opts) {
+ 
+ /* Reads in a previously computed placement of the circuit.  It      *
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/read_arch.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/read_arch.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/read_arch.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/read_arch.c	2016-11-05 14:00:36.930122765 +0530
+@@ -129,44 +129,44 @@
+ 
+ /********************** Subroutines local to this module. ******************/
+ 
+-static float get_float (char *ptr, int inp_num, float llim, float ulim,
++/*static */float get_float (char *ptr, int inp_num, float llim, float ulim,
+             FILE *fp_arch, char *buf); 
+-static float get_one_float (char *ptr, int inp_num, float low_lim,
++/*static */float get_one_float (char *ptr, int inp_num, float low_lim,
+             float upp_lim, FILE *fp_arch, char *buf); 
+-static int get_int (char *ptr, int inp_num, FILE *fp_arch, char *buf, 
++/*static */int get_int (char *ptr, int inp_num, FILE *fp_arch, char *buf, 
+             int min_val);
+ 
+-static char *get_middle_token (FILE *fp, char *buf); 
+-static char *get_last_token (FILE *fp, char *buf); 
+-static void check_keyword (FILE *fp, char *buf, const char *keyword); 
++/*static */char *get_middle_token (FILE *fp, char *buf); 
++/*static */char *get_last_token (FILE *fp, char *buf); 
++/*static */void check_keyword (FILE *fp, char *buf, const char *keyword); 
+ 
+-static void check_arch(char *arch_file, enum e_route_type route_type,
++/*static */void check_arch(char *arch_file, enum e_route_type route_type,
+             struct s_det_routing_arch det_routing_arch, struct s_segment_inf
+             *segment_inf, t_timing_inf timing_inf); 
+-static void fill_arch (void);
++/*static */void fill_arch (void);
+ 
+-static void get_chan (char *ptr, struct s_chan *chan, int inp_num, 
++/*static */void get_chan (char *ptr, struct s_chan *chan, int inp_num, 
+             FILE *fp_arch, char *buf); 
+-static void get_pin (char *ptr, int pinnum, int type, FILE *fp_arch,
++/*static */void get_pin (char *ptr, int pinnum, int type, FILE *fp_arch,
+             char *buf);
+-static enum e_Fc_type get_Fc_type (char *ptr, FILE *fp_arch, char *buf); 
+-static enum e_switch_block_type get_switch_block_type (FILE *fp_arch,
++/*static */enum e_Fc_type get_Fc_type (char *ptr, FILE *fp_arch, char *buf); 
++/*static */enum e_switch_block_type get_switch_block_type (FILE *fp_arch,
+             char *buf); 
+-static void get_segment_inf (FILE *fp_arch, char *buf, struct 
++/*static */void get_segment_inf (FILE *fp_arch, char *buf, struct 
+             s_segment_inf *seg_ptr, int num_switch, enum e_route_type 
+             route_type); 
+-static void get_switch_inf (FILE *fp_arch, char *buf, int num_switch, 
++/*static */void get_switch_inf (FILE *fp_arch, char *buf, int num_switch, 
+             enum e_route_type route_type); 
+-static int get_class (FILE *fp_arch, char *buf);
++/*static */int get_class (FILE *fp_arch, char *buf);
+ 
+-static void load_global_segment_and_switch (struct s_det_routing_arch *
++/*static */void load_global_segment_and_switch (struct s_det_routing_arch *
+             det_routing_arch, struct s_segment_inf *segment_inf, t_timing_inf 
+             *timing_inf); 
+ 
+-static void load_extra_switch_types (struct s_det_routing_arch *
++/*static */void load_extra_switch_types (struct s_det_routing_arch *
+             det_routing_arch, t_timing_inf *timing_inf); 
+ 
+-static void countpass (FILE *fp_arch, enum e_route_type route_type, 
++/*static */void countpass (FILE *fp_arch, enum e_route_type route_type, 
+             struct s_segment_inf **segment_inf_ptr, struct 
+             s_det_routing_arch *det_routing_arch_ptr); 
+ 
+@@ -385,7 +385,7 @@
+ }
+ 
+ 
+-static void countpass (FILE *fp_arch, enum e_route_type route_type, 
++/*static */void countpass (FILE *fp_arch, enum e_route_type route_type, 
+     struct s_segment_inf **segment_inf_ptr, struct s_det_routing_arch 
+     *det_routing_arch_ptr) {
+ 
+@@ -506,7 +506,7 @@
+ }
+ 
+ 
+-static int get_class (FILE *fp_arch, char *buf) {
++/*static */int get_class (FILE *fp_arch, char *buf) {
+ 
+ /* This routine is called when strtok has moved the pointer to just before *
+  * the class: keyword.  It advances the pointer to after the class         *
+@@ -549,7 +549,7 @@
+ }
+ 
+ 
+-static void get_pin (char *ptr, int pinnum, int type, FILE *fp_arch, 
++/*static */void get_pin (char *ptr, int pinnum, int type, FILE *fp_arch, 
+                 char * buf) {
+ 
+ /* This routine parses an ipin or outpin line.  It should be called right *
+@@ -602,7 +602,7 @@
+ }
+ 
+ 
+-static enum e_Fc_type get_Fc_type (char *ptr, FILE *fp_arch, char *buf) {
++/*static */enum e_Fc_type get_Fc_type (char *ptr, FILE *fp_arch, char *buf) {
+ 
+ /* Sets the Fc_type to either ABSOLUTE or FRACTIONAL.                    */
+ 
+@@ -637,7 +637,7 @@
+ }
+ 
+ 
+-static enum e_switch_block_type get_switch_block_type (FILE *fp_arch, 
++/*static */enum e_switch_block_type get_switch_block_type (FILE *fp_arch, 
+             char *buf) {
+ 
+ /* Returns the proper value for the switch_block_type member of        *
+@@ -678,7 +678,7 @@
+ }
+ 
+ 
+-static void get_segment_inf (FILE *fp_arch, char *buf, struct 
++/*static */void get_segment_inf (FILE *fp_arch, char *buf, struct 
+         s_segment_inf *seg_ptr, int num_switch, enum e_route_type route_type) {
+ 
+ /* Loads the segment data structure pointed to by seg_ptr with the proper   *
+@@ -808,7 +808,7 @@
+ }
+ 
+ 
+-static void get_switch_inf (FILE *fp_arch, char *buf, int num_switch, 
++/*static */void get_switch_inf (FILE *fp_arch, char *buf, int num_switch, 
+          enum e_route_type route_type) {
+ 
+ /* Loads up all the switch information.                                     */
+@@ -907,7 +907,7 @@
+ }
+ 
+ 
+-static void load_global_segment_and_switch (struct s_det_routing_arch *
++/*static */void load_global_segment_and_switch (struct s_det_routing_arch *
+             det_routing_arch, struct s_segment_inf *segment_inf, t_timing_inf 
+             *timing_inf) {
+ 
+@@ -940,7 +940,7 @@
+ }
+ 
+ 
+-static void load_extra_switch_types (struct s_det_routing_arch *
++/*static */void load_extra_switch_types (struct s_det_routing_arch *
+             det_routing_arch, t_timing_inf *timing_inf) {
+ 
+ /* Adds two extra switches to the routing architecture. One is a zero delay, *
+@@ -977,7 +977,7 @@
+ }
+ 
+ 
+-static void check_keyword (FILE *fp, char *buf, const char *keyword) {
++/*static */void check_keyword (FILE *fp, char *buf, const char *keyword) {
+ 
+ /* Checks that the next token (which must be a middle token) is the proper *
+  * keyword.                                                                */
+@@ -993,7 +993,7 @@
+ }
+ 
+ 
+-static char *get_middle_token (FILE *fp, char *buf) {
++/*static */char *get_middle_token (FILE *fp, char *buf) {
+ 
+ /* Gets the next token and prints an error message if it is the last one.   *
+  * This token also can't be the first token.                                */
+@@ -1009,7 +1009,7 @@
+ }
+ 
+ 
+-static char *get_last_token (FILE *fp, char *buf) {
++/*static */char *get_last_token (FILE *fp, char *buf) {
+ 
+ /* Gets the next token and prints an error message if it isn't the last one. */
+ 
+@@ -1025,7 +1025,7 @@
+ }
+ 
+ 
+-static int get_int (char *ptr, int inp_num, FILE *fp_arch, char *buf, 
++/*static */int get_int (char *ptr, int inp_num, FILE *fp_arch, char *buf, 
+          int min_val) {
+ 
+ /* This routine gets the next integer on the line.  It must be greater *
+@@ -1057,7 +1057,7 @@
+ }
+ 
+ 
+-static float get_one_float (char *ptr, int inp_num, float low_lim,
++/*static */float get_one_float (char *ptr, int inp_num, float low_lim,
+    float upp_lim, FILE *fp_arch, char *buf) {
+ 
+ /* This routine gets one floating point number from ptr.  It checks that     *
+@@ -1079,7 +1079,7 @@
+ }
+ 
+ 
+-static float get_float (char *ptr, int inp_num, float low_lim, 
++/*static */float get_float (char *ptr, int inp_num, float low_lim, 
+    float upp_lim, FILE *fp_arch, char *buf) {
+ 
+ /* This routine gets the floating point number that is next on the line. *
+@@ -1112,7 +1112,7 @@
+  * which can be anything.                                      *
+  * Other possibility:  chan_width_x delta peak xpeak dc        */
+ 
+-static void get_chan (char *ptr, struct s_chan *chan, int inp_num, 
++/*static */void get_chan (char *ptr, struct s_chan *chan, int inp_num, 
+    FILE *fp_arch, char *buf) {
+ 
+ /* This routine parses a channel functional description line.  chan  *
+@@ -1167,7 +1167,7 @@
+ }
+     
+ 
+-static void check_arch (char *arch_file, enum e_route_type route_type,
++/*static */void check_arch (char *arch_file, enum e_route_type route_type,
+         struct s_det_routing_arch det_routing_arch, struct s_segment_inf
+         *segment_inf, t_timing_inf timing_inf) {
+ 
+@@ -1513,7 +1513,7 @@
+ }
+ 
+ 
+-static void fill_arch (void) {
++/*static */void fill_arch (void) {
+ 
+ /* Fill some of the FPGA architecture data structures.         */
+ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/read_netlist.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/read_netlist.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/read_netlist.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/read_netlist.c	2016-11-05 14:02:18.402125451 +0530
+@@ -67,18 +67,18 @@
+ static char *chunk_next_avail_mem = NULL;
+ 
+ 
+-static int add_net (char *ptr, enum e_pin_type type, int bnum, int pclass, 
++/*static */int add_net (char *ptr, enum e_pin_type type, int bnum, int pclass, 
+        int doall); 
+-static char *get_tok(char *buf, int doall, FILE *fp_net);
+-static void add_io (int doall, int type, FILE *fp_net, char *buf);
+-static char *add_clb (int doall, FILE *fp_net, char *buf);
+-static void add_global (int doall, FILE *fp_net, char *buf);
+-static void init_parse(int doall);
+-static void check_netlist (void);
+-static void check_for_multiple_sink_connections (void); 
+-static void free_parse (void);
+-static void parse_name_and_pinlist (int doall, FILE *fp_net, char *buf);
+-static int get_num_conn (int bnum);
++/*static */char *get_tok(char *buf, int doall, FILE *fp_net);
++/*static */void add_io (int doall, int type, FILE *fp_net, char *buf);
++/*static */char *add_clb (int doall, FILE *fp_net, char *buf);
++/*static */void add_global (int doall, FILE *fp_net, char *buf);
++/*static */void init_parse(int doall);
++/*static */void check_netlist (void);
++/*static */void check_for_multiple_sink_connections (void); 
++/*static */void free_parse (void);
++/*static */void parse_name_and_pinlist (int doall, FILE *fp_net, char *buf);
++/*static */int get_num_conn (int bnum);
+ 
+ 
+ void read_net (char *net_file) {
+@@ -114,7 +114,7 @@
+ }
+ 
+ 
+-static void init_parse(int doall) {
++/*static */void init_parse(int doall) {
+ 
+ /* Allocates and initializes the data structures needed for the parse. */
+ 
+@@ -219,7 +219,7 @@
+ }
+ 
+ 
+-static char *get_tok (char *buf, int doall, FILE *fp_net) {
++/*static */char *get_tok (char *buf, int doall, FILE *fp_net) {
+ 
+ /* Figures out which, if any token is at the start of this line and *
+  * takes the appropriate action.  It always returns a pointer to    *
+@@ -263,7 +263,7 @@
+ }
+ 
+ 
+-static int get_pin_number (char *ptr, int min_val, int max_val) {
++/*static */int get_pin_number (char *ptr, int min_val, int max_val) {
+ 
+ /* Returns either the number in ptr or OPEN.  Ptr must contain  *
+  * "open" or an integer between min_val and max_val or an error *
+@@ -288,7 +288,7 @@
+ }
+ 
+ 
+-static void load_subblock_array (int doall, FILE *fp_net,
++/*static */void load_subblock_array (int doall, FILE *fp_net,
+            char *temp_buf, int num_subblocks, int bnum) {
+ 
+ /* Parses one subblock line and, if doall is 1, loads the proper   *
+@@ -347,7 +347,7 @@
+ }
+ 
+ 
+-static void set_subblock_count (int bnum, int num_subblocks) {
++/*static */void set_subblock_count (int bnum, int num_subblocks) {
+ 
+ /* Sets the temporary subblock count for block bnum to num_subblocks. *
+  * Properly allocates whatever temporary storage is needed.           */
+@@ -362,7 +362,7 @@
+ }
+ 
+ 
+-static char *parse_subblocks (int doall, FILE *fp_net, char *buf,
++/*static */char *parse_subblocks (int doall, FILE *fp_net, char *buf,
+                int bnum) {
+ 
+ /* Loads the subblock arrays with the proper values. */
+@@ -412,7 +412,7 @@
+ }
+ 
+ 
+-static char *add_clb (int doall, FILE *fp_net, char *buf) {
++/*static */char *add_clb (int doall, FILE *fp_net, char *buf) {
+ 
+ /* Adds the clb (.clb) currently being parsed to the block array.  Adds *
+  * its pins to the nets data structure by calling add_net.  If doall is *
+@@ -469,7 +469,7 @@
+ }
+ 
+ 
+-static void add_io (int doall, int block_type, FILE *fp_net, char *buf) {
++/*static */void add_io (int doall, int block_type, FILE *fp_net, char *buf) {
+ 
+ /* Adds the INPAD or OUTPAD (specified by block_type)  currently being  *
+  * parsed to the block array.  Adds its pin to the nets data structure  *
+@@ -537,7 +537,7 @@
+ }
+ 
+ 
+-static void parse_name_and_pinlist (int doall, FILE *fp_net, char *buf) {
++/*static */void parse_name_and_pinlist (int doall, FILE *fp_net, char *buf) {
+ 
+ /* This routine does the first part of the parsing of a block.  It is *
+  * called whenever any type of block (.clb, .input or .output) is to  *
+@@ -601,7 +601,7 @@
+ }
+ 
+ 
+-static void add_global (int doall, FILE *fp_net, char *buf) {
++/*static */void add_global (int doall, FILE *fp_net, char *buf) {
+ 
+ /* Doall is 0 for the first (counting) pass and 1 for the second        *
+  * (loading) pass.  fp_net is a pointer to the netlist file.  This      *
+@@ -641,7 +641,7 @@
+ }
+ 
+ 
+-static int add_net (char *ptr, enum e_pin_type type, int bnum, int pclass, 
++/*static */int add_net (char *ptr, enum e_pin_type type, int bnum, int pclass, 
+           int doall) {   
+ 
+ /* This routine is given a net name in *ptr, either DRIVER or RECEIVER *
+@@ -699,7 +699,7 @@
+ }
+ 
+ 
+-static void print_pinnum (FILE *fp, int pinnum) {
++/*static */void print_pinnum (FILE *fp, int pinnum) {
+ 
+ /* This routine prints out either OPEN or the pin number, to file fp. */
+ 
+@@ -795,7 +795,7 @@
+ }
+ 
+ 
+-static void check_netlist (void) {
++/*static */void check_netlist (void) {
+ 
+ /* Checks the input netlist for various errors.  */
+ 
+@@ -973,7 +973,7 @@
+ }
+ 
+ 
+-static void check_for_multiple_sink_connections (void) {
++/*static */void check_for_multiple_sink_connections (void) {
+ 
+ /* The check is for nets that connect more than once to the same class of  *
+  * pins on the same block.  For LUTs and cluster-based logic blocks that   *
+@@ -1030,7 +1030,7 @@
+ }
+ 
+ 
+-static int get_num_conn (int bnum) {
++/*static */int get_num_conn (int bnum) {
+ 
+ /* This routine returns the number of connections to a block. */
+ 
+@@ -1047,7 +1047,7 @@
+ }
+ 
+ 
+-static void free_parse (void) {  
++/*static */void free_parse (void) {  
+ 
+ /* Release memory needed only during circuit netlist parsing. */
+ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/read_place.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/read_place.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/read_place.c	2016-11-05 11:37:05.297894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/read_place.c	2016-11-05 14:03:01.278126585 +0530
+@@ -7,8 +7,8 @@
+ #include "read_place.h"
+ 
+ 
+-static int get_subblock (int i, int j, int bnum); 
+-static void read_place_header (FILE *fp, char *net_file, char *arch_file, 
++/*static */int get_subblock (int i, int j, int bnum); 
++/*static */void read_place_header (FILE *fp, char *net_file, char *arch_file, 
+               char *buf); 
+ 
+ 
+@@ -216,7 +216,7 @@
+ }
+ 
+ 
+-static int get_subblock (int i, int j, int bnum) {
++/*static */int get_subblock (int i, int j, int bnum) {
+ 
+ /* Use this routine only for IO blocks.  It passes back the index of the *
+  * subblock containing block bnum at location (i,j).                     */
+@@ -397,7 +397,7 @@
+ }
+ 
+ 
+-static void read_place_header (FILE *fp, char *net_file, char *arch_file, 
++/*static */void read_place_header (FILE *fp, char *net_file, char *arch_file, 
+               char *buf) {
+ 
+ /* Reads the header from the placement file.  Used only to check that this *
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/route.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/route.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/route.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/route.c	2016-11-05 14:05:34.294130634 +0530
+@@ -109,39 +109,39 @@
+ 
+ /********************* Subroutines local to route.c ***************************/
+ 
+-static void free_trace_data (struct s_trace *tptr);
+-static void free_heap_data (struct s_heap *hptr);
+-static void free_traceback (int inet);
+-static void init_route_structs (int bb_factor);
+-static void load_route_bb (int bb_factor); 
+-static void alloc_and_load_rr_node_route_structs (void);
+-static void free_rr_node_route_structs (void);
++/*static */void free_trace_data (struct s_trace *tptr);
++/*static */void free_heap_data (struct s_heap *hptr);
++/*static */void free_traceback (int inet);
++/*static */void init_route_structs (int bb_factor);
++/*static */void load_route_bb (int bb_factor); 
++/*static */void alloc_and_load_rr_node_route_structs (void);
++/*static */void free_rr_node_route_structs (void);
+ 
+-static boolean route_net (int inet, float bend_cost, enum e_route_type
++/*static */boolean route_net (int inet, float bend_cost, enum e_route_type
+          route_type); 
+-static void pathfinder_update_one_cost (int inet, int add_or_sub, 
++/*static */void pathfinder_update_one_cost (int inet, int add_or_sub, 
+        float pres_fac, float acc_fac);
+-static void pathfinder_update_cost (float pres_fac, float acc_fac);
++/*static */void pathfinder_update_cost (float pres_fac, float acc_fac);
+ 
+-static void mark_ends (int inet);
+-static void add_source_to_heap (int inet); 
+-static void expand_neighbours (int inode, float pcost, int inet, float 
++/*static */void mark_ends (int inet);
++/*static */void add_source_to_heap (int inet); 
++/*static */void expand_neighbours (int inode, float pcost, int inet, float 
+             bend_cost);
+-static struct s_trace *update_traceback (struct s_heap *hptr, int inet);
+-static void empty_heap (void);
+-static void invalidate_heap_entries (int sink_node, int ipin_node); 
++/*static */struct s_trace *update_traceback (struct s_heap *hptr, int inet);
++/*static */void empty_heap (void);
++/*static */void invalidate_heap_entries (int sink_node, int ipin_node); 
+ 
+-static void reset_path_costs (void); 
+-static void expand_trace_segment (struct s_trace *start_ptr, 
++/*static */void reset_path_costs (void); 
++/*static */void expand_trace_segment (struct s_trace *start_ptr, 
+             int remaining_connections_to_sink);
+ 
+-static struct s_heap *get_heap_head (void); 
+-static struct s_trace *alloc_trace_data (void); 
+-static void node_to_heap (int inode, float cost, int prev_node, int prev_edge); 
+-static void add_to_heap (struct s_heap *hptr);
+-static struct s_heap *alloc_heap_data (void);
+-static void add_to_mod_list (float *fptr);
+-static struct s_linked_f_pointer *alloc_linked_f_pointer (void);
++/*static */struct s_heap *get_heap_head (void); 
++/*static */struct s_trace *alloc_trace_data (void); 
++/*static */void node_to_heap (int inode, float cost, int prev_node, int prev_edge); 
++/*static */void add_to_heap (struct s_heap *hptr);
++/*static */struct s_heap *alloc_heap_data (void);
++/*static */void add_to_mod_list (float *fptr);
++/*static */struct s_linked_f_pointer *alloc_linked_f_pointer (void);
+ 
+ 
+ /************************** Subroutine definitions ***************************/
+@@ -357,7 +357,7 @@
+ }
+ 
+ 
+-static void pathfinder_update_one_cost (int inet, int add_or_sub, 
++/*static */void pathfinder_update_one_cost (int inet, int add_or_sub, 
+       float pres_fac, float acc_fac) {
+ 
+ /* This routine updates the occupancy and cost of the channel segments   *
+@@ -410,7 +410,7 @@
+ }
+ 
+ 
+-static void pathfinder_update_cost (float pres_fac, float acc_fac) {
++/*static */void pathfinder_update_cost (float pres_fac, float acc_fac) {
+ 
+ /* This routine recomputes the cost of each routing resource for the     *
+  * pathfinder algorithm after all nets have been routed.  It updates     *
+@@ -448,7 +448,7 @@
+ }    
+ 
+ 
+-static void init_route_structs (int bb_factor) {
++/*static */void init_route_structs (int bb_factor) {
+ 
+ /* Call this before you route any nets.  It frees any old traceback and   *
+  * sets the list of rr_nodes touched to empty.                            */
+@@ -476,7 +476,7 @@
+ }
+ 
+ 
+-static boolean route_net (int inet, float bend_cost, enum e_route_type
++/*static */boolean route_net (int inet, float bend_cost, enum e_route_type
+          route_type) {
+ 
+ /* Uses a maze routing (Dijkstra's) algorithm to route a net.  The net       *
+@@ -552,7 +552,7 @@
+ }
+ 
+ 
+-static void expand_trace_segment (struct s_trace *start_ptr,
++/*static */void expand_trace_segment (struct s_trace *start_ptr,
+         int remaining_connections_to_sink) {
+ 
+ /* Adds all the rr_nodes in the traceback segment starting at tptr (and     *
+@@ -635,7 +635,7 @@
+ }
+ 
+ 
+-static void invalidate_heap_entries (int sink_node, int ipin_node) {
++/*static */void invalidate_heap_entries (int sink_node, int ipin_node) {
+ 
+ /* Marks all the heap entries consisting of sink_node, where it was reached *
+  * via ipin_node, as invalid (OPEN).                                        */
+@@ -649,7 +649,7 @@
+ }
+ 
+ 
+-static struct s_trace *update_traceback (struct s_heap *hptr, int inet) {
++/*static */struct s_trace *update_traceback (struct s_heap *hptr, int inet) {
+ 
+ /* This routine adds the most recently finished wire segment to the         *
+  * traceback linked list.  The first connection starts with the net SOURCE  *
+@@ -720,7 +720,7 @@
+ }
+ 
+ 
+-static void reset_path_costs (void) {
++/*static */void reset_path_costs (void) {
+ 
+ /* The routine sets the path_cost to HUGE_FLOAT for all channel segments   *
+  * touched by previous routing phases.                                     */
+@@ -762,7 +762,7 @@
+ }
+ 
+ 
+-static void expand_neighbours (int inode, float pcost, int inet,
++/*static */void expand_neighbours (int inode, float pcost, int inet,
+           float bend_cost) {
+ 
+ /* Puts all the rr_nodes adjacent to inode on the heap.  rr_nodes outside   *
+@@ -798,7 +798,7 @@
+ }
+ 
+ 
+-static void add_source_to_heap (int inet) {
++/*static */void add_source_to_heap (int inet) {
+ 
+ /* Adds the SOURCE of this net to the heap.  Used to start a net's routing. */
+ 
+@@ -812,7 +812,7 @@
+ }
+ 
+ 
+-static void mark_ends (int inet) {
++/*static */void mark_ends (int inet) {
+ 
+ /* Mark all the SINKs of this net as targets by setting their target flags  *
+  * to the number of times the net must connect to each SINK.  Note that     *
+@@ -829,7 +829,7 @@
+ }
+ 
+ 
+-static void node_to_heap (int inode, float cost, int prev_node, int 
++/*static */void node_to_heap (int inode, float cost, int prev_node, int 
+          prev_edge) {
+ 
+ /* Puts an rr_node on the heap, if the new cost given is lower than the     *
+@@ -852,7 +852,7 @@
+ }
+ 
+ 
+-static void free_traceback (int inet) {
++/*static */void free_traceback (int inet) {
+ 
+ /* Puts the entire traceback (old routing) for this net on the free list *
+  * and sets the trace_head pointers etc. for the net to NULL.            */
+@@ -911,7 +911,7 @@
+ }
+ 
+ 
+-static void alloc_and_load_rr_node_route_structs (void) {
++/*static */void alloc_and_load_rr_node_route_structs (void) {
+ 
+ /* Allocates some extra information about each rr_node that is used only   *
+  * during routing.                                                         */
+@@ -937,7 +937,7 @@
+ }
+ 
+ 
+-static void free_rr_node_route_structs (void) {
++/*static */void free_rr_node_route_structs (void) {
+ 
+ /* Frees the extra information about each rr_node that is needed only      *
+  * during routing.                                                         */
+@@ -947,7 +947,7 @@
+ }
+ 
+ 
+-static void load_route_bb (int bb_factor) {
++/*static */void load_route_bb (int bb_factor) {
+ 
+ /* This routine loads the bounding box arrays used to limit the space  *
+  * searched by the maze router when routing each net.  The search is   *
+@@ -1006,7 +1006,7 @@
+ }
+ 
+ 
+-static void add_to_mod_list (float *fptr) {
++/*static */void add_to_mod_list (float *fptr) {
+ 
+ /* This routine adds the floating point pointer (fptr) into a  *
+  * linked list that indicates all the pathcosts that have been *
+@@ -1024,7 +1024,7 @@
+ }
+ 
+ 
+-static void add_to_heap (struct s_heap *hptr) {
++/*static */void add_to_heap (struct s_heap *hptr) {
+ 
+ /* Adds an item to the heap, expanding the heap if necessary.             */
+ 
+@@ -1053,7 +1053,7 @@
+ }
+ 
+ 
+-static struct s_heap *get_heap_head (void) {
++/*static */struct s_heap *get_heap_head (void) {
+ 
+ /* Returns a pointer to the smallest element on the heap, or NULL if the     *
+  * heap is empty.  Invalid (index == OPEN) entries on the heap are never     *
+@@ -1096,7 +1096,7 @@
+ }
+ 
+ 
+-static void empty_heap (void) {
++/*static */void empty_heap (void) {
+ 
+  int i;
+ 
+@@ -1109,7 +1109,7 @@
+ #define NCHUNK 200  /* # of various structs malloced at a time. */
+ 
+ 
+-static struct s_heap *alloc_heap_data (void) {
++/*static */struct s_heap *alloc_heap_data (void) {
+ 
+  int i;
+  struct s_heap *temp_ptr;
+@@ -1136,7 +1136,7 @@
+ }
+ 
+ 
+-static void free_heap_data (struct s_heap *hptr) {
++/*static */void free_heap_data (struct s_heap *hptr) {
+ 
+  hptr->u.next = heap_free_head; 
+  heap_free_head = hptr;
+@@ -1146,7 +1146,7 @@
+ }
+ 
+ 
+-static struct s_trace *alloc_trace_data (void) {
++/*static */struct s_trace *alloc_trace_data (void) {
+ 
+  int i;
+  struct s_trace *temp_ptr;
+@@ -1172,7 +1172,7 @@
+ }
+ 
+ 
+-static void free_trace_data (struct s_trace *tptr) {
++/*static */void free_trace_data (struct s_trace *tptr) {
+ 
+ /* Puts the traceback structure pointed to by tptr on the free list. */
+  
+@@ -1184,7 +1184,7 @@
+ }
+ 
+ 
+-static struct s_linked_f_pointer *alloc_linked_f_pointer (void) {
++/*static */struct s_linked_f_pointer *alloc_linked_f_pointer (void) {
+  
+ /* This routine returns a linked list element with a float pointer as *
+  * the node data.                                                     */
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph2.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph2.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph2.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph2.c	2016-11-05 14:08:53.374135903 +0530
+@@ -35,13 +35,13 @@
+ 
+ /************************** Subroutines local to this module ****************/
+ 
+-static int load_chanx_rr_indices (t_seg_details *seg_details_x, int 
++/*static */int load_chanx_rr_indices (t_seg_details *seg_details_x, int 
+            nodes_per_chan, int start_index, int i, int j); 
+ 
+-static int load_chany_rr_indices (t_seg_details *seg_details_y, int 
++/*static */int load_chany_rr_indices (t_seg_details *seg_details_y, int 
+            nodes_per_chan, int start_index, int i, int j); 
+ 
+-static void get_switch_type (boolean is_from_sbox, boolean is_to_sbox, 
++/*static */void get_switch_type (boolean is_from_sbox, boolean is_to_sbox, 
+          short from_node_switch, short to_node_switch, short switch_types[2]); 
+ 
+ 
+@@ -505,7 +505,7 @@
+ }
+ 
+ 
+-static int load_chanx_rr_indices (t_seg_details *seg_details_x, int 
++/*static */int load_chanx_rr_indices (t_seg_details *seg_details_x, int 
+            nodes_per_chan, int start_index, int i, int j) {
+ 
+ /* Loads the chanx_rr_indices array for all track segments starting at     *
+@@ -536,7 +536,7 @@
+ }
+ 
+ 
+-static int load_chany_rr_indices (t_seg_details *seg_details_y, int 
++/*static */int load_chany_rr_indices (t_seg_details *seg_details_y, int 
+            nodes_per_chan, int start_index, int i, int j) {
+  
+ /* Loads the chany_rr_indices array for all track segments starting at     *
+@@ -1313,7 +1313,7 @@
+ }
+ 
+ 
+-static void get_switch_type (boolean is_from_sbox, boolean is_to_sbox, 
++/*static */void get_switch_type (boolean is_from_sbox, boolean is_to_sbox, 
+            short from_node_switch, short to_node_switch, short switch_types[2])
+            {
+ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph_area.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph_area.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph_area.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph_area.c	2016-11-05 14:09:46.234137302 +0530
+@@ -9,21 +9,21 @@
+ 
+ /************************ Subroutines local to this module *******************/
+ 
+-static float get_cblock_trans (int *num_inputs_to_cblock, int
++/*static */float get_cblock_trans (int *num_inputs_to_cblock, int
+            max_inputs_to_cblock, float trans_cblock_to_lblock_buf,
+            float trans_sram_bit); 
+ 
+-static float *alloc_and_load_unsharable_switch_trans (int num_switch,
++/*static */float *alloc_and_load_unsharable_switch_trans (int num_switch,
+          float trans_sram_bit, float R_minW_nmos); 
+ 
+-static float *alloc_and_load_sharable_switch_trans (int num_switch,
++/*static */float *alloc_and_load_sharable_switch_trans (int num_switch,
+          float trans_sram_bit, float R_minW_nmos, float R_minW_pmos);
+ 
+-static float trans_per_buf (float Rbuf, float R_minW_nmos, float R_minW_pmos); 
++/*static */float trans_per_buf (float Rbuf, float R_minW_nmos, float R_minW_pmos); 
+ 
+-static float trans_per_mux (int num_inputs, float trans_sram_bit); 
++/*static */float trans_per_mux (int num_inputs, float trans_sram_bit); 
+ 
+-static float trans_per_R (float Rtrans, float R_minW_trans); 
++/*static */float trans_per_R (float Rtrans, float R_minW_trans); 
+ 
+ 
+ /*************************** Subroutine definitions **************************/
+@@ -240,7 +240,7 @@
+ }
+ 
+ 
+-static float get_cblock_trans (int *num_inputs_to_cblock, int 
++/*static */float get_cblock_trans (int *num_inputs_to_cblock, int 
+            max_inputs_to_cblock, float trans_cblock_to_lblock_buf, 
+            float trans_sram_bit) {
+ 
+@@ -278,7 +278,7 @@
+ }
+ 
+ 
+-static float *alloc_and_load_unsharable_switch_trans (int num_switch, 
++/*static */float *alloc_and_load_unsharable_switch_trans (int num_switch, 
+          float trans_sram_bit, float R_minW_nmos) {
+ 
+ /* Loads up an array that says how many transistors are needed to implement  *
+@@ -308,7 +308,7 @@
+ }
+ 
+ 
+-static float *alloc_and_load_sharable_switch_trans (int num_switch,
++/*static */float *alloc_and_load_sharable_switch_trans (int num_switch,
+          float trans_sram_bit, float R_minW_nmos, float R_minW_pmos) {
+ 
+ /* Loads up an array that says how many transistor are needed to implement   *
+@@ -338,7 +338,7 @@
+ }
+  
+ 
+-static float trans_per_buf (float Rbuf, float R_minW_nmos, float R_minW_pmos) {
++/*static */float trans_per_buf (float Rbuf, float R_minW_nmos, float R_minW_pmos) {
+ 
+ /* Returns the number of minimum width transistor area equivalents needed to *
+  * implement this buffer.  Assumes a stage ratio of 4, and equal strength    *
+@@ -374,7 +374,7 @@
+ }
+ 
+ 
+-static float trans_per_mux (int num_inputs, float trans_sram_bit) {
++/*static */float trans_per_mux (int num_inputs, float trans_sram_bit) {
+ 
+ /* Returns the number of transistors needed to build a pass transistor mux. *
+  * DOES NOT include input buffers or any output buffer.  Assumes the pass   *
+@@ -405,7 +405,7 @@
+ }
+ 
+ 
+-static float trans_per_R (float Rtrans, float R_minW_trans) {
++/*static */float trans_per_R (float Rtrans, float R_minW_trans) {
+ 
+ /* Returns the number of minimum width transistor area equivalents needed    *
+  * to make a transistor with Rtrans, given that the resistance of a minimum  *
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph.c	2016-11-05 14:08:01.130134520 +0530
+@@ -25,43 +25,43 @@
+ 
+ /********************* Subroutines local to this module. *******************/
+ 
+-static int ***alloc_and_load_clb_pin_to_tracks (enum e_pin_type pin_type,
++/*static */int ***alloc_and_load_clb_pin_to_tracks (enum e_pin_type pin_type,
+          int nodes_per_chan, int Fc); 
+ 
+-static struct s_ivec **alloc_and_load_tracks_to_clb_ipin (int nodes_per_chan,
++/*static */struct s_ivec **alloc_and_load_tracks_to_clb_ipin (int nodes_per_chan,
+          int Fc, int ***clb_ipin_to_tracks); 
+ 
+-static int **alloc_and_load_pads_to_tracks (int nodes_per_chan, int Fc_pad); 
++/*static */int **alloc_and_load_pads_to_tracks (int nodes_per_chan, int Fc_pad); 
+ 
+-static struct s_ivec *alloc_and_load_tracks_to_pads (int **pads_to_tracks, 
++/*static */struct s_ivec *alloc_and_load_tracks_to_pads (int **pads_to_tracks, 
+          int nodes_per_chan, int Fc_pad); 
+ 
+-static int track_side (int clb_side); 
++/*static */int track_side (int clb_side); 
+ 
+-static void alloc_and_load_rr_graph (int **rr_node_indices, 
++/*static */void alloc_and_load_rr_graph (int **rr_node_indices, 
+        int ***clb_opin_to_tracks, struct s_ivec **tracks_to_clb_ipin,
+        int **pads_to_tracks, struct s_ivec *tracks_to_pads, int Fc_output,
+        int Fc_input, int Fc_pad, int nodes_per_chan, enum e_route_type 
+        route_type, struct s_det_routing_arch det_routing_arch,
+        t_seg_details *seg_details_x, t_seg_details *seg_details_y); 
+ 
+-static void build_rr_clb (int **rr_node_indices, int Fc_output, int ***
++/*static */void build_rr_clb (int **rr_node_indices, int Fc_output, int ***
+          clb_opin_to_tracks, int nodes_per_chan, int i, int j,
+          int delayless_switch, t_seg_details *seg_details_x, 
+          t_seg_details *seg_details_y);
+ 
+-static void build_rr_pads (int **rr_node_indices, int Fc_pad, int 
++/*static */void build_rr_pads (int **rr_node_indices, int Fc_pad, int 
+           **pads_to_tracks, int nodes_per_chan, int i, int j, int 
+           delayless_switch, t_seg_details *seg_details_x, t_seg_details 
+           *seg_details_y);
+ 
+-static void build_rr_xchan (int **rr_node_indices, enum e_route_type
++/*static */void build_rr_xchan (int **rr_node_indices, enum e_route_type
+           route_type, struct s_ivec **tracks_to_clb_ipin, struct s_ivec *
+           tracks_to_pads, int i, int j, int nodes_per_chan, enum 
+           e_switch_block_type switch_block_type, int wire_to_ipin_switch,
+           t_seg_details *seg_details_x, t_seg_details *seg_details_y); 
+ 
+-static void build_rr_ychan (int **rr_node_indices, enum e_route_type
++/*static */void build_rr_ychan (int **rr_node_indices, enum e_route_type
+           route_type, struct s_ivec **tracks_to_clb_ipin, struct s_ivec *
+           tracks_to_pads, int i, int j, int nodes_per_chan, enum
+           e_switch_block_type switch_block_type, int wire_to_ipin_switch,
+@@ -70,10 +70,10 @@
+ void alloc_and_load_edges_and_switches (int inode, int num_edges, 
+           t_linked_edge *edge_list_head);
+ 
+-static void alloc_and_load_net_rr_terminals (int **rr_node_indices, 
++/*static */void alloc_and_load_net_rr_terminals (int **rr_node_indices, 
+           int nodes_per_chan);
+ 
+-static int which_io_block (int iblk); 
++/*static */int which_io_block (int iblk); 
+ 
+ 
+ 
+@@ -205,7 +205,7 @@
+ }
+ 
+ 
+-static void alloc_and_load_rr_graph (int **rr_node_indices, 
++/*static */void alloc_and_load_rr_graph (int **rr_node_indices, 
+        int ***clb_opin_to_tracks, struct s_ivec **tracks_to_clb_ipin,
+        int **pads_to_tracks, struct s_ivec *tracks_to_pads, int Fc_output,
+        int Fc_input, int Fc_pad, int nodes_per_chan, enum e_route_type 
+@@ -310,7 +310,7 @@
+ }
+ 
+ 
+-static void alloc_and_load_net_rr_terminals (int **rr_node_indices, 
++/*static */void alloc_and_load_net_rr_terminals (int **rr_node_indices, 
+         int nodes_per_chan) {
+ 
+ /* Allocates and loads the net_rr_terminals data structure.  For each net   *
+@@ -349,7 +349,7 @@
+ }
+ 
+ 
+-static int which_io_block (int iblk) {
++/*static */int which_io_block (int iblk) {
+ 
+ /* Returns the subblock (pad) number at which this block was placed.  iblk *
+  * must be an IO block.                                                    */
+@@ -384,7 +384,7 @@
+ }
+ 
+ 
+-static void build_rr_clb (int **rr_node_indices, int Fc_output, int ***
++/*static */void build_rr_clb (int **rr_node_indices, int Fc_output, int ***
+        clb_opin_to_tracks, int nodes_per_chan, int i, int j, int 
+        delayless_switch, t_seg_details *seg_details_x, t_seg_details 
+        *seg_details_y) {
+@@ -520,7 +520,7 @@
+ }
+ 
+ 
+-static void build_rr_pads (int **rr_node_indices, int Fc_pad, int 
++/*static */void build_rr_pads (int **rr_node_indices, int Fc_pad, int 
+         **pads_to_tracks, int nodes_per_chan, int i, int j, int 
+         delayless_switch, t_seg_details *seg_details_x, t_seg_details 
+         *seg_details_y) {
+@@ -654,7 +654,7 @@
+ }
+ 
+ 
+-static void build_rr_xchan (int **rr_node_indices, enum e_route_type 
++/*static */void build_rr_xchan (int **rr_node_indices, enum e_route_type 
+       route_type, struct s_ivec **tracks_to_clb_ipin, struct s_ivec *
+       tracks_to_pads, int i, int j, int nodes_per_chan, enum 
+       e_switch_block_type switch_block_type, int wire_to_ipin_switch, 
+@@ -773,7 +773,7 @@
+ }
+ 
+ 
+-static void build_rr_ychan (int **rr_node_indices, enum e_route_type 
++/*static */void build_rr_ychan (int **rr_node_indices, enum e_route_type 
+       route_type, struct s_ivec **tracks_to_clb_ipin, struct s_ivec *
+       tracks_to_pads, int i, int j, int nodes_per_chan, enum 
+       e_switch_block_type switch_block_type, int wire_to_ipin_switch,
+@@ -936,7 +936,7 @@
+ }
+  
+ 
+-static int ***alloc_and_load_clb_pin_to_tracks (enum e_pin_type pin_type, 
++/*static */int ***alloc_and_load_clb_pin_to_tracks (enum e_pin_type pin_type, 
+           int nodes_per_chan, int Fc) {
+ 
+ /* Allocates and loads an array that contains a list of which tracks each  *
+@@ -1061,7 +1061,7 @@
+ }
+ 
+ 
+-static struct s_ivec **alloc_and_load_tracks_to_clb_ipin (int nodes_per_chan,
++/*static */struct s_ivec **alloc_and_load_tracks_to_clb_ipin (int nodes_per_chan,
+       int Fc, int ***clb_ipin_to_tracks) {
+ 
+ /* The routing graph will connect tracks to input pins on the clbs.   *
+@@ -1143,7 +1143,7 @@
+ }
+ 
+ 
+-static int track_side (int clb_side) {
++/*static */int track_side (int clb_side) {
+ 
+ /* Converts a side from referring to the world from a clb's perspective *
+  * to a channel's perspective.  That is, a connection from a clb to the *
+@@ -1170,7 +1170,7 @@
+ }
+ 
+ 
+-static int **alloc_and_load_pads_to_tracks (int nodes_per_chan, int Fc_pad) {
++/*static */int **alloc_and_load_pads_to_tracks (int nodes_per_chan, int Fc_pad) {
+ 
+ /* Allocates and loads up a 2D array ([0..io_rat-1][0..Fc_pad-1]) where *
+  * each entry gives a track number to which that pad connects if it is  *
+@@ -1199,7 +1199,7 @@
+ }
+ 
+ 
+-static struct s_ivec *alloc_and_load_tracks_to_pads (int **pads_to_tracks, 
++/*static */struct s_ivec *alloc_and_load_tracks_to_pads (int **pads_to_tracks, 
+           int nodes_per_chan, int Fc_pad) {
+ 
+ /* Converts the list of tracks each IO pad connects to into a list of  *
+diff -ur spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph_sbox.c spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph_sbox.c
+--- spec_cpu_2000/benchspec/CINT2000/175.vpr/src/rr_graph_sbox.c	2016-11-05 11:37:05.301894876 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/175.vpr/src/rr_graph_sbox.c	2016-11-05 14:10:43.562138819 +0530
+@@ -27,11 +27,11 @@
+ 
+ 
+ 
+-static int get_simple_switch_block_track (enum e_side from_side, enum e_side
++/*static */int get_simple_switch_block_track (enum e_side from_side, enum e_side
+              to_side, int from_track, enum e_switch_block_type
+              switch_block_type, int nodes_per_chan); 
+ 
+-static enum e_side get_sbox_side (int get_i, int get_j, t_rr_type get_type,
++/*static */enum e_side get_sbox_side (int get_i, int get_j, t_rr_type get_type,
+             int comp_i, int comp_j); 
+ 
+ 
+@@ -89,7 +89,7 @@
+ 
+ #define SBOX_ERROR -1
+ 
+-static int get_simple_switch_block_track (enum e_side from_side, enum e_side 
++/*static */int get_simple_switch_block_track (enum e_side from_side, enum e_side 
+              to_side, int from_track, enum e_switch_block_type 
+              switch_block_type, int nodes_per_chan) {
+ 
+@@ -240,7 +240,7 @@
+ }
+ 
+ 
+-static enum e_side get_sbox_side (int get_i, int get_j, t_rr_type get_type, 
++/*static */enum e_side get_sbox_side (int get_i, int get_j, t_rr_type get_type, 
+             int comp_i, int comp_j) {
+ 
+ /* Returns the side of the switch box that the get_node is on, as compared *

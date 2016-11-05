@@ -143,6 +143,7 @@ $(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_perlbmk.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_perlbmk.2.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_gap.patch && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_vpr.patch && cd -
 
 
 menhir:$(MENHIR_INSTALL)/bin/menhir
@@ -270,6 +271,7 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3-soft-float    \
 		&& cd -"
 	touch $@
+
 
 
 
