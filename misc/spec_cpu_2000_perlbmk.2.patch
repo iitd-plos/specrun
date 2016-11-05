@@ -1,0 +1,994 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/dump.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/dump.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/dump.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/dump.c	2016-11-05 11:54:35.665922672 +0530
+@@ -16,7 +16,7 @@
+ #include "perl.h"
+ 
+ #ifndef PERL_OBJECT
+-static void dump(char *pat, ...);
++/*static */void dump(char *pat, ...);
+ #endif /* PERL_OBJECT */
+ 
+ void
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/hv.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/hv.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/hv.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/hv.c	2016-11-05 11:56:31.573925739 +0530
+@@ -14,11 +14,11 @@
+ #include "EXTERN.h"
+ #include "perl.h"
+ 
+-static void hv_magic_check _((HV *hv, bool *needs_copy, bool *needs_store));
++/*static */void hv_magic_check _((HV *hv, bool *needs_copy, bool *needs_store));
+ #ifndef PERL_OBJECT
+-static void hsplit _((HV *hv));
+-static void hfreeentries _((HV *hv));
+-static void more_he _((void));
++/*static */void hsplit _((HV *hv));
++/*static */void hfreeentries _((HV *hv));
++/*static */void more_he _((void));
+ #endif
+ 
+ #if defined(STRANGE_MALLOC) || defined(MYMALLOC)
+@@ -256,7 +256,7 @@
+     return 0;
+ }
+ 
+-static void
++/*static */void
+ hv_magic_check (HV *hv, bool *needs_copy, bool *needs_store)
+ {
+     MAGIC *mg = SvMAGIC(hv);
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/md5c.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/md5c.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/md5c.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/md5c.c	2016-11-05 11:58:35.249929012 +0530
+@@ -58,13 +58,13 @@
+ #define S43 15
+ #define S44 21
+ 
+-static void MD5Transform PROTO_LIST ((UINT4 [4], unsigned char [64]));
+-static void Encode PROTO_LIST
++/*static */void MD5Transform PROTO_LIST ((UINT4 [4], unsigned char [64]));
++/*static */void Encode PROTO_LIST
+   ((unsigned char *, UINT4 *, unsigned long));
+-static void Decode PROTO_LIST
++/*static */void Decode PROTO_LIST
+   ((UINT4 *, unsigned char *, unsigned long));
+-static void MD5_memcpy PROTO_LIST ((POINTER, POINTER, unsigned long));
+-static void MD5_memset PROTO_LIST ((POINTER, int, unsigned long));
++/*static */void MD5_memcpy PROTO_LIST ((POINTER, POINTER, unsigned long));
++/*static */void MD5_memset PROTO_LIST ((POINTER, int, unsigned long));
+ 
+ static unsigned char PADDING[64] = {
+   0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+@@ -200,7 +200,7 @@
+ 
+ /* MD5 basic transformation. Transforms state based on block.
+  */
+-static void MD5Transform (state, block)
++/*static */void MD5Transform (state, block)
+ UINT4 state[4];
+ unsigned char block[64];
+ {
+@@ -293,7 +293,7 @@
+ /* Encodes input (UINT4) into output (unsigned char). Assumes len is
+   a multiple of 4.
+  */
+-static void Encode (output, input, len)
++/*static */void Encode (output, input, len)
+ unsigned char *output;
+ UINT4 *input;
+ unsigned long len;
+@@ -311,7 +311,7 @@
+ /* Decodes input (unsigned char) into output (UINT4). Assumes len is
+   a multiple of 4.
+  */
+-static void Decode (output, input, len)
++/*static */void Decode (output, input, len)
+ UINT4 *output;
+ unsigned char *input;
+ unsigned long len;
+@@ -326,7 +326,7 @@
+ /* Note: Replace "for loop" with standard memcpy if possible.
+  */
+ 
+-static void MD5_memcpy (output, input, len)
++/*static */void MD5_memcpy (output, input, len)
+ POINTER output;
+ POINTER input;
+ unsigned long len;
+@@ -339,7 +339,7 @@
+ 
+ /* Note: Replace "for loop" with standard memset if possible.
+  */
+-static void MD5_memset (output, value, len)
++/*static */void MD5_memset (output, value, len)
+ POINTER output;
+ int value;
+ unsigned long len;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/mg.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/mg.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/mg.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/mg.c	2016-11-05 11:59:25.769930349 +0530
+@@ -41,7 +41,7 @@
+ };
+ typedef struct magic_state MGS;
+ 
+-static void restore_magic _((void *p));
++/*static */void restore_magic _((void *p));
+ #define VTBL			*vtbl
+ 
+ #endif
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/nt_perlmain.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/nt_perlmain.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/nt_perlmain.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/nt_perlmain.c	2016-11-05 11:59:38.009930673 +0530
+@@ -18,7 +18,7 @@
+ 
+ EXTERN_C void boot_DynaLoader _((CV* cv _CPERLarg));
+ 
+-static void
++/*static */void
+ xs_init(CPERLarg)
+ {
+     char *file = __FILE__;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/op.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/op.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/op.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/op.c	2016-11-05 12:00:14.217931631 +0530
+@@ -37,20 +37,20 @@
+ 
+ #define PAD_MAX 999999999
+ 
+-static bool scalar_mod_type _((OP *o, I32 type));
++/*static */bool scalar_mod_type _((OP *o, I32 type));
+ #ifndef PERL_OBJECT
+-static I32 list_assignment _((OP *o));
+-static void bad_type _((I32 n, char *t, char *name, OP *kid));
+-static OP *modkids _((OP *o, I32 type));
+-static OP *no_fh_allowed _((OP *o));
+-static OP *scalarboolean _((OP *o));
+-static OP *too_few_arguments _((OP *o, char* name));
+-static OP *too_many_arguments _((OP *o, char* name));
+-static void null _((OP* o));
+-static PADOFFSET pad_findlex _((char* name, PADOFFSET newoff, U32 seq,
++/*static */I32 list_assignment _((OP *o));
++/*static */void bad_type _((I32 n, char *t, char *name, OP *kid));
++/*static */OP *modkids _((OP *o, I32 type));
++/*static */OP *no_fh_allowed _((OP *o));
++/*static */OP *scalarboolean _((OP *o));
++/*static */OP *too_few_arguments _((OP *o, char* name));
++/*static */OP *too_many_arguments _((OP *o, char* name));
++/*static */void null _((OP* o));
++/*static */PADOFFSET pad_findlex _((char* name, PADOFFSET newoff, U32 seq,
+ 	CV* startcv, I32 cx_ix, I32 saweval, U32 flags));
+-static OP *newDEFSVOP _((void));
+-static OP *new_logop _((I32 type, I32 flags, OP **firstp, OP **otherp));
++/*static */OP *newDEFSVOP _((void));
++/*static */OP *new_logop _((I32 type, I32 flags, OP **firstp, OP **otherp));
+ #endif
+ 
+ STATIC char*
+@@ -1324,7 +1324,7 @@
+     return o;
+ }
+ 
+-static bool
++/*static */bool
+ scalar_mod_type(OP *o, I32 type)
+ {
+     switch (type) {
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perl.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/perl.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perl.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/perl.c	2016-11-05 12:04:41.301938699 +0530
+@@ -44,31 +44,31 @@
+ #endif
+ 
+ #ifdef PERL_OBJECT
+-static I32 read_e_script _((CPerlObj* pPerl, int idx, SV *buf_sv, int maxlen));
++/*static */I32 read_e_script _((CPerlObj* pPerl, int idx, SV *buf_sv, int maxlen));
+ #else
+-static void find_beginning _((void));
+-static void forbid_setid _((char *));
+-static void incpush _((char *, int));
+-static void init_interp _((void));
+-static void init_ids _((void));
+-static void init_debugger _((void));
+-static void init_lexer _((void));
+-static void init_main_stash _((void));
++/*static */void find_beginning _((void));
++/*static */void forbid_setid _((char *));
++/*static */void incpush _((char *, int));
++/*static */void init_interp _((void));
++/*static */void init_ids _((void));
++/*static */void init_debugger _((void));
++/*static */void init_lexer _((void));
++/*static */void init_main_stash _((void));
+ #ifdef USE_THREADS
+-static struct perl_thread * init_main_thread _((void));
++/*static */struct perl_thread * init_main_thread _((void));
+ #endif /* USE_THREADS */
+-static void init_perllib _((void));
+-static void init_postdump_symbols _((int, char **, char **));
+-static void init_predump_symbols _((void));
+-static void my_exit_jump _((void)) __attribute__((noreturn));
+-static void nuke_stacks _((void));
+-static void open_script _((char *, bool, SV *, int *fd));
+-static void usage _((char *));
++/*static */void init_perllib _((void));
++/*static */void init_postdump_symbols _((int, char **, char **));
++/*static */void init_predump_symbols _((void));
++/*static */void my_exit_jump _((void)) __attribute__((noreturn));
++/*static */void nuke_stacks _((void));
++/*static */void open_script _((char *, bool, SV *, int *fd));
++/*static */void usage _((char *));
+ #ifdef IAMSUID
+-static int  fd_on_nosuid_fs _((int));
++/*static */int  fd_on_nosuid_fs _((int));
+ #endif
+-static void validate_suid _((char *, char*, int));
+-static I32 read_e_script _((int idx, SV *buf_sv, int maxlen));
++/*static */void validate_suid _((char *, char*, int));
++/*static */I32 read_e_script _((int idx, SV *buf_sv, int maxlen));
+ #endif
+ 
+ #ifdef PERL_OBJECT
+@@ -2081,7 +2081,7 @@
+ }
+ 
+ #ifdef IAMSUID
+-static int
++/*static */int
+ fd_on_nosuid_fs(int fd)
+ {
+     int on_nosuid  = 0;
+@@ -3054,7 +3054,7 @@
+ 
+ #include "XSUB.h"
+ 
+-static I32
++/*static */I32
+ #ifdef PERL_OBJECT
+ read_e_script(CPerlObj *pPerl, int idx, SV *buf_sv, int maxlen)
+ #else
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perllib.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/perllib.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perllib.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/perllib.c	2016-11-05 12:05:57.297940710 +0530
+@@ -7,7 +7,7 @@
+ #include "perl.h"
+ #include "XSUB.h"
+ 
+-static void xs_init _((void));
++/*static */void xs_init _((void));
+ 
+ DllExport int
+ RunPerl(int argc, char **argv, char **env, void *iosubsystem)
+@@ -99,7 +99,7 @@
+ EXTERN_C void boot_DynaLoader _((CV* cv));
+ EXTERN_C void boot_MD5 _((CV* cv));
+ 
+-static void
++/*static */void
+ xs_init()
+ {
+     char *file = __FILE__;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perly.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/perly.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/perly.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/perly.c	2016-11-05 12:06:13.553941140 +0530
+@@ -6,14 +6,14 @@
+ #include "perl.h"
+ 
+ #ifdef PERL_OBJECT
+-static void
++/*static */void
+ Dep(CPerlObj *pPerl)
+ {
+     pPerl->deprecate("\"do\" to call subroutines");
+ }
+ #define dep() Dep(this)
+ #else
+-static void
++/*static */void
+ dep(void)
+ {
+     deprecate("\"do\" to call subroutines");
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp.c	2016-11-05 12:09:01.013945571 +0530
+@@ -102,9 +102,9 @@
+ #endif
+ 
+ #ifndef PERL_OBJECT
+-static void doencodes _((SV* sv, char* s, I32 len));
+-static SV* refto _((SV* sv));
+-static U32 seed _((void));
++/*static */void doencodes _((SV* sv, char* s, I32 len));
++/*static */SV* refto _((SV* sv));
++/*static */U32 seed _((void));
+ static bool srand_called = FALSE;
+ #endif
+ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp_ctl.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp_ctl.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp_ctl.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp_ctl.c	2016-11-05 12:11:22.605949318 +0530
+@@ -29,18 +29,18 @@
+ #define CALLOP this->*PL_op
+ #else
+ #define CALLOP *PL_op
+-static OP *docatch _((OP *o));
+-static OP *dofindlabel _((OP *o, char *label, OP **opstack, OP **oplimit));
+-static void doparseform _((SV *sv));
+-static I32 dopoptoeval _((I32 startingblock));
+-static I32 dopoptolabel _((char *label));
+-static I32 dopoptoloop _((I32 startingblock));
+-static I32 dopoptosub _((I32 startingblock));
+-static I32 dopoptosub_at _((PERL_CONTEXT *cxstk, I32 startingblock));
+-static void save_lines _((AV *array, SV *sv));
+-static I32 sortcv _((SV *a, SV *b));
+-static void qsortsv _((SV **array, size_t num_elts, I32 (*fun)(SV *a, SV *b)));
+-static OP *doeval _((int gimme, OP** startop));
++/*static */OP *docatch _((OP *o));
++/*static */OP *dofindlabel _((OP *o, char *label, OP **opstack, OP **oplimit));
++/*static */void doparseform _((SV *sv));
++/*static */I32 dopoptoeval _((I32 startingblock));
++/*static */I32 dopoptolabel _((char *label));
++/*static */I32 dopoptoloop _((I32 startingblock));
++/*static */I32 dopoptosub _((I32 startingblock));
++/*static */I32 dopoptosub_at _((PERL_CONTEXT *cxstk, I32 startingblock));
++/*static */void save_lines _((AV *array, SV *sv));
++/*static */I32 sortcv _((SV *a, SV *b));
++/*static */void qsortsv _((SV **array, size_t num_elts, I32 (*fun)(SV *a, SV *b)));
++/*static */OP *doeval _((int gimme, OP** startop));
+ #endif
+ 
+ PP(pp_wantarray)
+@@ -3273,7 +3273,7 @@
+ 
+ #ifdef QSORT_DEBUG
+ 
+-static void
++/*static */void
+ break_here()
+ {
+    return; /* good place to set a breakpoint */
+@@ -3281,7 +3281,7 @@
+ 
+ #define qsort_assert(t) (void)( (t) || (break_here(), 0) )
+ 
+-static void
++/*static */void
+ doqsort_all_asserts(
+    void * array,
+    size_t num_elts,
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp_hot.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp_hot.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp_hot.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp_hot.c	2016-11-05 12:12:06.329950476 +0530
+@@ -31,7 +31,7 @@
+ /* Hot code. */
+ 
+ #ifdef USE_THREADS
+-static void
++/*static */void
+ unset_cvowner(void *cvarg)
+ {
+     register CV* cv = (CV *) cvarg;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp_sys.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp_sys.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/pp_sys.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/pp_sys.c	2016-11-05 12:12:47.361951561 +0530
+@@ -123,7 +123,7 @@
+ #endif
+ 
+ #if !defined(HAS_MKDIR) || !defined(HAS_RMDIR)
+-static int dooneliner _((char *cmd, char *filename));
++/*static */int dooneliner _((char *cmd, char *filename));
+ #endif
+ 
+ #ifdef HAS_CHSIZE
+@@ -156,7 +156,7 @@
+ #  endif /* no flock() or fcntl(F_SETLK,...) */
+ 
+ #  ifdef FLOCK
+-     static int FLOCK _((int, int));
++     /*static */int FLOCK _((int, int));
+ 
+     /*
+      * These are the flock() constants.  Since this sytems doesn't have
+@@ -2857,7 +2857,7 @@
+ }
+ 
+ #if !defined(HAS_MKDIR) || !defined(HAS_RMDIR)
+-static int
++/*static */int
+ dooneliner(cmd, filename)
+ char *cmd;
+ char *filename;
+@@ -4546,7 +4546,7 @@
+     What's really needed is a good file locking module.
+ */
+ 
+-static int
++/*static */int
+ fcntl_emulate_flock(int fd, int operation)
+ {
+     struct flock flock;
+@@ -4603,7 +4603,7 @@
+ #  define F_TEST	3	/* Test a region for other processes locks */
+ # endif
+ 
+-static int
++/*static */int
+ lockf_emulate_flock (fd, operation)
+ int fd;
+ int operation;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regcomp.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/regcomp.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regcomp.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/regcomp.c	2016-11-05 12:14:52.453954872 +0530
+@@ -127,21 +127,21 @@
+  */
+ 
+ #ifndef PERL_OBJECT
+-static regnode *reg _((I32, I32 *));
+-static regnode *reganode _((U8, U32));
+-static regnode *regatom _((I32 *));
+-static regnode *regbranch _((I32 *, I32));
+-static void regc _((U8, char *));
+-static regnode *regclass _((void));
++/*static */regnode *reg _((I32, I32 *));
++/*static */regnode *reganode _((U8, U32));
++/*static */regnode *regatom _((I32 *));
++/*static */regnode *regbranch _((I32 *, I32));
++/*static */void regc _((U8, char *));
++/*static */regnode *regclass _((void));
+ STATIC I32 regcurly _((char *));
+-static regnode *reg_node _((U8));
+-static regnode *regpiece _((I32 *));
+-static void reginsert _((U8, regnode *));
+-static void regoptail _((regnode *, regnode *));
+-static void regtail _((regnode *, regnode *));
+-static char* regwhite _((char *, char *));
+-static char* nextchar _((void));
+-static void re_croak2 _((const char* pat1,const char* pat2,...)) __attribute__((noreturn));
++/*static */regnode *reg_node _((U8));
++/*static */regnode *regpiece _((I32 *));
++/*static */void reginsert _((U8, regnode *));
++/*static */void regoptail _((regnode *, regnode *));
++/*static */void regtail _((regnode *, regnode *));
++/*static */char* regwhite _((char *, char *));
++/*static */char* nextchar _((void));
++/*static */void re_croak2 _((const char* pat1,const char* pat2,...));/* __attribute__((noreturn))*/;
+ #endif
+ 
+ /* Length of a variant. */
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regexec.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/regexec.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/regexec.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/regexec.c	2016-11-05 12:15:32.589955934 +0530
+@@ -93,14 +93,14 @@
+  * Forwards.
+  */
+ 
+-static I32 regmatch _((regnode *prog));
+-static I32 regrepeat _((regnode *p, I32 max));
+-static I32 regrepeat_hard _((regnode *p, I32 max, I32 *lp));
+-static I32 regtry _((regexp *prog, char *startpos));
++/*static */I32 regmatch _((regnode *prog));
++/*static */I32 regrepeat _((regnode *p, I32 max));
++/*static */I32 regrepeat_hard _((regnode *p, I32 max, I32 *lp));
++/*static */I32 regtry _((regexp *prog, char *startpos));
+ 
+-static bool reginclass _((char *p, I32 c));
+-static CHECKPOINT regcppush _((I32 parenfloor));
+-static char * regcppop _((void));
++/*static */bool reginclass _((char *p, I32 c));
++/*static */CHECKPOINT regcppush _((I32 parenfloor));
++/*static */char * regcppop _((void));
+ #endif
+ #define REGINCLASS(p,c)  (*(p) ? reginclass(p,c) : ANYOF_TEST(p,c))
+ 
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/run.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/run.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/run.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/run.c	2016-11-05 12:16:33.693957551 +0530
+@@ -39,7 +39,7 @@
+ dEXT char *watchok;
+ 
+ #ifndef PERL_OBJECT
+-static void debprof _((OP*o));
++/*static */void debprof _((OP*o));
+ #endif
+ 
+ #endif	/* DEBUGGING */
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/src.alt/original_parser_source/perly.y spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/src.alt/original_parser_source/perly.y
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/src.alt/original_parser_source/perly.y	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/src.alt/original_parser_source/perly.y	2016-11-05 12:16:54.141958092 +0530
+@@ -16,7 +16,7 @@
+ #include "EXTERN.h"
+ #include "perl.h"
+ 
+-static void
++/*static */void
+ dep(void)
+ {
+     deprecate("\"do\" to call subroutines");
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/sv.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/sv.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/sv.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/sv.c	2016-11-05 12:17:30.997959067 +0530
+@@ -46,27 +46,27 @@
+ 
+ #else /* !PERL_OBJECT */
+ 
+-static IV asIV _((SV* sv));
+-static UV asUV _((SV* sv));
+-static SV *more_sv _((void));
+-static void more_xiv _((void));
+-static void more_xnv _((void));
+-static void more_xpv _((void));
+-static void more_xrv _((void));
+-static XPVIV *new_xiv _((void));
+-static XPVNV *new_xnv _((void));
+-static XPV *new_xpv _((void));
+-static XRV *new_xrv _((void));
+-static void del_xiv _((XPVIV* p));
+-static void del_xnv _((XPVNV* p));
+-static void del_xpv _((XPV* p));
+-static void del_xrv _((XRV* p));
+-static void sv_mortalgrow _((void));
+-static void sv_unglob _((SV* sv));
+-static void sv_check_thinkfirst _((SV *sv));
++/*static */IV asIV _((SV* sv));
++/*static */UV asUV _((SV* sv));
++/*static */SV *more_sv _((void));
++/*static */void more_xiv _((void));
++/*static */void more_xnv _((void));
++/*static */void more_xpv _((void));
++/*static */void more_xrv _((void));
++/*static */XPVIV *new_xiv _((void));
++/*static */XPVNV *new_xnv _((void));
++/*static */XPV *new_xpv _((void));
++/*static */XRV *new_xrv _((void));
++/*static */void del_xiv _((XPVIV* p));
++/*static */void del_xnv _((XPVNV* p));
++/*static */void del_xpv _((XPV* p));
++/*static */void del_xrv _((XRV* p));
++/*static */void sv_mortalgrow _((void));
++/*static */void sv_unglob _((SV* sv));
++/*static */void sv_check_thinkfirst _((SV *sv));
+ 
+ #ifndef PURIFY
+-static void *my_safemalloc(MEM_SIZE size);
++/*static */void *my_safemalloc(MEM_SIZE size);
+ #endif
+ 
+ typedef void (*SVFUNC) _((SV*));
+@@ -117,7 +117,7 @@
+ #define REG_ADD(sv)	REG_REPLACE(sv,Nullsv,sv)
+ #define REG_REMOVE(sv)	REG_REPLACE(sv,sv,Nullsv)
+ 
+-static void
++/*static */void
+ reg_add(sv)
+ SV* sv;
+ {
+@@ -145,7 +145,7 @@
+     ++PL_sv_count;
+ }
+ 
+-static void
++/*static */void
+ reg_remove(sv)
+ SV* sv;
+ {
+@@ -153,7 +153,7 @@
+     --PL_sv_count;
+ }
+ 
+-static void
++/*static */void
+ visit(f)
+ SVFUNC f;
+ {
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/toke.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/toke.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/toke.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/toke.c	2016-11-05 11:52:27.181919272 +0530
+@@ -15,44 +15,44 @@
+ #include "perl.h"
+ 
+ #ifndef PERL_OBJECT
+-static void check_uni _((void));
+-static void  force_next _((I32 type));
+-static char *force_version _((char *start));
+-static char *force_word _((char *start, int token, int check_keyword, int allow_pack, int allow_tick));
+-static SV *tokeq _((SV *sv));
+-static char *scan_const _((char *start));
+-static char *scan_formline _((char *s));
+-static char *scan_heredoc _((char *s));
+-static char *scan_ident _((char *s, char *send, char *dest, STRLEN destlen,
++/*static */void check_uni _((void));
++/*static */void  force_next _((I32 type));
++/*static */char *force_version _((char *start));
++/*static */char *force_word _((char *start, int token, int check_keyword, int allow_pack, int allow_tick));
++/*static */SV *tokeq _((SV *sv));
++/*static */char *scan_const _((char *start));
++/*static */char *scan_formline _((char *s));
++/*static */char *scan_heredoc _((char *s));
++/*static */char *scan_ident _((char *s, char *send, char *dest, STRLEN destlen,
+ 			   I32 ck_uni));
+-static char *scan_inputsymbol _((char *start));
+-static char *scan_pat _((char *start, I32 type));
+-static char *scan_str _((char *start));
+-static char *scan_subst _((char *start));
+-static char *scan_trans _((char *start));
+-static char *scan_word _((char *s, char *dest, STRLEN destlen,
++/*static */char *scan_inputsymbol _((char *start));
++/*static */char *scan_pat _((char *start, I32 type));
++/*static */char *scan_str _((char *start));
++/*static */char *scan_subst _((char *start));
++/*static */char *scan_trans _((char *start));
++/*static */char *scan_word _((char *s, char *dest, STRLEN destlen,
+ 			  int allow_package, STRLEN *slp));
+-static char *skipspace _((char *s));
+-static void checkcomma _((char *s, char *name, char *what));
+-static void force_ident _((char *s, int kind));
+-static void incline _((char *s));
+-static int intuit_method _((char *s, GV *gv));
+-static int intuit_more _((char *s));
+-static I32 lop _((I32 f, expectation x, char *s));
+-static void missingterm _((char *s));
+-static void no_op _((char *what, char *s));
+-static void set_csh _((void));
+-static I32 sublex_done _((void));
+-static I32 sublex_push _((void));
+-static I32 sublex_start _((void));
++/*static */char *skipspace _((char *s));
++/*static */void checkcomma _((char *s, char *name, char *what));
++/*static */void force_ident _((char *s, int kind));
++/*static */void incline _((char *s));
++/*static */int intuit_method _((char *s, GV *gv));
++/*static */int intuit_more _((char *s));
++/*static */I32 lop _((I32 f, expectation x, char *s));
++/*static */void missingterm _((char *s));
++/*static */void no_op _((char *what, char *s));
++/*static */void set_csh _((void));
++/*static */I32 sublex_done _((void));
++/*static */I32 sublex_push _((void));
++/*static */I32 sublex_start _((void));
+ #ifdef CRIPPLED_CC
+-static int uni _((I32 f, char *s));
++/*static */int uni _((I32 f, char *s));
+ #endif
+-static char * filter_gets _((SV *sv, PerlIO *fp, STRLEN append));
+-static void restore_rsfp _((void *f));
+-static SV *new_constant _((char *s, STRLEN len, char *key, SV *sv, SV *pv, char *type));
+-static void restore_expect _((void *e));
+-static void restore_lex_expect _((void *e));
++/*static */char * filter_gets _((SV *sv, PerlIO *fp, STRLEN append));
++/*static */void restore_rsfp _((void *f));
++/*static */SV *new_constant _((char *s, STRLEN len, char *key, SV *sv, SV *pv, char *type));
++/*static */void restore_expect _((void *e));
++/*static */void restore_lex_expect _((void *e));
+ 
+ static char *PL_super_bufptr;
+ static char *PL_super_bufend;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/unix_perlmain.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/unix_perlmain.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/unix_perlmain.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/unix_perlmain.c	2016-11-05 12:19:09.661961678 +0530
+@@ -10,7 +10,7 @@
+ #include "EXTERN.h"
+ #include "perl.h"
+ 
+-static void xs_init _((void));
++/*static */void xs_init _((void));
+ static PerlInterpreter *my_perl;
+ 
+ #if defined (__MINT__) || defined (atarist)
+@@ -66,7 +66,7 @@
+ EXTERN_C void boot_DynaLoader _((CV* cv));
+ EXTERN_C void boot_MD5 _((CV* cv));
+ 
+-static void
++/*static */void
+ xs_init()
+ {
+     char *file = __FILE__;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/util.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/util.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/util.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/util.c	2016-11-05 12:19:30.245962223 +0530
+@@ -54,7 +54,7 @@
+ 
+ #ifdef LEAKTEST
+ 
+-static void xstat _((int));
++/*static */void xstat _((int));
+ long xcount[MAXXCOUNT];
+ long lastxcount[MAXXCOUNT];
+ long xycount[MAXXCOUNT][MAXYCOUNT];
+@@ -300,7 +300,7 @@
+     return (Malloc_t)(where + ALIGN);
+ }
+ 
+-static void
++/*static */void
+ xstat(int flag)
+ {
+     register I32 i, j, total = 0;
+@@ -1998,7 +1998,7 @@
+ 
+ static int sig_trapped;
+ 
+-static
++/*static*/
+ Signal_t
+ sig_trap(int signo)
+ {
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/win32.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/win32.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/win32.c	2016-11-05 11:37:05.157894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/win32.c	2016-11-05 12:23:26.445968473 +0530
+@@ -89,15 +89,15 @@
+ #define getlogin g_getlogin
+ #endif
+ 
+-static DWORD		os_id(void);
+-static void		get_shell(void);
+-static long		tokenize(char *str, char **dest, char ***destv);
++/*static */DWORD		os_id(void);
++/*static */void		get_shell(void);
++/*static */long		tokenize(char *str, char **dest, char ***destv);
+ 	int		do_spawn2(char *cmd, int exectype);
+-static BOOL		has_shell_metachars(char *ptr);
+-static long		filetime_to_clock(PFILETIME ft);
+-static BOOL		filetime_from_time(PFILETIME ft, time_t t);
+-static char *		get_emd_part(char *leading, char *trailing, ...);
+-static void		remove_dead_process(HANDLE deceased);
++/*static */BOOL		has_shell_metachars(char *ptr);
++/*static */long		filetime_to_clock(PFILETIME ft);
++/*static */BOOL		filetime_from_time(PFILETIME ft, time_t t);
++/*static */char *		get_emd_part(char *leading, char *trailing, ...);
++/*static */void		remove_dead_process(HANDLE deceased);
+ 
+ HANDLE	w32_perldll_handle = INVALID_HANDLE_VALUE;
+ static DWORD	w32_platform = (DWORD)-1;
+@@ -175,7 +175,7 @@
+     return *ptr;
+ }
+ 
+-static char *
++/*static */char *
+ get_emd_part(char *prev_path, char *trailing_path, ...)
+ {
+     char base[10];
+@@ -300,7 +300,7 @@
+ }
+ 
+ 
+-static BOOL
++/*static */BOOL
+ has_shell_metachars(char *ptr)
+ {
+     int inquote = 0;
+@@ -376,7 +376,7 @@
+ }
+ #endif
+ 
+-static DWORD
++/*static */DWORD
+ os_id(void)
+ {
+     static OSVERSIONINFO osver;
+@@ -396,7 +396,7 @@
+  * backslash (the backslash will be stripped).
+  * Returns number of words in result buffer.
+  */
+-static long
++/*static */long
+ tokenize(char *str, char **dest, char ***destv)
+ {
+     char *retstart = Nullch;
+@@ -442,7 +442,7 @@
+     return items;
+ }
+ 
+-static void
++/*static */void
+ get_shell(void)
+ {
+     if (!w32_perlshell_tokens) {
+@@ -843,7 +843,7 @@
+     return 0;
+ }
+ 
+-static void
++/*static */void
+ remove_dead_process(HANDLE deceased)
+ {
+ #ifndef USE_RTL_WAIT
+@@ -1038,7 +1038,7 @@
+ 
+ #endif
+ 
+-static long
++/*static */long
+ filetime_to_clock(PFILETIME ft)
+ {
+  __int64 qw = ft->dwHighDateTime;
+@@ -1075,7 +1075,7 @@
+ /* fix utime() so it works on directories in NT
+  * thanks to Jan Dubois <jan.dubois@ibm.net>
+  */
+-static BOOL
++/*static */BOOL
+ filetime_from_time(PFILETIME pFileTime, time_t Time)
+ {
+     struct tm *pTM = gmtime(&Time);
+@@ -1201,7 +1201,7 @@
+ static UINT timerid = 0;
+ 
+ #ifndef SPEC_CPU2000_NTOS
+-static VOID CALLBACK TimerProc(HWND win, UINT msg, UINT id, DWORD time)
++/*static */VOID CALLBACK TimerProc(HWND win, UINT msg, UINT id, DWORD time)
+ {
+  KillTimer(NULL,timerid);
+  timerid=0;  
+@@ -1316,7 +1316,7 @@
+ *
+ *******************************************************************************/
+ 
+-static int
++/*static */int
+ my_open_osfhandle(long osfhandle, int flags)
+ {
+     int fh;
+@@ -2223,7 +2223,7 @@
+  * Extras.
+  */
+ 
+-static
++/*static*/
+ XS(w32_GetCwd)
+ {
+     dXSARGS;
+@@ -2245,7 +2245,7 @@
+     XSRETURN(1);
+ }
+ 
+-static
++/*static*/
+ XS(w32_SetCwd)
+ {
+     dXSARGS;
+@@ -2258,7 +2258,7 @@
+     XSRETURN_NO;
+ }
+ 
+-static
++/*static*/
+ XS(w32_GetNextAvailDrive)
+ {
+     dXSARGS;
+@@ -2274,14 +2274,14 @@
+     XSRETURN_UNDEF;
+ }
+ 
+-static
++/*static*/
+ XS(w32_GetLastError)
+ {
+     dXSARGS;
+     XSRETURN_IV(GetLastError());
+ }
+ 
+-static
++/*static*/
+ XS(w32_LoginName)
+ {
+     dXSARGS;
+@@ -2295,7 +2295,7 @@
+     XSRETURN_UNDEF;
+ }
+ 
+-static
++/*static*/
+ XS(w32_NodeName)
+ {
+     dXSARGS;
+@@ -2310,7 +2310,7 @@
+ }
+ 
+ 
+-static
++/*static*/
+ XS(w32_DomainName)
+ {
+     dXSARGS;
+@@ -2352,7 +2352,7 @@
+     XSRETURN_UNDEF;
+ }
+ 
+-static
++/*static*/
+ XS(w32_FsType)
+ {
+     dXSARGS;
+@@ -2372,7 +2372,7 @@
+     XSRETURN_UNDEF;
+ }
+ 
+-static
++/*static*/
+ XS(w32_GetOSVersion)
+ {
+     dXSARGS;
+@@ -2391,21 +2391,21 @@
+     XSRETURN_UNDEF;
+ }
+ 
+-static
++/*static*/
+ XS(w32_IsWinNT)
+ {
+     dXSARGS;
+     XSRETURN_IV(IsWinNT());
+ }
+ 
+-static
++/*static*/
+ XS(w32_IsWin95)
+ {
+     dXSARGS;
+     XSRETURN_IV(IsWin95());
+ }
+ 
+-static
++/*static*/
+ XS(w32_FormatMessage)
+ {
+     dXSARGS;
+@@ -2423,7 +2423,7 @@
+     XSRETURN_UNDEF;
+ }
+ 
+-static
++/*static*/
+ XS(w32_Spawn)
+ {
+     dXSARGS;
+@@ -2463,14 +2463,14 @@
+     XSRETURN_IV(bSuccess);
+ }
+ 
+-static
++/*static*/
+ XS(w32_GetTickCount)
+ {
+     dXSARGS;
+     XSRETURN_IV(GetTickCount());
+ }
+ 
+-static
++/*static*/
+ XS(w32_GetShortPathName)
+ {
+     dXSARGS;
+@@ -2497,7 +2497,7 @@
+     XSRETURN(1);
+ }
+ 
+-static
++/*static*/
+ XS(w32_Sleep)
+ {
+     dXSARGS;
+diff -ur spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/win32sck.c spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/win32sck.c
+--- spec_cpu_2000/benchspec/CINT2000/253.perlbmk/src/win32sck.c	2016-11-05 11:37:05.153894872 +0530
++++ spec_cpu_2000.mod/benchspec/CINT2000/253.perlbmk/src/win32sck.c	2016-11-05 12:24:16.241969791 +0530
+@@ -72,7 +72,7 @@
+ 
+ #define SOCKET_TEST_ERROR(x) SOCKET_TEST(x, SOCKET_ERROR)
+ 
+-static struct servent* win32_savecopyservent(struct servent*d,
++/*static */struct servent* win32_savecopyservent(struct servent*d,
+                                              struct servent*s,
+                                              const char *proto);
+ 
+@@ -661,7 +661,7 @@
+     croak("setservent not implemented!\n");
+ }
+ 
+-static struct servent*
++/*static */struct servent*
+ win32_savecopyservent(struct servent*d, struct servent*s, const char *proto)
+ {
+     d->s_name = s->s_name;
