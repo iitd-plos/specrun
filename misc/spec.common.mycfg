@@ -808,9 +808,8 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 default=default=clang36-i386-O3=default:
 CC		= $(CC_CLANG36_I386)
 COPTIMIZE	= $(COPTIMIZE_O3)
-CXX		= $(CXX_CLANG_I386)
+CXX		= $(CXX_CLANG36_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3)
-CPORTABILITY    = -fpermissive -Wno-return-type
 FC              = $(FC_I386)
 
 default=default=ccomp-i386-O0-soft-float=default:
