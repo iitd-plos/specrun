@@ -64,6 +64,8 @@ CC_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-gcc
 CXX_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-g++
 CC_CCOMP_I386=$(COMPCERT_INSTALL)/bin/ccomp -L$(COMPCERT_INSTALL)/lib/compcert
 
+CC_PGC_I386=/home/dahiya/w/pgc/cc_pgc.py
+CXX_PGC_I386=/home/dahiya/w/pgc/cc_pgc.py
 
 $(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a: $(SRCDIR)/../tars/$(GCC_SOFT_FLOAT).tar.bz2 $(SRCDIR)/misc/gcc-softfloat-xstubs.c
 	cd $(build)/installs && rm -rf $(GCC_SOFT_FLOAT) && tar xf $< && patch -p0 < $(SRCDIR)/misc/$(GCC_SOFT_FLOAT).softfloat.patch && cd -
@@ -92,6 +94,8 @@ $(build)/spec.mycfg.hdr: $(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a
 	echo CXX_CLANG36_I386=$(CXX_CLANG36_I386) >> $@
 	echo CC_ICC_I386=$(CC_ICC_I386) >> $@
 	echo CXX_ICC_I386=$(CXX_ICC_I386) >> $@
+	echo CC_PGC_I386=$(CC_PGC_I386) >> $@
+	echo CXX_PGC_I386=$(CXX_PGC_I386) >> $@
 	echo CC_GCC_I386=$(CC_GCC_I386) >> $@
 	echo CXX_GCC_I386=$(CXX_GCC_I386) >> $@
 	echo CC_GCC48_I386=$(CC_GCC48_I386) >> $@
@@ -241,20 +245,22 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC2000_DIR) \
 		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float  \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float  \
 		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float\
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0-soft-float    \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float\
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O2-soft-float    \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float  \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O3-soft-float  \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O3  \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O3-soft-float\
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O3 \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3-soft-float    \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3    \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0-soft-float    \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2-soft-float\
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O2-soft-float    \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O2-soft-float  \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O3-soft-float  \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O3  \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O3-soft-float\
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2 \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3-soft-float    \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3    \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O0    \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O2    \
 		&& cd -"
 	touch $@
 
@@ -270,16 +276,16 @@ specrun2000:
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O0-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O3-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O3
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O0-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O3-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O3
 	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O0-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O2-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O3-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O3
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O2-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O3-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O3
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-O0-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-O2-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext ccomp-i386-O2-soft-float
 
 .PHONY: specrun2006
 specrun2006:

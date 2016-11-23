@@ -38,7 +38,7 @@ our @all_specs2006;
 our @default_opts;
 
 
-my $run_iter = 5;
+my $run_iter = 3;
 my $small_inputs = 0;
 
 sub usage
