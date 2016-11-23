@@ -839,14 +839,16 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 default=default=pgc-i386-O0=default:
 CC		= $(CC_PGC_I386)
 CXX		= $(CXX_PGC_I386)
-COPTIMIZE	= -O0
-CXXOPTIMIZE	= -O0
+COPTIMIZE	= -O0 -Wno-return-type
+CXXOPTIMIZE	= -O0 -Wno-return-type
 FC          = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=pgc-i386-O2=default:
 CC		= $(CC_PGC_I386)
 CXX		= $(CXX_PGC_I386)
-COPTIMIZE	= -O2
-CXXOPTIMIZE	= -O2
+COPTIMIZE	= -O0 -Wno-return-type
+CXXOPTIMIZE	= -O0 -Wno-return-type
 FC          = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
