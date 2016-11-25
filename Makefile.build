@@ -64,8 +64,8 @@ CC_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-gcc
 CXX_CROSSTOOL_PPC32=$(CROSSTOOL_PPC_BIN)/powerpc-405-linux-gnu-g++
 CC_CCOMP_I386=$(COMPCERT_INSTALL)/bin/ccomp -L$(COMPCERT_INSTALL)/lib/compcert
 
-CC_PGC_I386=/home/dahiya/w/pgc/cc_pgc.py
-CXX_PGC_I386=/home/dahiya/w/pgc/cc_pgc.py
+CC_PGC_I386=/home/dahiya/w/pgc/pgc.py -c
+CXX_PGC_I386=/home/dahiya/w/pgc/pgc.py -cpp
 
 $(build)/installs/$(GCC_SOFT_FLOAT)/libsoftfloat.i386.a: $(SRCDIR)/../tars/$(GCC_SOFT_FLOAT).tar.bz2 $(SRCDIR)/misc/gcc-softfloat-xstubs.c
 	cd $(build)/installs && rm -rf $(GCC_SOFT_FLOAT) && tar xf $< && patch -p0 < $(SRCDIR)/misc/$(GCC_SOFT_FLOAT).softfloat.patch && cd -
@@ -231,6 +231,8 @@ specbuild2006: $(build)/installs/cpu2006 \
 	touch $@
 
 
+SPEC2000_BENCHES=bzip2 gzip parser cc1 crafty mcf twolf vortex vpr
+
 .PHONY: specbuild2000
 specbuild2000: $(build)/installs/spec_cpu_2000 \
 		                    $(SRCDIR)/misc/specbuild.pl \
@@ -245,8 +247,15 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 	cd $(build)/installs/spec_cpu_2000 && export SPEC_DIR=$(SPEC2000_DIR) \
 		&& export SPEC_INSTALL_NOCHECK=1 && expect $(SRCDIR)/misc/spec_install.exp
 	bash -c "cd $(SPEC2000_DIR) && source $(SPEC2000_DIR)/shrc \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O3 $(SPEC2000_BENCHES) \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O3-loop-opt-synth  $(SPEC2000_BENCHES) \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O2-loop-opt-synth  $(SPEC2000_BENCHES)   \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-Omem2reg  $(SPEC2000_BENCHES) \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O0  $(SPEC2000_BENCHES) \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O2  $(SPEC2000_BENCHES) \
+		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2  $(SPEC2000_BENCHES) \
+		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float\
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O0-soft-float  \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O0-soft-float\
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O0-soft-float    \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext ccomp-i386-O0-soft-float \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O2-soft-float \
@@ -256,11 +265,8 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O3-soft-float  \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext gcc48-i386-O3  \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O3-soft-float\
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext clang36-i386-O2 \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3-soft-float    \
 		#&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext icc-i386-O3    \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O0    \
-		&& perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2000 -ext pgc-i386-O2    \
 		&& cd -"
 	touch $@
 
@@ -271,16 +277,23 @@ specbuild2000: $(build)/installs/spec_cpu_2000 \
 
 .PHONY: specrun2000
 specrun2000:
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext pgc-i386-O3-loop-opt-synth $(SPEC2000_BENCHES) 
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext pgc-i386-O3 $(SPEC2000_BENCHES) 
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext pgc-i386-Omem2reg $(SPEC2000_BENCHES) 
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext pgc-i386-O0 $(SPEC2000_BENCHES) 
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext pgc-i386-O2 $(SPEC2000_BENCHES) 
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext pgc-i386-O2-loop-opt-synth $(SPEC2000_BENCHES) 
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2 $(SPEC2000_BENCHES) 
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc-i386-O3
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O0-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O0-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O2-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext gcc48-i386-O3
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O0-soft-float
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O2-soft-float
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O3-soft-float
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext clang36-i386-O3
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O0-soft-float
+	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O0-soft-float
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O2-soft-float
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O3-soft-float
 	#perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2000 -ext icc-i386-O3

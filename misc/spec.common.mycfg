@@ -10,7 +10,9 @@ GCC_EQCHECKER_FLAGS_RUN= -fno-inline -fno-inline-functions -fno-inline-small-fun
 GCC_EQCHECKER_FLAGS_NORUN= #-undef -msoft-float
 GCC_EQCHECKER_FLAGS= $(GCC_EQCHECKER_FLAGS_RUN) $(GCC_EQCHECKER_FLAGS_NORUN)
 
-CLANG_COMMON_EQCHECKER_FLAGS_RUN=  -fno-inline -fno-inline-functions -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -DTIMING_OUTPUT -fno-reorder-blocks -fwrapv -fno-strict-overflow -fno-unroll-loops -Wno-return-type -fno-zero-initialized-in-bss $(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS)
+CLANG_COMMON_MIN=-Wno-return-type
+CLANG_COMMON=$(EQCHECKER_DEFINES) $(EQCHECKER_NO_BUILTINS) -DTIMING_OUTPUT 
+CLANG_COMMON_EQCHECKER_FLAGS_RUN=  -fno-inline -fno-inline-functions -fno-strict-aliasing -fno-optimize-sibling-calls -fno-stack-protector -fno-reorder-blocks -fwrapv -fno-strict-overflow -fno-unroll-loops -fno-zero-initialized-in-bss $(CLANG_COMMON) $(CLANG_COMMON_MIN)
 CLANG_EQCHECKER_FLAGS_NORUN= #-Xclang -msoft-float -Xclang -no-implicit-float
 CLANG_COMMON_EQCHECKER_FLAGS=  $(CLANG_COMMON_EQCHECKER_FLAGS_RUN) $(CLANG_EQCHECKER_FLAGS_NORUN)
 
@@ -800,8 +802,8 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 default=default=clang36-i386-O2=default:
 CC		= $(CC_CLANG36_I386)
 CXX		= $(CXX_CLANG36_I386)
-COPTIMIZE	= $(COPTIMIZE_O2)
-CXXOPTIMIZE	= $(COPTIMIZE_O2)
+COPTIMIZE	= -O2 $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O2 $(CLANG_COMMON_MIN)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -815,9 +817,9 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=clang36-i386-O3=default:
 CC		= $(CC_CLANG36_I386)
-COPTIMIZE	= $(COPTIMIZE_O3)
 CXX		= $(CXX_CLANG36_I386)
-CXXOPTIMIZE	= $(COPTIMIZE_O3)
+COPTIMIZE	= -O3 $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O3 $(CLANG_COMMON_MIN)
 FC              = $(FC_I386)
 
 default=default=ccomp-i386-O0-soft-float=default:
@@ -839,16 +841,48 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 default=default=pgc-i386-O0=default:
 CC		= $(CC_PGC_I386)
 CXX		= $(CXX_PGC_I386)
-COPTIMIZE	= -O0 -Wno-return-type
-CXXOPTIMIZE	= -O0 -Wno-return-type
+COPTIMIZE	= -O0 $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O0 $(CLANG_COMMON_MIN)
 FC          = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=pgc-i386-O2=default:
 CC		= $(CC_PGC_I386)
 CXX		= $(CXX_PGC_I386)
-COPTIMIZE	= -O0 -Wno-return-type
-CXXOPTIMIZE	= -O0 -Wno-return-type
+COPTIMIZE	= -O2 $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O2 $(CLANG_COMMON_MIN)
+FC          = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=pgc-i386-O3=default:
+CC		= $(CC_PGC_I386)
+CXX		= $(CXX_PGC_I386)
+COPTIMIZE	= -O3 $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O3 $(CLANG_COMMON_MIN)
+FC          = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=pgc-i386-O2-loop-opt-synth=default:
+CC		= $(CC_PGC_I386)
+CXX		= $(CXX_PGC_I386)
+COPTIMIZE	= -O2-loop-opt-synth $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O2-loop-opt-synth $(CLANG_COMMON_MIN)
+FC          = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=pgc-i386-O3-loop-opt-synth=default:
+CC		= $(CC_PGC_I386)
+CXX		= $(CXX_PGC_I386)
+COPTIMIZE	= -O3-loop-opt-synth $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -O3-loop-opt-synth $(CLANG_COMMON_MIN)
+FC          = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=pgc-i386-Omem2reg=default:
+CC		= $(CC_PGC_I386)
+CXX		= $(CXX_PGC_I386)
+COPTIMIZE	= -Omem2reg $(CLANG_COMMON_MIN)
+CXXOPTIMIZE	= -Omem2reg $(CLANG_COMMON_MIN)
 FC          = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
