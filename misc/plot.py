@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 import argparse
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import gridspec
@@ -207,7 +209,7 @@ def get_benches_comps(stats):
   for b in stats:
     benches.append(b)
     for c in stats[b]:
-      if (c not in comps) and (not c.endswith('0')):
+      if (c not in comps):# and (not c.endswith('0')):
         comps.append(c)
   #for b in benches:
   #  print '{} {}'.format(b, get_bench_nr(b))
@@ -300,19 +302,19 @@ def ignore_benches_perf(stats, ignore_benches, keep_comp):
       ret[k][c] = stats[k][c]
   return ret
 
-def perf_plots():
+def perf_plots(comp_to_plot, ref_comp):
   stats = {}
   #parse_compcert_perf_results(stats)
   parse_spec_perf_results(stats, 'specrun2000.out')
   stats = ignore_small_values(stats)
   #parse_spec_perf_results(stats, '../superopt/specrun2006.out')
-  ref_comp = 'icc-i386-O0-soft-float'
-  comp_to_plot = ['gcc48-i386-O3', 'gcc48-i386-O3-soft-float', 'gcc48-i386-O2-soft-float']
-  stats = ignore_benches_perf(stats, ['cc1'], comp_to_plot + [ref_comp])
+  stats = ignore_benches_perf(stats, ['gap', 'perlbmk'], comp_to_plot)
   pp = pprint.PrettyPrinter()
   pp.pprint(stats)
   scale_stats(stats, ref_comp)
   (benches, comps) = get_benches_comps(stats)
+  print benches
+  print comps
   
   avg_speedup = compute_avg_speedup(stats, benches, comps)
   print 'avg-speedup {}'.format(avg_speedup)
@@ -322,7 +324,7 @@ def perf_plots():
   ind = np.arange(n_benches)
   width = 1.0/(1.5+n_comps)
 
-  fig = plt.figure(figsize=(11.5, 7))
+  fig = plt.figure(figsize=(11.5, 9))
   ax = fig.add_subplot(111)
 
   rectss = []
@@ -333,7 +335,7 @@ def perf_plots():
 
   ax.axhline(y=avg_speedup, ls='--')
   plt.annotate('avg speedup: '+'{:.1f}'.format(avg_speedup), xy=(8.5, avg_speedup), xytext=(7, avg_speedup*1.5),  arrowprops=dict(arrowstyle="->"))
-  ax.set_ylabel('Speedup relative to icc-O0')
+  ax.set_ylabel('Speedup relative to {}'.format(ref_comp))
   ax.set_xticks(ind+0.5-width/2.0)
   labels = map(show_string, benches)
   ax.set_xticklabels(labels, rotation=20)
@@ -350,4 +352,13 @@ if __name__ == "__main__":
   plt.rcParams['font.family'] = 'monospace'
   plt.rcParams['legend.fontsize'] = 9
 
-  perf_plots()
+  ref_comp = 'pgc-i386-O0'
+  #comp_to_plot = ['gcc48-i386-O3', 'gcc48-i386-O3-soft-float', 'gcc48-i386-O2-soft-float']
+  comp_to_plot = [
+    'pgc-i386-O0', 
+    'pgc-i386-O2', 
+    'pgc-i386-O3', 
+    'pgc-i386-O2-loop-opt-synth', 
+    'pgc-i386-O3-loop-opt-synth', 
+    'pgc-i386-Omem2reg', 'clang36-i386-O2']
+  perf_plots(comp_to_plot, ref_comp)
