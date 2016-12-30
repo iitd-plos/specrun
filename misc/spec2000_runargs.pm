@@ -72,6 +72,8 @@ spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec20
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_all, "all");
 
 $prep_commands{"spec2000.parser"} = "cp -r $cint2000/197.parser/data/all/input/2.1.dict.mod $cint2000/197.parser/data/all/input/words .";
+$prep_commands{"spec2000.perlbmk"} = "cp -r $cint2000/253.perlbmk/data/all/input/lenums $cint2000/253.perlbmk/data/all/input/benums $cint2000/253.perlbmk/data/all/input/cpu2000_mhonarc.rc .";
+$prep_commands{"spec2000.vortex"} = "cp -r $cint2000/255.vortex/data/ref/input/bendian1.raw $cint2000/255.vortex/data/ref/input/bendian2.raw $cint2000/255.vortex/data/ref/input/bendian3.raw $cint2000/255.vortex/data/ref/input/bendian.rnv $cint2000/255.vortex/data/ref/input/bendian.wnv $cint2000/255.vortex/data/ref/input/lendian1.raw $cint2000/255.vortex/data/ref/input/lendian2.raw $cint2000/255.vortex/data/ref/input/lendian3.raw $cint2000/255.vortex/data/ref/input/lendian.rnv $cint2000/255.vortex/data/ref/input/lendian.rnv $cint2000/255.vortex/data/ref/input/lendian.wnv $cint2000/255.vortex/data/ref/input/persons.1k .";
 
 sub make_endianness_adjustments
 {
