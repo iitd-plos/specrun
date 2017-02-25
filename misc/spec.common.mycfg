@@ -1,4 +1,4 @@
-DATA_SECTIONS_FLAG=-fdata-sections -fmerge-constants -Wl,-T,$(LINKER_SCRIPT)
+DATA_SECTIONS_FLAG=-fdata-sections -Wl,-T,$(LINKER_SCRIPT)
 EMIT_RELOCS_FLAG=-Wl,--emit-relocs
 DEBUG_FLAG=-g
 
