@@ -7,9 +7,18 @@ use config_host;
 our %args, our %small_args, our %prep_commands;
 
 sub spec_exec_name {
+  my $specname = shift;
   my $exec = shift;
-  $exec =~ /^\d*\.(.*)$/;
-  my $exname = ($1 eq "gcc")?"cc1":$1;
+  $exec =~ /^(\d*)\.(.*)$/;
+  my $id = $1;
+  my $name = $2;
+  my $exname;
+  #if ($name eq "specrand" && $specname eq "spec2006") {
+  #  $exname = "$name.$id";
+  #} else {
+    $exname = ($name eq "gcc" && $specname eq "spec2000")?"cc1":$name;
+  #}
+
   return $exname;
 }
 
@@ -22,7 +31,7 @@ sub spec_args_patsubst
   my $pat = shift;
   my $rep = shift;
   for my $spec (@$all_specs) {
-    my $exname = spec_exec_name($spec);
+    my $exname = spec_exec_name($specname, $spec);
     my %hargs = %$args;
     my $elem = $hargs{"$specname.$exname"};
     #print "exname = $exname\n";

@@ -1,5 +1,13 @@
 include config.mak
 
+HOST_TYPE=`uname -m`
+ifeq ($(HOST_TYPE), x86_64)
+ELF_TYPE=elf64-x86-64
+else
+ELF_TYPE=elf32-i386
+endif
+
+
 SPEC2000_DIR=$(build)/installs/$(SPEC2000)
 SPEC2006_DIR=$(build)/installs/$(SPEC2006)
 

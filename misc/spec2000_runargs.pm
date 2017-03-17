@@ -6,9 +6,10 @@ use config_host;
 use spec_common;
 
 our $build_dir;
-our (%args, %small_args);
+our (%args, %small_args, %prep_commands);
 
-our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
+our @all_specs2000 = ("176.gcc", "253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "255.vortex");
+#our @all_specs2000 = ("253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "176.gcc");
 #, "255.vortex"
 
 our $cpu2000 = "$build_dir/installs/spec_cpu_2000";
@@ -71,6 +72,10 @@ spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%args, $spec2000_ref
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%args, $spec2000_all, "all");
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_test, "test");
 spec_args_patsubst(\@all_specs2000, $cint2000, "spec2000", \%small_args, $spec2000_all, "all");
+
+$prep_commands{"spec2000.parser"} = "cp -r $cint2000/197.parser/data/all/input/2.1.dict.mod $cint2000/197.parser/data/all/input/words .";
+$prep_commands{"spec2000.perlbmk"} = "cp -r $cint2000/253.perlbmk/data/all/input/lenums $cint2000/253.perlbmk/data/all/input/benums $cint2000/253.perlbmk/data/all/input/cpu2000_mhonarc.rc .";
+$prep_commands{"spec2000.vortex"} = "cp -r $cint2000/255.vortex/data/ref/input/bendian1.raw $cint2000/255.vortex/data/ref/input/bendian2.raw $cint2000/255.vortex/data/ref/input/bendian3.raw $cint2000/255.vortex/data/ref/input/bendian.rnv $cint2000/255.vortex/data/ref/input/bendian.wnv $cint2000/255.vortex/data/ref/input/lendian1.raw $cint2000/255.vortex/data/ref/input/lendian2.raw $cint2000/255.vortex/data/ref/input/lendian3.raw $cint2000/255.vortex/data/ref/input/lendian.rnv $cint2000/255.vortex/data/ref/input/lendian.rnv $cint2000/255.vortex/data/ref/input/lendian.wnv $cint2000/255.vortex/data/ref/input/persons.1k .";
 
 sub make_endianness_adjustments
 {
@@ -151,7 +156,9 @@ sub is_spec2000_benchmark
 {
   my $bench = shift;
   for my $spec (@all_specs2000) {
-    return 1 if ($bench eq spec_exec_name($spec));
+    my $specbench = spec_exec_name("spec2000", $spec);
+    #print "bench $bench spec $spec specbench $specbench\n";
+    return 1 if ($bench eq $specbench);
   }
   return 0;
 }

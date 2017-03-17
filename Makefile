@@ -5,3 +5,6 @@ specrun2006 specbuild2006 specbuild2000 specrun2000:: $(build)/Makefile
 
 $(build)/Makefile: Makefile.build
 	cp $< $@
+
+kill::
+	killall -9 runspec

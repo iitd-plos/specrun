@@ -116,10 +116,11 @@ sub build_execs
 
 sub copy_execs
 {
+  my $specname = shift;
   my $cfg = shift;
 
   foreach my $exec (@all_execs) {
-    my $exname = spec_exec_name($exec);
+    my $exname = spec_exec_name($specname, $exec);
     my $consider_exec;
     if ($#ARGV >= 0) {
       $consider_exec = 0;
@@ -134,10 +135,19 @@ sub copy_execs
       if (!-e "$outdir/$cfg") {
         system("mkdir -p $outdir/$cfg");
       }
-      copy("$cint_dir/$exec/exe/$exname\_base.$cfg",
+      my $in_exname = $exname;
+      my $in_exec = $exec;
+      if ($exname =~ /specrand/) {
+        #$exec =~ /^(\d*)\./;
+        #my $id = $1;
+        #$out_exname = "$exname$id";
+        $in_exname = "specrand";
+        $in_exec = substr($exec, 0, length($exec) - 3);
+      }
+      copy("$cint_dir/$in_exec/exe/$in_exname\_base.$cfg",
         "$outdir/$cfg/$exname")
         or print STDERR "Copy failed from ".
-           "$cint_dir/$exec/exe/$exname\_base.$cfg to ".
+           "$cint_dir/$in_exec/exe/$in_exname\_base.$cfg to ".
            "$outdir/$cfg/$exname. Error $!\n";
       chmod 0755, "$outdir/$cfg/$exname";
     }
@@ -149,5 +159,5 @@ my @cfgs;
 
 foreach my $cfg (@cfgs) {
   build_execs($cfg);
-  copy_execs($cfg);
+  copy_execs($specname, $cfg);
 }
