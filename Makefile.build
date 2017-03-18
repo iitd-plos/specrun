@@ -108,4 +108,4 @@ specrun2000:
 
 .PHONY: specrun2006
 specrun2006:
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf perlbmk cactusADM GemsFDTD omnetpp bwaves gamess
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext x64-i386-O3 bzip2 mcf perlbmk cactusADM GemsFDTD omnetpp bwaves gamess astar sjeng
