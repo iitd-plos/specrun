@@ -24,11 +24,13 @@ our @mcf_args = ("$spec2006_ref/inp.in");
 our @cactusADM_args = ("$spec2006_ref/benchADM.par");
 our @GemsFDTD_args = ("");
 our @omnetpp_args = ("$spec2006_ref/omnetpp.ini");
-our @perlbmk_args = ("-I$spec2006_all/lib $spec2006_ref/checkspam.pl 2500 5 25 11 150 1 1 1 1", "-I$spec2006_all/lib $spec2006_all/diffmail.pl 4 800 10 17 19 300", "-I$spec2006_all/lib $spec2006_all/splitmail.pl 1600 12 26 16 4500");
 our @bwaves_args = ("");
 our @gamess_args = ("< $spec2006_ref/cytosine.2.config", "< $spec2006_ref/h2ocu2+.gradient.config", "< $spec2006_ref/triazolium.config");
 our @astar_args = ("rivers.cfg", "BigLakes2048.cfg");
 our @sjeng_args = ("$spec2006_ref/ref.txt");
+our @perlbench_args = ("-I$spec2006_all/lib $spec2006_all/diffmail.pl 4 800 10 17 19 300", "-I$spec2006_all -I$spec2006_all/lib $spec2006_test/makerand.pl", "-I$spec2006_all/lib $spec2006_train/perfect.pl b 3", "-I$spec2006_all/lib $spec2006_all/splitmail.pl 535 13 25 24 1091", "-I$spec2006_all/lib $spec2006_ref/splitmail.pl 1600 12 26 16 4500", "-I$spec2006_all/lib $spec2006_all/checkspam.pl 2500 5 25 11 150 1 1 1 1");
+
+
 our @specrand998_args = ("1255432124 234923");
 our @specrand999_args = ("1255432124 234923");
 
@@ -38,7 +40,7 @@ $args{"spec2006.bzip2"} = \@bzip2_args;
 $args{"spec2006.cactusADM"} = \@cactusADM_args;
 $args{"spec2006.GemsFDTD"} = \@GemsFDTD_args;
 $args{"spec2006.omnetpp"} = \@omnetpp_args;
-$args{"spec2006.perlbmk"} = \@perlbmk_args;
+$args{"spec2006.perlbench"} = \@perlbench_args;
 $args{"spec2006.bwaves"} = \@bwaves_args;
 $args{"spec2006.gamess"} = \@gamess_args;
 $args{"spec2006.astar"} = \@astar_args;
