@@ -17,6 +17,7 @@ our $spec2006_dir = "$build_dir/spec2006";
 our $spec2006_ref = "$spec2006_dir/ref";
 our $spec2006_all = "$spec2006_dir/all";
 our $spec2006_test = "$spec2006_dir/test";
+our $spec2006_train = "$spec2006_dir/train";
 
 
 our @bzip2_args = ("$spec2006_ref/input.source 280", "$spec2006_ref/chicken.jpg 30", "$spec2006_ref/liberty.jpg 30", "$spec2006_all/input.program 280", "$spec2006_ref/text.html 280", "$spec2006_all/input.combined 200");
