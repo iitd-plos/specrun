@@ -1,0 +1,42 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+use Getopt::Long qw(:config no_ignore_case);
+use Switch;
+use Time::HiRes qw( usleep ualarm gettimeofday tv_interval );
+use File::Copy;
+use File::Temp qw/ tempfile tempdir :mktemp /;
+use POSIX;
+use POSIX ":sys_wait_h";
+use POSIX qw(setsid);
+use POSIX qw(:errno_h :fcntl_h);
+use Unix::Mknod qw(:all);
+use Fcntl qw(:mode);
+
+my $compile_flag = 0;
+my @compile_args;
+my @link_args;
+for (my $i = 0; $i <= $#ARGV; $i++) {
+  my $arg = $ARGV[$i];
+  #print "argv[$i]=$arg\n";
+  if ($arg =~ /^-c$/) {
+    $compile_flag = 1;
+  } elsif ($arg =~ /^-o$/) {
+    push(@link_args, $arg);
+  } elsif ($arg =~ /^-/) {
+  } else {
+    #print "pushing arg $arg to link_args\n";
+    push(@link_args, $arg);
+  }
+  push(@compile_args, $arg);
+}
+#print "argv: @ARGV\n";
+my $command;
+if ($compile_flag == 1) {
+  $command = "/usr/bin/clang-3.6 -emit-llvm @compile_args"
+} else {
+  $command = "/usr/bin/llvm-link-3.6 @link_args"
+}
+print "command: $command\n";
+system("$command");

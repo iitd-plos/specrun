@@ -55,6 +55,13 @@ FC_X64=/usr/bin/gfortran -static
 
 EXTRA_LIBS_soft_float=$(I386_SOFT_FLOAT_LIB)
 
+default=default=llvm-bc-O0=default:
+CC		= $(CC_CLANG_BC)
+CXX		= $(CXX_CLANG_BC)
+COPTIMIZE	= $(COPTIMIZE_O0) $(CLANG_EQCHECKER_FLAGS)
+CXXOPTIMIZE	= $(COPTIMIZE_O0) $(CLANG_EQCHECKER_FLAGS)
+FC              = $(FC_I386)
+
 default=default=gcc-i386-O0=default:
 CC		= $(CC_GCC_I386)
 CXX		= $(CXX_GCC_I386)
