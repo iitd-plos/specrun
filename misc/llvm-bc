@@ -34,7 +34,7 @@ for (my $i = 0; $i <= $#ARGV; $i++) {
 #print "argv: @ARGV\n";
 my $command;
 if ($compile_flag == 1) {
-  $command = "/usr/bin/clang-3.6 -emit-llvm @compile_args"
+  $command = "/usr/bin/clang-3.6 -target i386 -emit-llvm @compile_args"
 } else {
   $command = "/usr/bin/llvm-link-3.6 @link_args"
 }
