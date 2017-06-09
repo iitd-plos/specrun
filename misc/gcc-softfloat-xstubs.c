@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <string.h>
 #define float32_add         __addsf3
 #define float64_add         __adddf3
 #define floatx80_add        __addxf3
@@ -136,12 +137,12 @@ __cmpdf2(double x1, double x2)
   abort();
 }
 
-void memset(char *dst, int c, int n) {
+/*void memset(char *dst, int c, int n) {
   int i;
   for (i = 0; i < n; i++) {
     dst[i] = c;
   }
-}
+}*/
 
 void myabort()
 {
@@ -156,4 +157,39 @@ void myexit(int ec)
 void *myalloca(size_t size)
 {
   return alloca(size);
+}
+
+void *mymalloc(size_t size)
+{
+  return malloc(size);
+}
+
+int my_atoi(char const *nptr)
+{
+  return atoi(nptr);
+}
+
+void *mymemcpy(void *dest, const void *src, size_t n)
+{
+  return memcpy(dest, src, n);
+}
+
+void *mymemset(void *s, int c, size_t n)
+{
+  return memset(s, c, n);
+}
+
+int mymemcmp(const void *s1, const void *s2, size_t n)
+{
+  return memcmp(s1, s2, n);
+}
+
+int mystrcmp(const char *s1, const char *s2)
+{
+  return strcmp(s1, s2);
+}
+
+int mystrncmp(const char *s1, const char *s2, size_t n)
+{
+  return strncmp(s1, s2, n);
 }
