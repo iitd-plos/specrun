@@ -15,7 +15,7 @@ COMPCERT_DIR=$(build)/installs/$(COMPCERT)
 MENHIR_DIR=$(build)/installs/$(MENHIR)
 COQ_DIR=$(build)/installs/$(COQ)
 LLVM_DIR=$(build)/installs/$(LLVM)
-LLVM_BIN=$(build)/installs/$(LLVM)/llvm-toolchain-3.6-3.6/build-llvm/Release/bin
+LLVM_BIN=$(build)/installs/$(LLVM)/llvm-toolchain-3.6-3.6.2/build-llvm/Release/bin
 
 OCAML_INSTALL=$(OCAML_DIR)-install
 MENHIR_INSTALL=$(MENHIR_DIR)-install
@@ -191,10 +191,10 @@ $(LLVM_BIN)/clang:
 	mkdir -p $(LLVM_DIR)
 	#sudo -E apt-get update
 	sudo -E apt-get install devscripts
-	cd $(LLVM_DIR) && fakeroot apt-get source clang-3.6 && cd llvm-toolchain-3.6-3.6 && \
+	cd $(LLVM_DIR) && fakeroot apt-get source clang-3.6 && cd llvm-toolchain-3.6-3.6.2 && \
     sudo -E apt-get build-dep clang-3.6
 	cd $(LLVM_DIR) && patch -p0 < $(SRCDIR)/misc/llvm-no-jump-tables.patch
-	cd $(LLVM_DIR)/llvm-toolchain-3.6-3.6 && debuild -us -uc -b
+	cd $(LLVM_DIR)/llvm-toolchain-3.6-3.6.2 && debuild -us -uc -b
 
 llvm-build-src: $(LLVM_BIN)/clang
 
