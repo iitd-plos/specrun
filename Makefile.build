@@ -133,7 +133,17 @@ $(build)/installs/cpu2006: $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2
 	mkdir -p $(build)/installs
 	rm -rf $(SPEC2006_DIR) $(build)/installs/cpu2006
 	cd $(build)/installs && tar xjf $(SRCDIR)/../tars/cpu2006_iisc.tar.bz2 && cd -
-	-chmod -f +w $(build)/installs/cpu2006 $(build)/installs/cpu2006/* $(build)/installs/cpu2006/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/* $(build)/installs/cpu2006/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/* $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006
+	-chmod -f +w $(build)/installs/cpu2006/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*
+	-chmod -f +w $(build)/installs/cpu2006/*/*/*/*/*/*/*/*/*/*
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006_sjeng.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/cpu2006_specrand.patch && cd -
