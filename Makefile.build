@@ -232,6 +232,7 @@ specbuild2006: $(build)/installs/cpu2006 \
 		&& $(SPEC2006_DIR)/bin/relocate \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext llvm-bc-O0 \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O2-soft-float \
+    && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc-x64-O2 \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext clang36-i386-O2-soft-float \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext icc-i386-O2-soft-float \
     && perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specbuild.pl -bench 2006 -ext gcc48-i386-O3-soft-float \
