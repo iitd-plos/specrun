@@ -307,14 +307,5 @@ specrun2000:
 
 .PHONY: specrun2006
 specrun2006:
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O0 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O2 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O3 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O0 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O2 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext clang36-i386-O3 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O0 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O2 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext icc-i386-O3 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext ccomp-i386-O0 sjeng #astar specrand998 specrand999
-	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext ccomp-i386-O2 sjeng #astar specrand998 specrand999
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc48-i386-O2 mcf #astar specrand998 specrand999
+	perl -I$(SRCDIR)/misc $(SRCDIR)/misc/specrun.pl -bench 2006 -ext gcc-x64-O2 mcf #astar specrand998 specrand999
