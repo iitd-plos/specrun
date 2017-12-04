@@ -158,6 +158,7 @@ $(build)/installs/spec_cpu_2000: $(SRCDIR)/../tars/spec_cpu_2000.tar.bz2
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000-2.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_eon.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_gcc.patch && cd -
+	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_parser.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_perlbmk.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_perlbmk.2.patch && cd -
 	cd $(build)/installs && patch -p0 < $(SRCDIR)/misc/spec_cpu_2000_gap.patch && cd -

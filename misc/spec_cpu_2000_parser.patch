@@ -1,0 +1,60 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/197.parser/src/parse.c spec_cpu_2000.patched/benchspec/CINT2000/197.parser/src/parse.c
+--- spec_cpu_2000/benchspec/CINT2000/197.parser/src/parse.c	1998-11-09 20:42:32.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/197.parser/src/parse.c	2017-12-04 15:34:22.022202070 +0530
+@@ -136,7 +136,7 @@
+ };
+ 
+ static int table_size;
+-static Table_connector ** table;
++static Table_connector ** table2;
+ 
+ void init_table(void) {
+     /* A piecewise exponential function determines the size of the hash table.      */
+@@ -152,9 +152,9 @@
+     } else {
+ 	table_size = (1 << 4);
+     }
+-    table = (Table_connector**) xalloc(table_size * sizeof(Table_connector*));
++    table2 = (Table_connector**) xalloc(table_size * sizeof(Table_connector*));
+     for (i=0; i<table_size; i++) {
+-	table[i] = NULL;
++	table2[i] = NULL;
+     }
+ }
+ 
+@@ -175,12 +175,12 @@
+     Table_connector *t, *x;
+     
+     for (i=0; i<table_size; i++) {
+-	for(t = table[i]; t!= NULL; t=x) {
++	for(t = table2[i]; t!= NULL; t=x) {
+ 	    x = t->next;
+ 	    xfree((void *) t, sizeof(Table_connector));
+ 	}
+     }
+-    xfree((void *) table, table_size * sizeof(Table_connector*));
++    xfree((void *) table2, table_size * sizeof(Table_connector*));
+ }
+ 
+ Table_connector * table_pointer(int lw, int rw, Connector *le, Connector *re, int cost) {
+@@ -188,7 +188,7 @@
+     Table_connector *t;
+     N_hash_lookups++;
+     work_in_hash_lookups++;
+-    t = table[hash(lw, rw, le, re, cost)];
++    t = table2[hash(lw, rw, le, re, cost)];
+     for (; t != NULL; t = t->next) {
+ 	work_in_hash_lookups++;
+ 	if ((t->lw == lw) && (t->rw == rw) && (t->le == le) && (t->re == re) && (t->cost == cost))  return t;
+@@ -213,9 +213,9 @@
+     n->count = count; 
+     n->lw = lw; n->rw = rw; n->le = le; n->re = re; n->cost = cost;
+     h = hash(lw, rw, le, re, cost);
+-    t = table[h];
++    t = table2[h];
+     n->next = t;
+-    table[h] = n;
++    table2[h] = n;
+     return n;
+ }
+ 
