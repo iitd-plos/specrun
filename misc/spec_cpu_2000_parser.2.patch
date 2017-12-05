@@ -1,0 +1,14 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/197.parser/src/prune.c spec_cpu_2000.patched/benchspec/CINT2000/197.parser/src/prune.c
+--- spec_cpu_2000/benchspec/CINT2000/197.parser/src/prune.c	1998-11-09 20:42:32.000000000 +0530
++++ spec_cpu_2000.patched/benchspec/CINT2000/197.parser/src/prune.c	2017-12-05 09:29:01.020494461 +0530
+@@ -135,8 +135,8 @@
+     } else return FALSE;
+ }
+ 
+-static int s_table_size;
+-static Connector ** table;
++int s_table_size;
++Connector ** table;
+ 
+ void free_S(void) {
+ /* This function removes all connectors from the set S */
