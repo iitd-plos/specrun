@@ -1,0 +1,32 @@
+diff -ur spec_cpu_2000/benchspec/CINT2000/197.parser/src/fast-match.c spec_cpu_2000.patch/benchspec/CINT2000/197.parser/src/fast-match.c
+--- spec_cpu_2000/benchspec/CINT2000/197.parser/src/fast-match.c	1998-11-09 20:42:32.000000000 +0530
++++ spec_cpu_2000.patch/benchspec/CINT2000/197.parser/src/fast-match.c	2017-12-05 11:54:05.541574700 +0530
+@@ -9,7 +9,7 @@
+ 
+ #include "header.h"
+ 
+-static int match_cost;
++int match_cost;
+ 
+ int left_disjunct_list_length(Disjunct * d) {
+ /* returns the number of disjuncts in the list that have non-null
+@@ -28,14 +28,14 @@
+     return i;
+ }
+ 
+-static int l_table_size[MAX_SENTENCE];  /* the sizes of the hash tables */
+-static int r_table_size[MAX_SENTENCE];
++int l_table_size[MAX_SENTENCE];  /* the sizes of the hash tables */
++int r_table_size[MAX_SENTENCE];
+ 
+-static Match_node ** l_table[MAX_SENTENCE]; 
++Match_node ** l_table[MAX_SENTENCE]; 
+                  /* the beginnings of the hash tables */
+-static Match_node ** r_table[MAX_SENTENCE];
++Match_node ** r_table[MAX_SENTENCE];
+ 
+-static Match_node * mn_free_list = NULL;
++Match_node * mn_free_list = NULL;
+    /* I'll pedantically maintain my own list of these cells */
+ 
+ Match_node * get_match_node(void) {
