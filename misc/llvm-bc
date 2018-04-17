@@ -17,13 +17,15 @@ use Fcntl qw(:mode);
 my $compile_flag = 0;
 my @compile_args;
 my @link_args;
+my $output_file = "bc.out";
 for (my $i = 0; $i <= $#ARGV; $i++) {
   my $arg = $ARGV[$i];
   #print "argv[$i]=$arg\n";
   if ($arg =~ /^-c$/) {
     $compile_flag = 1;
   } elsif ($arg =~ /^-o$/) {
-    push(@link_args, $arg);
+    $output_file = $arg;
+    push(@link_args, "$output_file.tmp");
   } elsif ($arg =~ /^-/) {
   } else {
     #print "pushing arg $arg to link_args\n";
@@ -36,7 +38,7 @@ my $command;
 if ($compile_flag == 1) {
   $command = "/usr/bin/clang-3.6 -target i386 -emit-llvm @compile_args"
 } else {
-  $command = "/usr/bin/llvm-link-3.6 @link_args"
+  $command = "/usr/bin/llvm-link-3.6 @link_args && /usr/bin/opt-3.6 -mem2reg -o $output_file $output_file.tmp"
 }
 print "command: $command\n";
 system("$command");
