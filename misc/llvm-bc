@@ -23,15 +23,22 @@ for (my $i = 0; $i <= $#ARGV; $i++) {
   #print "argv[$i]=$arg\n";
   if ($arg =~ /^-c$/) {
     $compile_flag = 1;
+    push(@compile_args, $arg);
   } elsif ($arg =~ /^-o$/) {
-    $output_file = $arg;
+    $i < $#ARGV or die;
+    push(@link_args, $arg);
+    push(@compile_args, $arg);
+    $i++;
+    $output_file = $ARGV[$i];
     push(@link_args, "$output_file.tmp");
+    push(@compile_args, "$output_file");
   } elsif ($arg =~ /^-/) {
+    push(@compile_args, $arg);
   } else {
     #print "pushing arg $arg to link_args\n";
     push(@link_args, $arg);
+    push(@compile_args, $arg);
   }
-  push(@compile_args, $arg);
 }
 #print "argv: @ARGV\n";
 my $command;

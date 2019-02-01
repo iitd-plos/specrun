@@ -9,6 +9,7 @@ our $build_dir;
 our (%args, %small_args, %prep_commands);
 
 our @all_specs2000 = ("176.gcc", "253.perlbmk", "254.gap", "256.bzip2", "300.twolf", "164.gzip", "175.vpr", "181.mcf", "186.crafty", "197.parser", "252.eon", "255.vortex");
+#our @all_specs2000 = ("256.bzip2");
 
 our $cpu2000 = "$build_dir/installs/spec_cpu_2000";
 our $cint2000 = "$cpu2000/benchspec/CINT2000";

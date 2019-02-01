@@ -58,6 +58,13 @@ EXTRA_LIBS_soft_float=$(I386_SOFT_FLOAT_LIB)
 default=default=llvm-bc-O0=default:
 CC		= $(CC_CLANG_BC)
 CXX		= $(CXX_CLANG_BC)
+COPTIMIZE	= $(COPTIMIZE_O0)
+CXXOPTIMIZE	= $(COPTIMIZE_O0)
+FC              = $(FC_I386)
+
+default=default=llvm-bc-O0-eqchecker=default:
+CC		= $(CC_CLANG_BC)
+CXX		= $(CXX_CLANG_BC)
 COPTIMIZE	= $(COPTIMIZE_O0) $(CLANG_EQCHECKER_FLAGS)
 CXXOPTIMIZE	= $(COPTIMIZE_O0) $(CLANG_EQCHECKER_FLAGS)
 FC              = $(FC_I386)
@@ -238,6 +245,15 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=icc-i386-O2=default:
 CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O2)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O2)
+CPORTABILITY    = 
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=icc-i386-O2-eqchecker=default:
+CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2) $(ICC_EQCHECKER_FLAGS)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2) $(ICC_CPP_EQCHECKER_FLAGS)
@@ -247,12 +263,23 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=icc-i386-O3=default:
 CC		= $(CC_ICC_I386)
+COPTIMIZE	= $(COPTIMIZE_O3)
+CXX		= $(CXX_ICC_I386)
+CXXOPTIMIZE	= $(COPTIMIZE_O3)
+CPORTABILITY    = 
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+default=default=icc-i386-O3-eqchecker=default:
+CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O3) $(ICC_EQCHECKER_FLAGS)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O3) $(ICC_CPP_EQCHECKER_FLAGS)
 CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
+
 
 default=default=icc-i386-O2U=default:
 CC		= $(CC_ICC_I386)
@@ -268,15 +295,6 @@ CC		= $(CC_ICC_I386)
 COPTIMIZE	= $(COPTIMIZE_O2u)
 CXX		= $(CXX_ICC_I386)
 CXXOPTIMIZE	= $(COPTIMIZE_O2u)
-CPORTABILITY    = 
-FC              = $(FC_I386)
-EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
-
-default=default=icc-i386-O3=default:
-CC		= $(CC_ICC_I386)
-COPTIMIZE	= $(COPTIMIZE_O3)
-CXX		= $(CXX_ICC_I386)
-CXXOPTIMIZE	= $(COPTIMIZE_O3)
 CPORTABILITY    = 
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
@@ -732,6 +750,14 @@ COPTIMIZE	= $(COPTIMIZE_O3)
 CXXOPTIMIZE	= $(COPTIMIZE_O3)
 FC              = $(FC_I386)
 
+default=default=gcc48-i386-O3-eqchecker=default:
+CC		= $(CC_GCC48_I386)
+CXX		= $(CXX_GCC48_I386)
+COPTIMIZE	= $(COPTIMIZE_O3) $(GCC_EQCHECKER_FLAGS)
+CXXOPTIMIZE	= $(COPTIMIZE_O3) $(GCC_EQCHECKER_FLAGS)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
+
 default=default=gcc48-i386-O2=default:
 CC		= $(CC_GCC48_I386)
 CXX		= $(CXX_GCC48_I386)
@@ -740,11 +766,11 @@ CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float) $(GCC_EQCHECKER_FLAGS)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
-default=default=gcc48-i386-O3=default:
+default=default=gcc48-i386-O2-eqchecker=default:
 CC		= $(CC_GCC48_I386)
 CXX		= $(CXX_GCC48_I386)
-COPTIMIZE	= $(COPTIMIZE_O3_soft_float) $(GCC_EQCHECKER_FLAGS)
-CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float) $(GCC_EQCHECKER_FLAGS)
+COPTIMIZE	= $(COPTIMIZE_O2_soft_float)
+CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -798,11 +824,11 @@ CXXOPTIMIZE	= $(COPTIMIZE_O0_soft_float) $(CLANG_CPP_EQCHECKER_FLAGS)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
-default=default=clang36-i386-O2=default:
+default=default=clang36-i386-O2-eqchecker=default:
 CC		= $(CC_CLANG36_I386)
 CXX		= $(CXX_CLANG36_I386)
-COPTIMIZE	= $(COPTIMIZE_O2_soft_float) $(CLANG_EQCHECKER_FLAGS)
-CXXOPTIMIZE	= $(COPTIMIZE_O2_soft_float) $(CLANG_CPP_EQCHECKER_FLAGS)
+COPTIMIZE	= -O2 $(CLANG_COMMON_MIN) $(CLANG_EQCHECKER_FLAGS)
+CXXOPTIMIZE	= -O2 $(CLANG_COMMON_MIN) $(CLANG_CPP_EQCHECKER_FLAGS)
 FC              = $(FC_I386)
 EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
@@ -817,17 +843,17 @@ EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 default=default=clang36-i386-O3=default:
 CC		= $(CC_CLANG36_I386)
 CXX		= $(CXX_CLANG36_I386)
-COPTIMIZE	= $(COPTIMIZE_O3_soft_float)  $(CLANG_EQCHECKER_FLAGS)
-CXXOPTIMIZE	= $(COPTIMIZE_O3_soft_float)  $(CLANG_CPP_EQCHECKER_FLAGS)
-FC              = $(FC_I386)
-EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
-
-default=default=clang36-i386-O3=default:
-CC		= $(CC_CLANG36_I386)
-CXX		= $(CXX_CLANG36_I386)
 COPTIMIZE	= -O3 $(CLANG_COMMON_MIN)
 CXXOPTIMIZE	= -O3 $(CLANG_COMMON_MIN)
 FC              = $(FC_I386)
+
+default=default=clang36-i386-O3-eqchecker=default:
+CC		= $(CC_CLANG36_I386)
+CXX		= $(CXX_CLANG36_I386)
+COPTIMIZE	= -O3 $(CLANG_COMMON_MIN) $(CLANG_EQCHECKER_FLAGS)
+CXXOPTIMIZE	= -O3 $(CLANG_COMMON_MIN) $(CLANG_CPP_EQCHECKER_FLAGS)
+FC              = $(FC_I386)
+EXTRA_LIBS      = $(EXTRA_LIBS_soft_float)
 
 default=default=ccomp-i386-O0=default:
 CC		= $(CC_CCOMP_I386)
