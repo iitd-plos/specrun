@@ -1,4 +1,4 @@
-#!u/sr/bin/expect -f
+#!/usr/bin/expect -f
 
 set SPEC_DIR $env(SPEC_DIR)
 #set timeout 10
